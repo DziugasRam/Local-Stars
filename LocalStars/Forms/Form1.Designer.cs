@@ -1,4 +1,4 @@
-﻿namespace Appplication
+﻿namespace Forms
 {
     partial class Form1
     {
@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.SuspendLayout();
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(95, 50);
+            this.textBox1.Location = new System.Drawing.Point(82, 64);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 23);
             this.textBox1.TabIndex = 0;
@@ -43,14 +43,15 @@
             // 
             // listView1
             // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
             this.listView1.HideSelection = false;
-            this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
-            this.listView1.Location = new System.Drawing.Point(329, 50);
+            this.listView1.LabelWrap = false;
+            this.listView1.Location = new System.Drawing.Point(345, 64);
             this.listView1.Name = "listView1";
-            this.listView1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.listView1.Size = new System.Drawing.Size(459, 388);
-            this.listView1.TabIndex = 2;
+            this.listView1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.listView1.Size = new System.Drawing.Size(443, 374);
+            this.listView1.TabIndex = 1;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.List;
             // 
@@ -72,6 +73,7 @@
 
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }
 
