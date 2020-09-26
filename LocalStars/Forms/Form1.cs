@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Appplication
+namespace Forms
 {
     public partial class Form1 : Form
     {
@@ -29,7 +29,7 @@ namespace Appplication
         {
             var products = m_productController.SearchProducts(textBox1.Text);
             var listViewItems = products.Select(p => new ListViewItem($"{p.Title}\n")).ToArray();
-            
+
             listView1.Items.Clear();
             listView1.Items.AddRange(listViewItems);
         }
