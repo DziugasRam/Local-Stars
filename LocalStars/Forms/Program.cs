@@ -18,12 +18,7 @@ namespace Forms
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            var buyerController = new BuyerController();
-            var productController = new ProductController();
-            var sellerController = new SellerController();
-
-            Application.Run(new Form1(buyerController, productController, sellerController));
+            Application.Run(new FrontPage());
         }
     }
 }
