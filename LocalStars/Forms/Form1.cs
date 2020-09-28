@@ -13,20 +13,13 @@ namespace Forms
 {
     public partial class Form1 : Form
     {
-        private readonly BuyerController m_buyerController;
-        private readonly ProductController m_productController;
-        private readonly SellerController m_sellerController;
-
         bool IsPanelVegetablesOpen = false;
         bool IsPaneFruitsOpen = false;
         bool IsPanelConfectioneryOpen = false;
         bool IsPanelOtherOpen = false;
 
-        public Form1(BuyerController buyerController, ProductController productController, SellerController sellerController)
+        public Form1()
         {
-            m_buyerController = buyerController;
-            m_productController = productController;
-            m_sellerController = sellerController;
             InitializeComponent();
         }
 
@@ -59,7 +52,6 @@ namespace Forms
             timer1.Start();
         }
 
-
         private void timer2_Tick(object sender, EventArgs e)
         {
             if (IsPaneFruitsOpen)
@@ -72,13 +64,12 @@ namespace Forms
                     timer2.Stop();
                 }
             }
-            else if (!IsPaneFruitsOpen)
+            else
             {
                 panelFruits.BringToFront();
                 panelFruits.Height += 6;
                 if (panelFruits.Height == 282)
                 {
-                    
                     IsPaneFruitsOpen = true;
                     timer2.Stop();
                 }
@@ -99,6 +90,7 @@ namespace Forms
         {
             timer4.Start();
         }
+
         private void timer3_Tick(object sender, EventArgs e)
         {
             if (IsPanelConfectioneryOpen)
@@ -111,7 +103,7 @@ namespace Forms
                     timer3.Stop();
                 }
             }
-            else if (!IsPanelConfectioneryOpen)
+            else
             {
                 panelConfectionery.BringToFront();
                 panelConfectionery.Height += 21;
@@ -134,7 +126,7 @@ namespace Forms
                     timer4.Stop();
                 }
             }
-            else if (!IsPanelOtherOpen)
+            else
             {
                 panelOther.BringToFront();
                 panelOther.Height += 15;
@@ -148,8 +140,8 @@ namespace Forms
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            var products = m_productController.SearchProducts(textBox1.Text);
-            var listViewItems = products.Select(p => new ListViewItem($"{p.Title}\n")).ToArray();
+            var products = Controllers.s_productController.GetProducts(textBox1.Text);
+            var listViewItems = products.Select(p => new ListViewItem(p.Title)).ToArray();
 
             listView1.Items.Clear();
             listView1.Items.AddRange(listViewItems);
