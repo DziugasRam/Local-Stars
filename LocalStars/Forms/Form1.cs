@@ -30,16 +30,6 @@ namespace Forms
             InitializeComponent();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            var products = m_productController.SearchProducts(textBox1.Text);
-            var listViewItems = products.Select(p => new ListViewItem($"{p.Title}\n")).ToArray();
-
-            listView1.Items.Clear();
-            listView1.Items.AddRange(listViewItems);
-        }
-
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (IsPanelVegetablesOpen)
@@ -100,8 +90,6 @@ namespace Forms
             timer2.Start();
         }
 
-
-
         private void buttonConfectionery_Click(object sender, EventArgs e)
         {
             timer3.Start();
@@ -156,6 +144,15 @@ namespace Forms
                     timer4.Stop();
                 }
             }
+        }
+
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+            var products = m_productController.SearchProducts(textBox1.Text);
+            var listViewItems = products.Select(p => new ListViewItem($"{p.Title}\n")).ToArray();
+
+            listView1.Items.Clear();
+            listView1.Items.AddRange(listViewItems);
         }
     }
 }
