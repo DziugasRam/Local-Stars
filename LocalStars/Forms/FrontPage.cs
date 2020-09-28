@@ -17,6 +17,7 @@ namespace Forms
         ProductController productController = new ProductController();
         SellerController sellerController = new SellerController();
 
+
         public FrontPage()
         {
             InitializeComponent();
@@ -32,6 +33,8 @@ namespace Forms
         {
             SellerForm openSellerForm = new SellerForm();
             openSellerForm.Show();
+
         }
+
     }
 }

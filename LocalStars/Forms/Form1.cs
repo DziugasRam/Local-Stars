@@ -33,5 +33,10 @@ namespace Forms
             listView1.Items.Clear();
             listView1.Items.AddRange(listViewItems);
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

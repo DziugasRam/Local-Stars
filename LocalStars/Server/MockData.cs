@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Server
 {
-    static class MockData
+     public static class MockData
     {
         public static readonly Seller Seller1 = new Seller(nameof(Seller1), $"{nameof(Seller1)}_lastName", new Guid(), new Location());
         public static readonly Seller Seller2 = new Seller(nameof(Seller2), $"{nameof(Seller2)}_lastName", new Guid(), new Location());
@@ -21,13 +21,14 @@ namespace Server
         public static readonly IEnumerable<Buyer> s_buyers = new List<Buyer> { Buyer1, Buyer2, Buyer3, Buyer4 };
 
         public static readonly IEnumerable<Product> s_products = new List<Product> {
-            new Product($"{nameof(Seller1)}_Product1", 1, Seller1.Id),
-            new Product($"{nameof(Seller1)}_Product3", 1, Seller1.Id),
-            new Product($"{nameof(Seller1)}_Product2", 1, Seller1.Id),
-            new Product($"{nameof(Seller2)}_Product1", 1, Seller2.Id),
-            new Product($"{nameof(Seller2)}_Product2", 1, Seller2.Id),
-            new Product($"{nameof(Seller4)}_Product1", 1, Seller4.Id),
-            new Product($"{nameof(Seller4)}_Product2", 1, Seller4.Id)
+            new Product($"{nameof(Seller1)}_Product1", 1, "milk", "fresh", Seller1.Id),
+            new Product($"{nameof(Seller1)}_Product3", 1, "meat", "fresh",Seller1.Id),
+            new Product($"{nameof(Seller1)}_Product2", 1, "potatoes", "fresh",Seller1.Id),
+            new Product($"{nameof(Seller2)}_Product1", 1, "meat", "fresh",Seller2.Id),
+            new Product($"{nameof(Seller2)}_Product2", 1, "fish", "fresh",Seller2.Id),
+            new Product($"{nameof(Seller4)}_Product1", 1, "meat", "fresh",Seller4.Id),
+            new Product($"{nameof(Seller4)}_Product2", 1, "meat", "fresh",Seller4.Id)
         };
+
     }
 }
