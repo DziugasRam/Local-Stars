@@ -1,4 +1,6 @@
-﻿namespace Forms
+﻿using Forms.Properties;
+
+namespace Forms
 {
     partial class Form1
     {
@@ -32,7 +34,6 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -64,34 +65,34 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.timer4 = new System.Windows.Forms.Timer(this.components);
+            this.buttonSearch = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panelConfectionery.SuspendLayout();
             this.panelOther.SuspendLayout();
             this.panelFruits.SuspendLayout();
             this.panelVegetables.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(55, 85);
+            this.textBox1.Location = new System.Drawing.Point(52, 35);
             this.textBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(231, 27);
+            this.textBox1.Size = new System.Drawing.Size(232, 27);
             this.textBox1.TabIndex = 0;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBox1.Text = "Search";
             // 
             // listView1
             // 
+            this.listView1.Activation = System.Windows.Forms.ItemActivation.OneClick;
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
             this.listView1.HideSelection = false;
+            this.listView1.HoverSelection = true;
             this.listView1.LabelWrap = false;
-            this.listView1.Location = new System.Drawing.Point(375, 51);
+            this.listView1.Location = new System.Drawing.Point(394, 35);
             this.listView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.listView1.Name = "listView1";
             this.listView1.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -99,14 +100,6 @@
             this.listView1.TabIndex = 1;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.List;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(55, 51);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(231, 27);
-            this.textBox2.TabIndex = 2;
-            this.textBox2.Text = "search by name";
             // 
             // timer1
             // 
@@ -152,7 +145,7 @@
             this.panel1.Controls.Add(this.buttonFruits);
             this.panel1.Controls.Add(this.panelVegetables);
             this.panel1.Controls.Add(this.button1);
-            this.panel1.Location = new System.Drawing.Point(55, 138);
+            this.panel1.Location = new System.Drawing.Point(52, 101);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(230, 421);
             this.panel1.TabIndex = 3;
@@ -392,21 +385,6 @@
             this.timer2.Interval = 20;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.panel3);
-            this.panel2.Location = new System.Drawing.Point(839, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(8, 8);
-            this.panel2.TabIndex = 4;
-            // 
-            // panel3
-            // 
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(250, 125);
-            this.panel3.TabIndex = 0;
-            // 
             // timer3
             // 
             this.timer3.Interval = 20;
@@ -417,14 +395,22 @@
             this.timer4.Interval = 20;
             this.timer4.Tick += new System.EventHandler(this.timer4_Tick);
             // 
+            // buttonSearch
+            // 
+            this.buttonSearch.Location = new System.Drawing.Point(280, 34);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(28, 28);
+            this.buttonSearch.TabIndex = 6;
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1018, 588);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.textBox1);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -435,7 +421,6 @@
             this.panelOther.ResumeLayout(false);
             this.panelFruits.ResumeLayout(false);
             this.panelVegetables.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -446,7 +431,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ListView listView1;
         private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
@@ -473,16 +457,14 @@
         private System.Windows.Forms.Button buttonBunsAndDonuts;
         private System.Windows.Forms.Button buttonBread;
         private System.Windows.Forms.Button buttonConfectionery;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Timer timer3;
         private System.Windows.Forms.Button buttonOther;
-        private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Button buttonHoney;
         private System.Windows.Forms.Button buttonLongLasting;
         private System.Windows.Forms.Button buttonHerbs;
         private System.Windows.Forms.Timer timer4;
         private System.Windows.Forms.Panel panelOther;
+        private System.Windows.Forms.Button buttonSearch;
     }
 }
 
