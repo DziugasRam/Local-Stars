@@ -4,6 +4,12 @@ namespace Models
 {
     public class Location
     {
+        public Location((double, double) position, string address)
+        {
+            Position = position;
+            Address = address;
+        }
+
         public (double, double) Position { get; set; }
         public string Address { get; set; }
 

@@ -4,14 +4,18 @@ namespace Models
 {
     public class Seller
     {
+        public Seller(string firstName, string lastName, Guid id, Location location)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Id = id;
+            Location = location;
+        }
+
         public string FirstName { get; }
         public string LastName { get; }
         public Guid Id { get; }
         public Location Location { get; }
-
-        public Seller(string firstName, string lastName, Guid id, Location location) =>
-            (FirstName, LastName, Id, Location) =
-            (firstName, lastName, id, location);
 
         public override bool Equals(object obj)
         {

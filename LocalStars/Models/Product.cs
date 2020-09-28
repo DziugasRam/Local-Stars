@@ -5,14 +5,18 @@ namespace Models
 {
     public class Product
     {
+        public Product(string title, int price, Guid sellerId, Guid id)
+        {
+            Title = title;
+            Price = price;
+            SellerId = sellerId;
+            Id = id;
+        }
+
         public string Title { get; }
         public int Price { get; }
         public Guid SellerId { get; }
         public Guid Id { get; }
-
-        public Product(string title, int price, Guid sellerId, Guid id) =>
-            (Title, Price, SellerId, Id) =
-            (title, price, sellerId, id);
 
         public override bool Equals(object obj)
         {
@@ -24,7 +28,7 @@ namespace Models
 
         public override int GetHashCode()
         {
-            return Id.GetHashCode();
+            return HashCode.Combine(Id);
         }
     }
 }

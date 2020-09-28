@@ -4,13 +4,16 @@ namespace Models
 {
     public class Buyer
     {
+        public Buyer(string firstName, string lastName, Guid id)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Id = id;
+        }
+
         public string FirstName { get; }
         public string LastName { get; }
         public Guid Id { get; }
-
-        public Buyer(string firstName, string lastName, Guid id) =>
-            (FirstName, LastName, Id) =
-            (firstName, lastName, id);
 
         public override bool Equals(object obj)
         {
@@ -22,7 +25,7 @@ namespace Models
 
         public override int GetHashCode()
         {
-            return Id.GetHashCode();
+            return HashCode.Combine(Id);
         }
     }
 }
