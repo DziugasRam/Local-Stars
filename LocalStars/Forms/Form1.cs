@@ -1,4 +1,4 @@
-﻿using Server.Controllers;
+﻿ using Server.Controllers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,8 +27,8 @@ namespace Forms
         {
             if (IsPanelVegetablesOpen)
             {
-                panelVegetables.Height -= 13;
-                if (panelVegetables.Height == 0)
+                panelVegetables.Height -= 21;
+                if (panelVegetables.Height <= 0)
                 {
                     panelVegetables.SendToBack();
                     timer1.Stop();
@@ -38,8 +38,8 @@ namespace Forms
             else if (!IsPanelVegetablesOpen)
             {
                 panelVegetables.BringToFront();
-                panelVegetables.Height += 13;
-                if(panelVegetables.Height==351)
+                panelVegetables.Height += 21;
+                if(panelVegetables.Height>=351)
                 {
                     timer1.Stop();
                     IsPanelVegetablesOpen = true;
@@ -56,8 +56,8 @@ namespace Forms
         {
             if (IsPaneFruitsOpen)
             {
-                panelFruits.Height -= 6;
-                if (panelFruits.Height == 0)
+                panelFruits.Height -=21;
+                if (panelFruits.Height <= 0)
                 {
                     panelFruits.SendToBack();
                     IsPaneFruitsOpen = false;
@@ -67,8 +67,8 @@ namespace Forms
             else
             {
                 panelFruits.BringToFront();
-                panelFruits.Height += 6;
-                if (panelFruits.Height == 282)
+                panelFruits.Height += 21;
+                if (panelFruits.Height >= 282)
                 {
                     IsPaneFruitsOpen = true;
                     timer2.Stop();
@@ -107,7 +107,7 @@ namespace Forms
             {
                 panelConfectionery.BringToFront();
                 panelConfectionery.Height += 21;
-                if (panelConfectionery.Height == 210)
+                if (panelConfectionery.Height >= 213)
                 {                    
                     IsPanelConfectioneryOpen = true;
                     timer3.Stop();
@@ -118,8 +118,8 @@ namespace Forms
         {
             if (IsPanelOtherOpen)
             {
-                panelOther.Height -= 15;
-                if (panelOther.Height == 0)
+                panelOther.Height -= 20;
+                if (panelOther.Height <= 0)
                 {
                     IsPanelOtherOpen = false;
                     panelOther.SendToBack();
@@ -129,8 +129,8 @@ namespace Forms
             else
             {
                 panelOther.BringToFront();
-                panelOther.Height += 15;
-                if (panelOther.Height == 150)
+                panelOther.Height += 20;
+                if (panelOther.Height >= 150)
                 {
                     IsPanelOtherOpen = true;
                     timer4.Stop();
