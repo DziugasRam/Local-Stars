@@ -1,4 +1,5 @@
 ﻿using Models;
+using Server.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,13 +46,17 @@ namespace Server.Providers
 
         public void Insert(IEnumerable<Product> products)
         {
+            if (MockData.s_products.Intersect(products).Any())
+            {
+                throw new ConflictException("Product id already exists");
+            }
             MockData.s_products.AddRange(products);
         }
 
         public void Update(Product product)
         {
-            MockData.s_products.RemoveAll(p => p.Id == product.Id);
-            MockData.s_products.Add(product);
+            RemoveById(new[] { product.Id });
+            Insert(new[] { product });
         }
     }
 }

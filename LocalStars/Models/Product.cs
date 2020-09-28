@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 
 namespace Models
 {
@@ -12,5 +13,18 @@ namespace Models
         public Product(string title, int price, Guid sellerId, Guid id) =>
             (Title, Price, SellerId, Id) =
             (title, price, sellerId, id);
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Product product))
+                return false;
+
+            return product.Id == Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
     }
 }
