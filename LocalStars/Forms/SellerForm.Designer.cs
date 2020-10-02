@@ -85,6 +85,7 @@
             this.Controls.Add(this.listView1);
             this.Name = "SellerForm";
             this.Text = "SellerForm";
+            this.Load += new System.EventHandler(this.SellerForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

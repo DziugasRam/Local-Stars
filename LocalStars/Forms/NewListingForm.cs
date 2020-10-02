@@ -42,5 +42,10 @@ namespace Forms
            // formatter.Serialize(stream, p);
            // stream.Close();
         }
+
+        private void NewListingForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

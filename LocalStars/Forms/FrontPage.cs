@@ -13,10 +13,6 @@ namespace Forms
 
     public partial class FrontPage : Form
     {
-        BuyerController buyerController = new BuyerController();
-        ProductController productController = new ProductController();
-        SellerController sellerController = new SellerController();
-
 
         public FrontPage()
         {
@@ -25,7 +21,7 @@ namespace Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form1 openBuyerForm = new Form1(buyerController, productController, sellerController);
+            Form1 openBuyerForm = new Form1();
             openBuyerForm.Show();
         }
 

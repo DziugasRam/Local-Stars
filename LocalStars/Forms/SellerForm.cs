@@ -30,6 +30,9 @@ namespace Forms
             this.Close();
         }
 
-    
+        private void SellerForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

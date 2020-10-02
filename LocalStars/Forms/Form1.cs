@@ -17,12 +17,9 @@ namespace Forms
         private readonly ProductController m_productController;
         private readonly SellerController m_sellerController;
 
-        public Form1(BuyerController buyerController, ProductController productController, SellerController sellerController)
+        public Form1()
         {
-            m_buyerController = buyerController;
-            m_productController = productController;
-            m_sellerController = sellerController;
-            InitializeComponent();
+        
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
