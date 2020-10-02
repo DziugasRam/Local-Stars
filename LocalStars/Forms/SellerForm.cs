@@ -15,5 +15,16 @@ namespace Forms
             InitializeComponent();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            NewListingForm newListingForm = new NewListingForm();
+            newListingForm.Show();
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
     }
 }

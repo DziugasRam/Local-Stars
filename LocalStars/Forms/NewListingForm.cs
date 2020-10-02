@@ -1,24 +1,22 @@
-﻿ using Server.Controllers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Forms
 {
-    public partial class Form1 : Form
+    public partial class NewListingForm : Form
     {
         bool IsPanelVegetablesOpen = false;
         bool IsPaneFruitsOpen = false;
         bool IsPanelConfectioneryOpen = false;
         bool IsPanelOtherOpen = false;
 
-        public Form1()
+        public NewListingForm()
         {
             InitializeComponent();
         }
@@ -39,7 +37,7 @@ namespace Forms
             {
                 panelVegetables.BringToFront();
                 panelVegetables.Height += 21;
-                if(panelVegetables.Height>=351)
+                if (panelVegetables.Height >= 351)
                 {
                     timer1.Stop();
                     IsPanelVegetablesOpen = true;
@@ -56,7 +54,7 @@ namespace Forms
         {
             if (IsPaneFruitsOpen)
             {
-                panelFruits.Height -=21;
+                panelFruits.Height -= 21;
                 if (panelFruits.Height <= 0)
                 {
                     panelFruits.SendToBack();
@@ -97,7 +95,7 @@ namespace Forms
             {
                 panelConfectionery.Height -= 21;
                 if (panelConfectionery.Height == 0)
-                {                  
+                {
                     IsPanelConfectioneryOpen = false;
                     panelConfectionery.SendToBack();
                     timer3.Stop();
@@ -108,7 +106,7 @@ namespace Forms
                 panelConfectionery.BringToFront();
                 panelConfectionery.Height += 21;
                 if (panelConfectionery.Height >= 213)
-                {                    
+                {
                     IsPanelConfectioneryOpen = true;
                     timer3.Stop();
                 }
@@ -138,23 +136,11 @@ namespace Forms
             }
         }
 
-        private void buttonSearch_Click(object sender, EventArgs e)
+        private void button13_Click(object sender, EventArgs e)
         {
-            var products = Controllers.s_productController.GetProducts(textBox1.Text);
-            var listViewItems = products.Select(p => new ListViewItem(p.Title)).ToArray();
-
-            listView1.Items.Clear();
-            listView1.Items.AddRange(listViewItems);
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void timer5_Tick(object sender, EventArgs e)
-        {
-
+            SellerForm sellerForm = new SellerForm();
+            sellerForm.Show();
+            this.Hide();
         }
     }
 }
