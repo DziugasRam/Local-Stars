@@ -2,15 +2,17 @@
 
 namespace Models
 {
-    public class Seller
+    public class Seller : Identifiable
     {
+        public Seller(string firstName, string lastName, Guid id, Location location) : base(id)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            Location = location;
+        }
+
         public string FirstName { get; }
         public string LastName { get; }
-        public Guid Id { get; }
         public Location Location { get; }
-
-        public Seller(string firstName, string lastName, Guid id, Location location) =>
-            (FirstName, LastName, Id, Location) =
-            (firstName, lastName, id, location);
     }
 }

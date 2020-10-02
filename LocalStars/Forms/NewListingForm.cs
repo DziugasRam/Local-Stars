@@ -3,49 +3,144 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Models;
-using Server;
-
 
 namespace Forms
 {
     public partial class NewListingForm : Form
     {
+        bool IsPanelVegetablesOpen = false;
+        bool IsPaneFruitsOpen = false;
+        bool IsPanelConfectioneryOpen = false;
+        bool IsPanelOtherOpen = false;
+
         public NewListingForm()
         {
             InitializeComponent();
         }
 
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (IsPanelVegetablesOpen)
+            {
+                panelVegetables.Height -= 21;
+                if (panelVegetables.Height <= 0)
+                {
+                    panelVegetables.SendToBack();
+                    timer1.Stop();
+                    IsPanelVegetablesOpen = false;
+                }
+            }
+            else if (!IsPanelVegetablesOpen)
+            {
+                panelVegetables.BringToFront();
+                panelVegetables.Height += 21;
+                if (panelVegetables.Height >= 351)
+                {
+                    timer1.Stop();
+                    IsPanelVegetablesOpen = true;
+                }
+            }
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
-            SellerForm openSellerForm = new SellerForm();
-            openSellerForm.Show();
-            this.Close();
-
+            timer1.Start();
         }
 
-        
-        private void button2_Click(object sender, EventArgs e)
+        private void timer2_Tick(object sender, EventArgs e)
         {
-           // Product p = new Product(textBox1.Text, Convert.ToInt32(textBox2.Text), textBox3.Text, richTextBox1.Text, new Guid());
-
-           // MockData.s_products.Add(p);
-
-            //Stream stream = File.Open("products.bin", FileMode.Create);
-            //BinaryFormatter formatter = new BinaryFormatter();
-
-           // formatter.Serialize(stream, p);
-           // stream.Close();
+            if (IsPaneFruitsOpen)
+            {
+                panelFruits.Height -= 21;
+                if (panelFruits.Height <= 0)
+                {
+                    panelFruits.SendToBack();
+                    IsPaneFruitsOpen = false;
+                    timer2.Stop();
+                }
+            }
+            else
+            {
+                panelFruits.BringToFront();
+                panelFruits.Height += 21;
+                if (panelFruits.Height >= 282)
+                {
+                    IsPaneFruitsOpen = true;
+                    timer2.Stop();
+                }
+            }
         }
 
-        private void NewListingForm_Load(object sender, EventArgs e)
+        private void buttonFruits_Click(object sender, EventArgs e)
         {
+            timer2.Start();
+        }
 
+        private void buttonConfectionery_Click(object sender, EventArgs e)
+        {
+            timer3.Start();
+        }
+
+        private void buttonOther_Click(object sender, EventArgs e)
+        {
+            timer4.Start();
+        }
+
+        private void timer3_Tick(object sender, EventArgs e)
+        {
+            if (IsPanelConfectioneryOpen)
+            {
+                panelConfectionery.Height -= 21;
+                if (panelConfectionery.Height == 0)
+                {
+                    IsPanelConfectioneryOpen = false;
+                    panelConfectionery.SendToBack();
+                    timer3.Stop();
+                }
+            }
+            else
+            {
+                panelConfectionery.BringToFront();
+                panelConfectionery.Height += 21;
+                if (panelConfectionery.Height >= 213)
+                {
+                    IsPanelConfectioneryOpen = true;
+                    timer3.Stop();
+                }
+            }
+        }
+        private void timer4_Tick(object sender, EventArgs e)
+        {
+            if (IsPanelOtherOpen)
+            {
+                panelOther.Height -= 20;
+                if (panelOther.Height <= 0)
+                {
+                    IsPanelOtherOpen = false;
+                    panelOther.SendToBack();
+                    timer4.Stop();
+                }
+            }
+            else
+            {
+                panelOther.BringToFront();
+                panelOther.Height += 20;
+                if (panelOther.Height >= 150)
+                {
+                    IsPanelOtherOpen = true;
+                    timer4.Stop();
+                }
+            }
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            SellerForm sellerForm = new SellerForm();
+            sellerForm.Show();
+            this.Hide();
         }
     }
 }

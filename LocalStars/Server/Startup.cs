@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Server.Providers;
 
 namespace Server
 {
@@ -26,6 +27,10 @@ namespace Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddSingleton<BuyerProvider>();
+            services.AddSingleton<ProductProvider>();
+            services.AddSingleton<SellerProvider>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
