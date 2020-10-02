@@ -4,5 +4,7 @@
     {
         public (double, double) Position { get; set; }
         public string Address { get; set; }
+
+        public int test;
     }
 }
