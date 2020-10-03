@@ -1,5 +1,7 @@
-﻿ using Server.Controllers;
+﻿using Forms.Properties;
+using Server.Controllers;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -143,18 +145,29 @@ namespace Forms
             var products = Controllers.s_productController.GetProducts(textBox1.Text);
             var listViewItems = products.Select(p => new ListViewItem(p.Title)).ToArray();
 
-            listView1.Items.Clear();
-            listView1.Items.AddRange(listViewItems);
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            populateItems();
         }
 
-        private void timer5_Tick(object sender, EventArgs e)
+        private void populateItems()
         {
-
+            SellerListingPreview [] sellerListingPreviews = new SellerListingPreview [20];
+            for(int i = 0; i < sellerListingPreviews.Length; i++)
+            {
+                sellerListingPreviews[i] = new SellerListingPreview();
+                sellerListingPreviews[i].Name = "Random Name";
+                sellerListingPreviews[i].Price = "Random Price";
+                sellerListingPreviews[i].Desciption = "Random Description";
+                sellerListingPreviews[i].Picture = Resources.missing_image;
+                if (flowLayoutPanel1.Controls.Count < 0)
+                {
+                    flowLayoutPanel1.Controls.Clear();
+                }
+                else flowLayoutPanel1.Controls.Add(sellerListingPreviews[i]);
+            }
         }
     }
 }

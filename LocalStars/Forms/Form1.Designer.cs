@@ -32,8 +32,6 @@ namespace Forms
         {
             this.components = new System.ComponentModel.Container();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -68,6 +66,7 @@ namespace Forms
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.timer4 = new System.Windows.Forms.Timer(this.components);
             this.buttonSearch = new System.Windows.Forms.Button();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1.SuspendLayout();
             this.panelConfectionery.SuspendLayout();
             this.panelOther.SuspendLayout();
@@ -77,29 +76,11 @@ namespace Forms
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(52, 35);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.textBox1.Location = new System.Drawing.Point(46, 26);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(232, 27);
+            this.textBox1.Size = new System.Drawing.Size(204, 23);
             this.textBox1.TabIndex = 0;
             this.textBox1.Text = "Search";
-            // 
-            // listView1
-            // 
-            this.listView1.Activation = System.Windows.Forms.ItemActivation.OneClick;
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
-            this.listView1.HideSelection = false;
-            this.listView1.HoverSelection = true;
-            this.listView1.LabelWrap = false;
-            this.listView1.Location = new System.Drawing.Point(394, 35);
-            this.listView1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.listView1.Name = "listView1";
-            this.listView1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.listView1.Size = new System.Drawing.Size(506, 497);
-            this.listView1.TabIndex = 1;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.List;
             // 
             // timer1
             // 
@@ -145,9 +126,10 @@ namespace Forms
             this.panel1.Controls.Add(this.buttonFruits);
             this.panel1.Controls.Add(this.panelVegetables);
             this.panel1.Controls.Add(this.button1);
-            this.panel1.Location = new System.Drawing.Point(52, 101);
+            this.panel1.Location = new System.Drawing.Point(46, 76);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(230, 421);
+            this.panel1.Size = new System.Drawing.Size(201, 316);
             this.panel1.TabIndex = 3;
             // 
             // panelConfectionery
@@ -156,25 +138,28 @@ namespace Forms
             this.panelConfectionery.Controls.Add(this.buttonCakesAndPies);
             this.panelConfectionery.Controls.Add(this.buttonBunsAndDonuts);
             this.panelConfectionery.Controls.Add(this.buttonBread);
-            this.panelConfectionery.Location = new System.Drawing.Point(1, 198);
+            this.panelConfectionery.Location = new System.Drawing.Point(1, 148);
+            this.panelConfectionery.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelConfectionery.Name = "panelConfectionery";
-            this.panelConfectionery.Size = new System.Drawing.Size(230, 0);
+            this.panelConfectionery.Size = new System.Drawing.Size(201, 0);
             this.panelConfectionery.TabIndex = 3;
             // 
             // buttonCakesAndPies
             // 
-            this.buttonCakesAndPies.Location = new System.Drawing.Point(-2, 94);
+            this.buttonCakesAndPies.Location = new System.Drawing.Point(-2, 70);
+            this.buttonCakesAndPies.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonCakesAndPies.Name = "buttonCakesAndPies";
-            this.buttonCakesAndPies.Size = new System.Drawing.Size(230, 50);
+            this.buttonCakesAndPies.Size = new System.Drawing.Size(201, 38);
             this.buttonCakesAndPies.TabIndex = 0;
             this.buttonCakesAndPies.Text = "Cakes and pies";
             this.buttonCakesAndPies.UseVisualStyleBackColor = true;
             // 
             // buttonBunsAndDonuts
             // 
-            this.buttonBunsAndDonuts.Location = new System.Drawing.Point(-2, 47);
+            this.buttonBunsAndDonuts.Location = new System.Drawing.Point(-2, 35);
+            this.buttonBunsAndDonuts.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonBunsAndDonuts.Name = "buttonBunsAndDonuts";
-            this.buttonBunsAndDonuts.Size = new System.Drawing.Size(230, 50);
+            this.buttonBunsAndDonuts.Size = new System.Drawing.Size(201, 38);
             this.buttonBunsAndDonuts.TabIndex = 0;
             this.buttonBunsAndDonuts.Text = "Buns and donuts";
             this.buttonBunsAndDonuts.UseVisualStyleBackColor = true;
@@ -182,8 +167,9 @@ namespace Forms
             // buttonBread
             // 
             this.buttonBread.Location = new System.Drawing.Point(-2, 0);
+            this.buttonBread.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonBread.Name = "buttonBread";
-            this.buttonBread.Size = new System.Drawing.Size(230, 50);
+            this.buttonBread.Size = new System.Drawing.Size(201, 38);
             this.buttonBread.TabIndex = 0;
             this.buttonBread.Text = "Bread";
             this.buttonBread.UseVisualStyleBackColor = true;
@@ -194,25 +180,28 @@ namespace Forms
             this.panelOther.Controls.Add(this.buttonLongLasting);
             this.panelOther.Controls.Add(this.buttonHerbs);
             this.panelOther.Controls.Add(this.buttonHoney);
-            this.panelOther.Location = new System.Drawing.Point(1, 268);
+            this.panelOther.Location = new System.Drawing.Point(1, 201);
+            this.panelOther.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelOther.Name = "panelOther";
-            this.panelOther.Size = new System.Drawing.Size(231, 0);
+            this.panelOther.Size = new System.Drawing.Size(202, 0);
             this.panelOther.TabIndex = 3;
             // 
             // buttonLongLasting
             // 
-            this.buttonLongLasting.Location = new System.Drawing.Point(-1, 96);
+            this.buttonLongLasting.Location = new System.Drawing.Point(-1, 72);
+            this.buttonLongLasting.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonLongLasting.Name = "buttonLongLasting";
-            this.buttonLongLasting.Size = new System.Drawing.Size(230, 50);
+            this.buttonLongLasting.Size = new System.Drawing.Size(201, 38);
             this.buttonLongLasting.TabIndex = 2;
             this.buttonLongLasting.Text = "Long lasting products";
             this.buttonLongLasting.UseVisualStyleBackColor = true;
             // 
             // buttonHerbs
             // 
-            this.buttonHerbs.Location = new System.Drawing.Point(0, 48);
+            this.buttonHerbs.Location = new System.Drawing.Point(0, 36);
+            this.buttonHerbs.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonHerbs.Name = "buttonHerbs";
-            this.buttonHerbs.Size = new System.Drawing.Size(230, 50);
+            this.buttonHerbs.Size = new System.Drawing.Size(201, 38);
             this.buttonHerbs.TabIndex = 1;
             this.buttonHerbs.Text = "Herbs tea";
             this.buttonHerbs.UseVisualStyleBackColor = true;
@@ -220,17 +209,19 @@ namespace Forms
             // buttonHoney
             // 
             this.buttonHoney.Location = new System.Drawing.Point(0, 0);
+            this.buttonHoney.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonHoney.Name = "buttonHoney";
-            this.buttonHoney.Size = new System.Drawing.Size(230, 50);
+            this.buttonHoney.Size = new System.Drawing.Size(201, 38);
             this.buttonHoney.TabIndex = 0;
             this.buttonHoney.Text = "Honey products";
             this.buttonHoney.UseVisualStyleBackColor = true;
             // 
             // buttonOther
             // 
-            this.buttonOther.Location = new System.Drawing.Point(-1, 199);
+            this.buttonOther.Location = new System.Drawing.Point(-1, 149);
+            this.buttonOther.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonOther.Name = "buttonOther";
-            this.buttonOther.Size = new System.Drawing.Size(231, 69);
+            this.buttonOther.Size = new System.Drawing.Size(202, 52);
             this.buttonOther.TabIndex = 2;
             this.buttonOther.Text = "Other";
             this.buttonOther.UseVisualStyleBackColor = true;
@@ -238,9 +229,10 @@ namespace Forms
             // 
             // buttonConfectionery
             // 
-            this.buttonConfectionery.Location = new System.Drawing.Point(-1, 133);
+            this.buttonConfectionery.Location = new System.Drawing.Point(-1, 100);
+            this.buttonConfectionery.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonConfectionery.Name = "buttonConfectionery";
-            this.buttonConfectionery.Size = new System.Drawing.Size(231, 69);
+            this.buttonConfectionery.Size = new System.Drawing.Size(202, 52);
             this.buttonConfectionery.TabIndex = 2;
             this.buttonConfectionery.Text = "Confectionery";
             this.buttonConfectionery.UseVisualStyleBackColor = true;
@@ -253,43 +245,48 @@ namespace Forms
             this.panelFruits.Controls.Add(this.button10);
             this.panelFruits.Controls.Add(this.button11);
             this.panelFruits.Controls.Add(this.button12);
-            this.panelFruits.Location = new System.Drawing.Point(0, 133);
+            this.panelFruits.Location = new System.Drawing.Point(0, 100);
+            this.panelFruits.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelFruits.Name = "panelFruits";
-            this.panelFruits.Size = new System.Drawing.Size(230, 0);
+            this.panelFruits.Size = new System.Drawing.Size(201, 0);
             this.panelFruits.TabIndex = 3;
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(-1, 94);
+            this.button8.Location = new System.Drawing.Point(-1, 70);
+            this.button8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(230, 49);
+            this.button8.Size = new System.Drawing.Size(201, 37);
             this.button8.TabIndex = 0;
             this.button8.Text = "Cheries";
             this.button8.UseVisualStyleBackColor = true;
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(1, 140);
+            this.button9.Location = new System.Drawing.Point(1, 105);
+            this.button9.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(230, 50);
+            this.button9.Size = new System.Drawing.Size(201, 38);
             this.button9.TabIndex = 0;
             this.button9.Text = "Grapes";
             this.button9.UseVisualStyleBackColor = true;
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(-1, 187);
+            this.button10.Location = new System.Drawing.Point(-1, 140);
+            this.button10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(230, 50);
+            this.button10.Size = new System.Drawing.Size(201, 38);
             this.button10.TabIndex = 0;
             this.button10.Text = "Plums";
             this.button10.UseVisualStyleBackColor = true;
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(0, 47);
+            this.button11.Location = new System.Drawing.Point(0, 35);
+            this.button11.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(230, 49);
+            this.button11.Size = new System.Drawing.Size(201, 37);
             this.button11.TabIndex = 0;
             this.button11.Text = "Pears";
             this.button11.UseVisualStyleBackColor = true;
@@ -297,17 +294,19 @@ namespace Forms
             // button12
             // 
             this.button12.Location = new System.Drawing.Point(-1, 0);
+            this.button12.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(230, 49);
+            this.button12.Size = new System.Drawing.Size(201, 37);
             this.button12.TabIndex = 0;
             this.button12.Text = "Apples";
             this.button12.UseVisualStyleBackColor = true;
             // 
             // buttonFruits
             // 
-            this.buttonFruits.Location = new System.Drawing.Point(0, 67);
+            this.buttonFruits.Location = new System.Drawing.Point(0, 50);
+            this.buttonFruits.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonFruits.Name = "buttonFruits";
-            this.buttonFruits.Size = new System.Drawing.Size(231, 69);
+            this.buttonFruits.Size = new System.Drawing.Size(202, 52);
             this.buttonFruits.TabIndex = 2;
             this.buttonFruits.Text = "Fruits";
             this.buttonFruits.UseVisualStyleBackColor = true;
@@ -320,43 +319,48 @@ namespace Forms
             this.panelVegetables.Controls.Add(this.button4);
             this.panelVegetables.Controls.Add(this.button3);
             this.panelVegetables.Controls.Add(this.button2);
-            this.panelVegetables.Location = new System.Drawing.Point(0, 67);
+            this.panelVegetables.Location = new System.Drawing.Point(0, 50);
+            this.panelVegetables.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelVegetables.Name = "panelVegetables";
-            this.panelVegetables.Size = new System.Drawing.Size(230, 0);
+            this.panelVegetables.Size = new System.Drawing.Size(201, 0);
             this.panelVegetables.TabIndex = 3;
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(-1, 188);
+            this.button6.Location = new System.Drawing.Point(-1, 141);
+            this.button6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(230, 50);
+            this.button6.Size = new System.Drawing.Size(201, 38);
             this.button6.TabIndex = 0;
             this.button6.Text = "Garlics";
             this.button6.UseVisualStyleBackColor = true;
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(-1, 141);
+            this.button5.Location = new System.Drawing.Point(-1, 106);
+            this.button5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(230, 50);
+            this.button5.Size = new System.Drawing.Size(201, 38);
             this.button5.TabIndex = 0;
             this.button5.Text = "Potatoes";
             this.button5.UseVisualStyleBackColor = true;
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(0, 94);
+            this.button4.Location = new System.Drawing.Point(0, 70);
+            this.button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(230, 50);
+            this.button4.Size = new System.Drawing.Size(201, 38);
             this.button4.TabIndex = 0;
             this.button4.Text = "Cucumbers";
             this.button4.UseVisualStyleBackColor = true;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(0, 47);
+            this.button3.Location = new System.Drawing.Point(0, 35);
+            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(230, 50);
+            this.button3.Size = new System.Drawing.Size(201, 38);
             this.button3.TabIndex = 0;
             this.button3.Text = "Tomatoes";
             this.button3.UseVisualStyleBackColor = true;
@@ -364,8 +368,9 @@ namespace Forms
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(-1, 0);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(230, 50);
+            this.button2.Size = new System.Drawing.Size(201, 38);
             this.button2.TabIndex = 0;
             this.button2.Text = "Onions";
             this.button2.UseVisualStyleBackColor = true;
@@ -373,8 +378,9 @@ namespace Forms
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(0, 0);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(231, 69);
+            this.button1.Size = new System.Drawing.Size(202, 52);
             this.button1.TabIndex = 2;
             this.button1.Text = "Vegetables";
             this.button1.UseVisualStyleBackColor = true;
@@ -397,29 +403,35 @@ namespace Forms
             // 
             // buttonSearch
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(280, 34);
+            this.buttonSearch.Location = new System.Drawing.Point(245, 26);
+            this.buttonSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(28, 28);
+            this.buttonSearch.Size = new System.Drawing.Size(24, 21);
             this.buttonSearch.TabIndex = 6;
             this.buttonSearch.UseVisualStyleBackColor = true;
             this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.AutoScroll = true;
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(318, 0);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(573, 441);
+            this.flowLayoutPanel1.TabIndex = 7;
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1018, 588);
+            this.ClientSize = new System.Drawing.Size(891, 441);
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.listView1);
             this.Controls.Add(this.textBox1);
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "Form1";
             this.Text = "Form1";
-
             this.Load += new System.EventHandler(this.Form1_Load);
-
-
             this.panel1.ResumeLayout(false);
             this.panelConfectionery.ResumeLayout(false);
             this.panelOther.ResumeLayout(false);
@@ -433,8 +445,6 @@ namespace Forms
         #endregion
 
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
@@ -469,6 +479,7 @@ namespace Forms
         private System.Windows.Forms.Timer timer4;
         private System.Windows.Forms.Panel panelOther;
         private System.Windows.Forms.Button buttonSearch;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }
 
