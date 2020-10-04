@@ -149,12 +149,10 @@ namespace Forms
                 if (product.Name.Contains(textBox1.Text))
                 {
                     product.Show();
-
                 }
                 else
                 {
                     product.Hide();
-
                 }
 
             }
