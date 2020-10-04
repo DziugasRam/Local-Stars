@@ -61,5 +61,11 @@ namespace Forms
         {
             this.BackColor = Color.White;
         }
+
+        private void SellerListingPreview_MouseClick(object sender, MouseEventArgs e)
+        {
+            ListingForm listingForm = new ListingForm();
+            listingForm.Show();
+        }
     }
 }
