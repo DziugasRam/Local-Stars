@@ -5,9 +5,10 @@ namespace Models
 {
     public class Product : IIdentifiable
     {
-        public Product(string title, int price, Guid sellerId, string description, Guid id)
+        public Product(string title, string category, int price, Guid sellerId, Guid id, string description) : base(id)
         {
             Title = title;
+            Category = category;
             Price = price;
             SellerId = sellerId;
             Description = description;
@@ -16,6 +17,7 @@ namespace Models
 
         public string Title { get; }
         public int Price { get; }
+        public string Category { get; }
         public Guid SellerId { get; }
         public string Description { get; }
         public Guid Id { get; }

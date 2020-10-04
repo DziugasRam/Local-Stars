@@ -1,5 +1,8 @@
-﻿ using Server.Controllers;
+﻿using Forms.Properties;
+using Models;
+using Server.Controllers;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -47,7 +50,7 @@ namespace Forms
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonVegetables_Click(object sender, EventArgs e)
         {
             timer1.Start();
         }
@@ -140,21 +143,67 @@ namespace Forms
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            var products = Controllers.s_productController.GetProducts(textBox1.Text);
-            var listViewItems = products.Select(p => new ListViewItem(p.Title)).ToArray();
+            var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>();
+            foreach (var product in productViewModels)
+            {
+                if (product.Name.Contains(textBox1.Text))
+                {
+                    product.Show();
+                }
+                else
+                {
+                    product.Hide();
+                }
 
-            listView1.Items.Clear();
-            listView1.Items.AddRange(listViewItems);
+            }
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            populateList();
         }
 
-        private void timer5_Tick(object sender, EventArgs e)
+        private void populateList()
         {
+            var products = Controllers.s_productController.Get();
+            var viewmodels = products.Select(MapToSellerListingPreview);
+            flowLayoutPanel1.Controls.AddRange(viewmodels.ToArray());
+            
+        }
+
+        private Control MapToSellerListingPreview(Product product, int arg2)
+        {
+            var viewmodel = new SellerListingPreview();
+            viewmodel.Name = product.Title;
+            viewmodel.Desciption = product.Category;
+            viewmodel.Price = product.Price.ToString();
+            viewmodel.Picture= Resources.missing_image;
+
+            return viewmodel;
+        }
+
+        private void buttonCategory_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+
+            var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>();
+
+            foreach(var product in productViewModels)
+            {
+                if(product.Desciption == btn.Text)
+                {
+                    product.Show();
+
+                } else
+                {
+                    product.Hide();
+
+                }
+                
+            }
 
         }
+
     }
 }
