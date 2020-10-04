@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Server
 {
-    static class MockData
+    public static class MockData
     {
         public static readonly Seller Seller1 = new Seller(nameof(Seller1), $"{nameof(Seller1)}_lastName", new Location((1,0), "Seller1 address"), new Guid());
         public static readonly Seller Seller2 = new Seller(nameof(Seller2), $"{nameof(Seller2)}_lastName", new Location((2,0), "Seller2 address"), new Guid());
