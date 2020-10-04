@@ -13,39 +13,39 @@ namespace Server.Controllers
     [ApiController]
     public class BuyerController : ControllerBase
     {
-        private readonly BuyerProvider m_buyerProvider;
-        private readonly ProductProvider m_productProvider;
-        private readonly SellerProvider m_sellerProvider;
+        private readonly BuyerProvider _buyerProvider;
+        private readonly ProductProvider _productProvider;
+        private readonly SellerProvider _sellerProvider;
 
         public BuyerController(BuyerProvider buyerProvider, ProductProvider productProvider, SellerProvider sellerProvider)
         {
-            m_buyerProvider = buyerProvider;
-            m_productProvider = productProvider;
-            m_sellerProvider = sellerProvider;
+            _buyerProvider = buyerProvider;
+            _productProvider = productProvider;
+            _sellerProvider = sellerProvider;
         }
 
         [HttpGet]
         public Buyer GetById(Guid id)
         {
-            return m_buyerProvider.GetById(id);
+            return _buyerProvider.GetById(id);
         }
 
         [HttpPost]
         public void Insert(Buyer buyer)
         {
-            m_buyerProvider.Insert(buyer);
+            _buyerProvider.Insert(buyer);
         }
 
         [HttpDelete]
         public void Remove(Guid id)
         {
-            m_buyerProvider.Remove(id);
+            _buyerProvider.Remove(id);
         }
 
         [HttpPut]
         public void Update(Buyer buyer)
         {
-            m_buyerProvider.Insert(buyer);
+            _buyerProvider.Insert(buyer);
         }
     }
 }
