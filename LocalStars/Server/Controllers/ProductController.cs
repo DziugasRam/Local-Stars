@@ -51,6 +51,13 @@ namespace Server.Controllers
             return m_productProvider.GetById(new[] { id }).Single();
         }
 
+        [HttpGet]
+        public IEnumerable<Product> Get()
+        {
+            return m_productProvider.Get();
+        }
+
+
         [HttpDelete]
         public void RemoveById([FromBody] IEnumerable<Guid> ids)
         {

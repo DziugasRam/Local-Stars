@@ -19,6 +19,7 @@ namespace Forms
 
         private string name;
         private string price;
+       // private string category;
         private string desctiption;
         private Image picture;
 

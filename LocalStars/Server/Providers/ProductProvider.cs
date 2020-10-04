@@ -17,6 +17,11 @@ namespace Server.Providers
                 (id, p) => p);
         }
 
+        public IEnumerable<Product> Get()
+        {
+            return MockData.s_products;
+        }
+        
         public IEnumerable<Product> GetByTitle(string title, bool fullMatch = true, StringComparison comparisonType = StringComparison.Ordinal)
         {
             if(title == null || title == string.Empty)
@@ -24,9 +29,19 @@ namespace Server.Providers
                 return new List<Product>();
             }
 
-            return MockData.s_products.Where(p => fullMatch
-                ? string.Equals(p.Title, title, comparisonType)
-                : p.Title.Contains(title, comparisonType));
+            return MockData.s_products
+                .Where(p => fullMatch ? string.Equals(p.Title, title, comparisonType) : p.Title.Contains(title, comparisonType));
+        }
+
+        public IEnumerable<Product> GetByType(string category, bool fullMatch = true, StringComparison comparisonType = StringComparison.Ordinal)
+        {
+            if (category == null || category == string.Empty)
+            {
+                return new List<Product>();
+            }
+
+            return MockData.s_products
+                .Where(product => fullMatch ? string.Equals(product.Category, category, comparisonType) : product.Category.Contains(category, comparisonType));
         }
 
         public IEnumerable<Product> GetBySeller(IEnumerable<Guid> ids)
