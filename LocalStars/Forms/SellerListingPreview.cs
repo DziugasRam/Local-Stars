@@ -23,7 +23,7 @@ namespace Forms
         private Image picture;
 
         [Category("Custom Properties")]
-        public string Name
+        public string Name1
         {
             get { return name; }
             set { name = value; labelPName.Text = value; }
