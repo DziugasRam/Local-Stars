@@ -32,6 +32,7 @@
             this.labelProductName = new System.Windows.Forms.Label();
             this.labelPrice = new System.Windows.Forms.Label();
             this.labelDescription = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,7 +55,7 @@
             // 
             // labelPrice
             // 
-            this.labelPrice.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelPrice.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.labelPrice.Location = new System.Drawing.Point(818, 10);
             this.labelPrice.Name = "labelPrice";
             this.labelPrice.Size = new System.Drawing.Size(99, 71);
@@ -70,17 +71,29 @@
             this.labelDescription.TabIndex = 3;
             this.labelDescription.Text = "Description";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(853, 302);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Close";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // ListingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(928, 326);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.labelDescription);
             this.Controls.Add(this.labelPrice);
             this.Controls.Add(this.labelProductName);
             this.Controls.Add(this.pictureBox1);
             this.Name = "ListingForm";
-            this.Text = "ListingForm";
+            this.Text = "Close";
+            this.Load += new System.EventHandler(this.ListingForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
@@ -92,5 +105,6 @@
         private System.Windows.Forms.Label labelProductName;
         private System.Windows.Forms.Label labelPrice;
         private System.Windows.Forms.Label labelDescription;
+        private System.Windows.Forms.Button button1;
     }
 }

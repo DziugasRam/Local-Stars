@@ -154,7 +154,7 @@ namespace Forms
         private void populateList()
         {
             SellerListingPreview [] sellerListingPreviews = new SellerListingPreview [20];
-            for(int i = 0; i < sellerListingPreviews.Length; i++)
+            for(int i = 0; i < sellerListingPreviews.Length-1; i++)
             {
                 sellerListingPreviews[i] = new SellerListingPreview();
                 sellerListingPreviews[i].Name = "Random Name";

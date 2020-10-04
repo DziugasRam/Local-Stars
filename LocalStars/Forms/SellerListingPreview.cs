@@ -64,7 +64,7 @@ namespace Forms
 
         private void SellerListingPreview_MouseClick(object sender, MouseEventArgs e)
         {
-            ListingForm listingForm = new ListingForm();
+            ListingForm listingForm = new ListingForm(labelPName.Text, labelPrice.Text, labelDescription.Text, pictureBox1.Image);
             listingForm.Show();
         }
     }
