@@ -43,6 +43,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(147, 154);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SellerListingPreview_MouseClick);
             // 
             // labelPName
             // 
@@ -52,6 +53,7 @@
             this.labelPName.Size = new System.Drawing.Size(225, 23);
             this.labelPName.TabIndex = 1;
             this.labelPName.Text = "Product Name";
+            this.labelPName.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SellerListingPreview_MouseClick);
             this.labelPName.MouseEnter += new System.EventHandler(this.SellerListingPreview_MouseEnter);
             this.labelPName.MouseLeave += new System.EventHandler(this.SellerListingPreview_MouseLeave);
             // 
@@ -63,6 +65,7 @@
             this.labelPrice.Size = new System.Drawing.Size(239, 23);
             this.labelPrice.TabIndex = 1;
             this.labelPrice.Text = "Price";
+            this.labelPrice.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SellerListingPreview_MouseClick);
             this.labelPrice.MouseEnter += new System.EventHandler(this.SellerListingPreview_MouseEnter);
             this.labelPrice.MouseLeave += new System.EventHandler(this.SellerListingPreview_MouseLeave);
             // 
@@ -74,6 +77,7 @@
             this.labelDescription.Size = new System.Drawing.Size(371, 91);
             this.labelDescription.TabIndex = 1;
             this.labelDescription.Text = "Description";
+            this.labelDescription.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SellerListingPreview_MouseClick);
             this.labelDescription.MouseEnter += new System.EventHandler(this.SellerListingPreview_MouseEnter);
             this.labelDescription.MouseLeave += new System.EventHandler(this.SellerListingPreview_MouseLeave);
             // 
