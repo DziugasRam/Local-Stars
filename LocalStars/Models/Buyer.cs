@@ -2,15 +2,21 @@
 
 namespace Models
 {
-    public class Buyer : Identifiable
+    public class Buyer : IIdentifiable
     {
-        public Buyer(string firstName, string lastName, Guid id) : base(id)
+        public Buyer(string firstName, string lastName, Guid id)
         {
             FirstName = firstName;
             LastName = lastName;
+            Id = id;
         }
 
         public string FirstName { get; }
         public string LastName { get; }
+        public Guid Id { get; }
+        public Guid GetId()
+        {
+            return Id;
+        }
     }
 }
