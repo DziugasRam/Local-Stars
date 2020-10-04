@@ -1,4 +1,5 @@
 ﻿using Forms.Properties;
+using Models;
 using Server.Controllers;
 using System;
 using System.Collections;
@@ -19,7 +20,6 @@ namespace Forms
         bool IsPaneFruitsOpen = false;
         bool IsPanelConfectioneryOpen = false;
         bool IsPanelOtherOpen = false;
-        string Category;
 
         public Form1()
         {
@@ -143,8 +143,22 @@ namespace Forms
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            var products = Controllers.s_productController.GetProducts(textBox1.Text);
-            var listViewItems = products.Select(p => new ListViewItem(p.Title)).ToArray();
+            var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>();
+            foreach (var product in productViewModels)
+            {
+                if (product.Name.Contains(textBox1.Text))
+                {
+                    product.Show();
+
+                }
+                else
+                {
+                    product.Hide();
+
+                }
+
+            }
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -154,27 +168,43 @@ namespace Forms
 
         private void populateList()
         {
+            var products = Controllers.s_productController.Get();
+            var viewmodels = products.Select(MapToSellerListingPreview);
+            flowLayoutPanel1.Controls.AddRange(viewmodels.ToArray());
             
-            SellerListingPreview [] sellerListingPreviews = new SellerListingPreview [20];
-            for(int i = 0; i < sellerListingPreviews.Length-1; i++)
-            {
-                sellerListingPreviews[i] = new SellerListingPreview();
-                sellerListingPreviews[i].Name = "Random Name";
-                sellerListingPreviews[i].Price = "Random Price";
-                sellerListingPreviews[i].Desciption = "Random Description";
-                sellerListingPreviews[i].Picture = Resources.missing_image;
-                if (flowLayoutPanel1.Controls.Count < 0)
-                {
-                    flowLayoutPanel1.Controls.Clear();
-                }
-                else flowLayoutPanel1.Controls.Add(sellerListingPreviews[i]);
-            }
+        }
+
+        private Control MapToSellerListingPreview(Product product, int arg2)
+        {
+            var viewmodel = new SellerListingPreview();
+            viewmodel.Name = product.Title;
+            viewmodel.Desciption = product.Category;
+            viewmodel.Price = product.Price.ToString();
+            viewmodel.Picture= Resources.missing_image;
+
+            return viewmodel;
         }
 
         private void buttonCategory_Click(object sender, EventArgs e)
         {
             Button btn = sender as Button;
-            Category = btn.Text;
+
+            var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>();
+
+            foreach(var product in productViewModels)
+            {
+                if(product.Desciption == btn.Text)
+                {
+                    product.Show();
+
+                } else
+                {
+                    product.Hide();
+
+                }
+                
+            }
+
         }
 
     }

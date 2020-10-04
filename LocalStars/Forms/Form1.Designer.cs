@@ -419,7 +419,7 @@ namespace Forms
             // 
             // buttonSearch
             // 
-            this.buttonSearch.Location = new System.Drawing.Point(245, 26);
+            this.buttonSearch.Location = new System.Drawing.Point(256, 28);
             this.buttonSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonSearch.Name = "buttonSearch";
             this.buttonSearch.Size = new System.Drawing.Size(24, 21);

@@ -19,11 +19,12 @@ namespace Forms
 
         private string name;
         private string price;
+       // private string category;
         private string desctiption;
         private Image picture;
 
         [Category("Custom Properties")]
-        public string Name1
+        public string Name
         {
             get { return name; }
             set { name = value; labelPName.Text = value; }
