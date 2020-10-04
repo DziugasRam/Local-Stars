@@ -19,6 +19,7 @@ namespace Forms
         bool IsPaneFruitsOpen = false;
         bool IsPanelConfectioneryOpen = false;
         bool IsPanelOtherOpen = false;
+        string Category;
 
         public Form1()
         {
@@ -49,7 +50,7 @@ namespace Forms
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonVegetables_Click(object sender, EventArgs e)
         {
             timer1.Start();
         }
@@ -154,6 +155,7 @@ namespace Forms
 
         private void populateItems()
         {
+            
             SellerListingPreview [] sellerListingPreviews = new SellerListingPreview [20];
             for(int i = 0; i < sellerListingPreviews.Length; i++)
             {
@@ -169,5 +171,12 @@ namespace Forms
                 else flowLayoutPanel1.Controls.Add(sellerListingPreviews[i]);
             }
         }
+
+        private void buttonCategory_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            Category = btn.Text;
+        }
+
     }
 }
