@@ -144,15 +144,14 @@ namespace Forms
         {
             var products = Controllers.s_productController.GetProducts(textBox1.Text);
             var listViewItems = products.Select(p => new ListViewItem(p.Title)).ToArray();
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            populateItems();
+            populateList();
         }
 
-        private void populateItems()
+        private void populateList()
         {
             SellerListingPreview [] sellerListingPreviews = new SellerListingPreview [20];
             for(int i = 0; i < sellerListingPreviews.Length; i++)

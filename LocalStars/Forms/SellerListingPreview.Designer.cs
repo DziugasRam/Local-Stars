@@ -97,6 +97,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Name = "SellerListingPreview";
             this.Size = new System.Drawing.Size(540, 154);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SellerListingPreview_MouseClick);
             this.MouseEnter += new System.EventHandler(this.SellerListingPreview_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.SellerListingPreview_MouseLeave);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
