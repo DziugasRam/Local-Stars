@@ -6,10 +6,10 @@ namespace Server
 {
     static class MockData
     {
-        public static readonly Seller Seller1 = new Seller(nameof(Seller1), $"{nameof(Seller1)}_lastName", new Guid(), new Location((1,0), "Seller1 address"));
-        public static readonly Seller Seller2 = new Seller(nameof(Seller2), $"{nameof(Seller2)}_lastName", new Guid(), new Location((2,0), "Seller2 address"));
-        public static readonly Seller Seller3 = new Seller(nameof(Seller3), $"{nameof(Seller3)}_lastName", new Guid(), new Location((3,0), "Seller3 address"));
-        public static readonly Seller Seller4 = new Seller(nameof(Seller4), $"{nameof(Seller4)}_lastName", new Guid(), new Location((4,0), "Seller4 address"));
+        public static readonly Seller Seller1 = new Seller(nameof(Seller1), $"{nameof(Seller1)}_lastName", new Location((1,0), "Seller1 address"), new Guid());
+        public static readonly Seller Seller2 = new Seller(nameof(Seller2), $"{nameof(Seller2)}_lastName", new Location((2,0), "Seller2 address"), new Guid());
+        public static readonly Seller Seller3 = new Seller(nameof(Seller3), $"{nameof(Seller3)}_lastName", new Location((3,0), "Seller3 address"), new Guid());
+        public static readonly Seller Seller4 = new Seller(nameof(Seller4), $"{nameof(Seller4)}_lastName", new Location((4,0), "Seller4 address"), new Guid());
 
         public static readonly List<Seller> s_sellers = new List<Seller> { Seller1, Seller2, Seller3, Seller4 };
 
@@ -22,13 +22,13 @@ namespace Server
 
         public static readonly List<Product> s_products = new List<Product> {
 
-            new Product($"{nameof(Seller1)}_Product1", 1, Seller1.Id, new Guid(), "new"),
-            new Product($"{nameof(Seller1)}_Product3", 1, Seller1.Id, new Guid(), "new"),
-            new Product($"{nameof(Seller1)}_Product2", 1, Seller1.Id, new Guid(),"new"),
-            new Product($"{nameof(Seller2)}_Product1", 1, Seller2.Id, new Guid(),"new"),
-            new Product($"{nameof(Seller2)}_Product2", 1, Seller2.Id, new Guid(),"new"),
-            new Product($"{nameof(Seller4)}_Product1", 1, Seller4.Id, new Guid(),"new"),
-            new Product($"{nameof(Seller4)}_Product2", 1, Seller4.Id, new Guid(),"new")
+            new Product($"{nameof(Seller1)}_Product1", 1, Seller1.Id, "new", new Guid()),
+            new Product($"{nameof(Seller1)}_Product3", 1, Seller1.Id, "new", new Guid()),
+            new Product($"{nameof(Seller1)}_Product2", 1, Seller1.Id, "new", new Guid()),
+            new Product($"{nameof(Seller2)}_Product1", 1, Seller2.Id, "new", new Guid()),
+            new Product($"{nameof(Seller2)}_Product2", 1, Seller2.Id, "new", new Guid()),
+            new Product($"{nameof(Seller4)}_Product1", 1, Seller4.Id, "new", new Guid()),
+            new Product($"{nameof(Seller4)}_Product2", 1, Seller4.Id, "new", new Guid())
 
 
         };
