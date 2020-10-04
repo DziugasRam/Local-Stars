@@ -11,21 +11,21 @@ namespace Server.Providers
     {
         public Buyer GetById(Guid id)
         {
-            return MockData.s_buyers.Single(b => b.Id == id);
+            return MockData.Buyers.Single(b => b.Id == id);
         }
 
         public void Insert(Buyer buyer)
         {
-            if (MockData.s_buyers.Any(b => b.Id == buyer.Id))
+            if (MockData.Buyers.Any(b => b.Id == buyer.Id))
             {
                 throw new ConflictException("Buyer id already exists");
             }
-            MockData.s_buyers.Add(buyer);
+            MockData.Buyers.Add(buyer);
         }
 
         public void Remove(Guid id)
         {
-            MockData.s_buyers.RemoveAll(b => b.Id == id);
+            MockData.Buyers.RemoveAll(b => b.Id == id);
         }
 
         public void Update(Buyer buyer)

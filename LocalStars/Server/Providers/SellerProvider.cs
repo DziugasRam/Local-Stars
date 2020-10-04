@@ -12,7 +12,7 @@ namespace Server.Providers
         public IEnumerable<Seller> GetById(IEnumerable<Guid> ids)
         {
             return ids.Join(
-                MockData.s_sellers,
+                MockData.Sellers,
                 id => id,
                 s => s.Id,
                 (id, s) => s);
@@ -20,16 +20,16 @@ namespace Server.Providers
 
         public void Insert(Seller seller)
         {
-            if (MockData.s_sellers.Any(b => b.Id == seller.Id))
+            if (MockData.Sellers.Any(b => b.Id == seller.Id))
             {
                 throw new ConflictException("Buyer id already exists");
             }
-            MockData.s_sellers.Add(seller);
+            MockData.Sellers.Add(seller);
         }
 
         public void Remove(Guid id)
         {
-            MockData.s_sellers.RemoveAll(b => b.Id == id);
+            MockData.Sellers.RemoveAll(b => b.Id == id);
         }
 
         public void Update(Seller seller)

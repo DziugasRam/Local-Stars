@@ -13,60 +13,60 @@ namespace Server.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly BuyerProvider m_buyerProvider;
-        private readonly ProductProvider m_productProvider;
-        private readonly SellerProvider m_sellerProvider;
+        private readonly BuyerProvider _buyerProvider;
+        private readonly ProductProvider _productProvider;
+        private readonly SellerProvider _sellerProvider;
 
         public ProductController(BuyerProvider buyerProvider, ProductProvider productProvider, SellerProvider sellerProvider)
         {
-            m_buyerProvider = buyerProvider;
-            m_productProvider = productProvider;
-            m_sellerProvider = sellerProvider;
+            _buyerProvider = buyerProvider;
+            _productProvider = productProvider;
+            _sellerProvider = sellerProvider;
         }
 
         [HttpGet]
         [Route("title")]
         public IEnumerable<Product> GetProducts([FromQuery] string searchVal, [FromQuery] bool fullMatch = false)
         {
-            return m_productProvider.GetByTitle(searchVal, fullMatch, StringComparison.OrdinalIgnoreCase);
+            return _productProvider.GetByTitle(searchVal, fullMatch, StringComparison.OrdinalIgnoreCase);
         }
 
         [HttpPost]
         [Route("ids")]
         public IEnumerable<Product> GetProducts([FromBody] Guid[] ids)
         {
-            return m_productProvider.GetById(ids);
+            return _productProvider.GetById(ids);
         }
 
         [HttpPost]
         [Route("sellerId")]
         public IEnumerable<Product> GetBySeller([FromBody] IEnumerable<Guid> ids)
         {
-            return m_productProvider.GetBySeller(ids);
+            return _productProvider.GetBySeller(ids);
         }
 
         [HttpGet]
         public Product Get([FromQuery] Guid id)
         {
-            return m_productProvider.GetById(new[] { id }).Single();
+            return _productProvider.GetById(new[] { id }).Single();
         }
 
         [HttpDelete]
         public void RemoveById([FromBody] IEnumerable<Guid> ids)
         {
-            m_productProvider.RemoveById(ids);
+            _productProvider.RemoveById(ids);
         }
 
         [HttpPost]
         public void Insert([FromBody] IEnumerable<Product> products)
         {
-            m_productProvider.Insert(products);
+            _productProvider.Insert(products);
         }
 
         [HttpPut]
         public void Update([FromBody] Product product)
         {
-            m_productProvider.Update(product);
+            _productProvider.Update(product);
         }
     }
 }
