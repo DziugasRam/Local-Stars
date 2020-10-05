@@ -17,21 +17,8 @@ namespace Server
         public static readonly Buyer Buyer2 = new Buyer(nameof(Buyer2), $"{nameof(Buyer2)}_lastName", new Guid());
         public static readonly Buyer Buyer3 = new Buyer(nameof(Buyer3), $"{nameof(Buyer3)}_lastName", new Guid());
         public static readonly Buyer Buyer4 = new Buyer(nameof(Buyer4), $"{nameof(Buyer4)}_lastName", new Guid());
-      
-        public static readonly List<Buyer> s_buyers = new List<Buyer> { Buyer1, Buyer2, Buyer3, Buyer4 };
 
         public static readonly List<Buyer> Buyers = new List<Buyer> { Buyer1, Buyer2, Buyer3, Buyer4 };
-
-        public static readonly List<Product> s_products = new List<Product> {
-
-            new Product($"{nameof(Seller1)}_Product1","Pears", 1, Seller1.Id, new Guid(), "new"),
-            new Product($"{nameof(Seller1)}_Product3","Potatoes", 1, Seller1.Id, new Guid(), "new"),
-            new Product($"{nameof(Seller1)}_Product2","Garlics", 1, Seller1.Id, new Guid(),"new"),
-            new Product($"{nameof(Seller2)}_Product1","Cucumbers", 1, Seller2.Id, new Guid(),"new"),
-            new Product($"{nameof(Seller2)}_Product2","Garlics", 1, Seller2.Id, new Guid(),"new"),
-            new Product($"{nameof(Seller4)}_Product1","Apples", 1, Seller4.Id, new Guid(),"new"),
-            new Product($"{nameof(Seller4)}_Product2","Pears", 1, Seller4.Id, new Guid(),"new")
-        };
 
         public static readonly List<Product> Products = new List<Product> {
 

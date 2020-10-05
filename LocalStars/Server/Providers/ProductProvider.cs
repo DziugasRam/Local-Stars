@@ -19,7 +19,7 @@ namespace Server.Providers
 
         public IEnumerable<Product> Get()
         {
-            return MockData.s_products;
+            return MockData.Products;
         }
         
         public IEnumerable<Product> GetByTitle(string title, bool fullMatch = true, StringComparison comparisonType = StringComparison.Ordinal)
@@ -28,7 +28,7 @@ namespace Server.Providers
             {
                 return new List<Product>();
             }
-            return MockData.s_products
+            return MockData.Products
                 .Where(p => fullMatch ? string.Equals(p.Title, title, comparisonType) : p.Title.Contains(title, comparisonType));
         }
 
@@ -39,7 +39,7 @@ namespace Server.Providers
                 return new List<Product>();
             }
 
-            return MockData.s_products
+            return MockData.Products
                 .Where(product => fullMatch ? string.Equals(product.Category, category, comparisonType) : product.Category.Contains(category, comparisonType));
         }
 
