@@ -5,7 +5,7 @@ namespace Models
 {
     public class Product : IIdentifiable
     {
-        public Product(string title, string category, int price, Guid sellerId, Guid id, string description) : base(id)
+        public Product(string title, string category, int price, Guid sellerId, Guid id, string description)
         {
             Title = title;
             Category = category;
