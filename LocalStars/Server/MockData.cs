@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Server
 {
-    internal static class MockData
+    public static class MockData
     {
         public static readonly Seller Seller1 = new Seller(nameof(Seller1), $"{nameof(Seller1)}_lastName", new Location((1,0), "Seller1 address"), new Guid());
         public static readonly Seller Seller2 = new Seller(nameof(Seller2), $"{nameof(Seller2)}_lastName", new Location((2,0), "Seller2 address"), new Guid());
@@ -17,10 +17,10 @@ namespace Server
         public static readonly Buyer Buyer2 = new Buyer(nameof(Buyer2), $"{nameof(Buyer2)}_lastName", new Guid());
         public static readonly Buyer Buyer3 = new Buyer(nameof(Buyer3), $"{nameof(Buyer3)}_lastName", new Guid());
         public static readonly Buyer Buyer4 = new Buyer(nameof(Buyer4), $"{nameof(Buyer4)}_lastName", new Guid());
-      
-        public static readonly List<Buyer> s_buyers = new List<Buyer> { Buyer1, Buyer2, Buyer3, Buyer4 };
 
-        public static readonly List<Product> s_products = new List<Product> {
+        public static readonly List<Buyer> Buyers = new List<Buyer> { Buyer1, Buyer2, Buyer3, Buyer4 };
+
+        public static readonly List<Product> Products = new List<Product> {
 
             new Product($"{nameof(Seller1)}_Product1","Pears", 1, Seller1.Id, new Guid(), "new"),
             new Product($"{nameof(Seller1)}_Product3","Potatoes", 1, Seller1.Id, new Guid(), "new"),
@@ -30,7 +30,7 @@ namespace Server
             new Product($"{nameof(Seller4)}_Product1","Apples", 1, Seller4.Id, new Guid(),"new"),
             new Product($"{nameof(Seller4)}_Product2","Pears", 1, Seller4.Id, new Guid(),"new")
         };
-              
+
         public static readonly User User1 = new User("user1", "psw", Buyer1.Id, Seller1.Id, new Guid());
         public static readonly User User2 = new User("user2", "psw", Buyer2.Id, Seller3.Id, new Guid());
         public static readonly User User3 = new User("user3", "psw", Buyer3.Id, Seller4.Id, new Guid());

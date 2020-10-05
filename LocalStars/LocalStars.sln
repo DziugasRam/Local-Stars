@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server\Server.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{C8532000-62C7-4627-8150-6297A28AF7DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forms", "Forms\Forms.csproj", "{CBA60242-B653-4171-AF59-D8AF3C3B6171}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Forms", "Forms\Forms.csproj", "{CBA60242-B653-4171-AF59-D8AF3C3B6171}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
