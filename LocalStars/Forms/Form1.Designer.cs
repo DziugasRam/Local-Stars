@@ -261,7 +261,7 @@ namespace Forms
             this.buttonHoney.Text = "Honey products";
             this.buttonHoney.UseVisualStyleBackColor = true;
             this.buttonHoney.Click += new System.EventHandler(this.buttonCategory_Click);
-            // 
+            //
             // panelFruits
             // 
             this.panelFruits.Controls.Add(this.buttonCheries);
@@ -323,7 +323,7 @@ namespace Forms
             this.buttonApples.Text = "Apples";
             this.buttonApples.UseVisualStyleBackColor = true;
             this.buttonApples.Click += new System.EventHandler(this.buttonCategory_Click);
-            // 
+            //
             // panelVegetables
             // 
             this.panelVegetables.Controls.Add(this.buttonGarlics);
@@ -395,7 +395,6 @@ namespace Forms
             this.buttonVegetables.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonVegetables.Location = new System.Drawing.Point(-2, 0);
             this.buttonVegetables.Name = "buttonVegetables";
-            this.buttonVegetables.Rotation = 0D;
             this.buttonVegetables.Size = new System.Drawing.Size(231, 69);
             this.buttonVegetables.TabIndex = 2;
             this.buttonVegetables.Text = "Vegetables";
@@ -416,7 +415,7 @@ namespace Forms
             // 
             this.timer4.Interval = 20;
             this.timer4.Tick += new System.EventHandler(this.timer4_Tick);
-            // 
+            //
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.AutoScroll = true;
