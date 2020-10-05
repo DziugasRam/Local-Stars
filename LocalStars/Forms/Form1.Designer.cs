@@ -38,6 +38,9 @@ namespace Forms
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonOther = new FontAwesome.Sharp.IconButton();
+            this.buttonConfectionery = new FontAwesome.Sharp.IconButton();
+            this.buttonFruits = new FontAwesome.Sharp.IconButton();
             this.panelConfectionery = new System.Windows.Forms.Panel();
             this.buttonCakesAndPies = new System.Windows.Forms.Button();
             this.buttonBunsAndDonuts = new System.Windows.Forms.Button();
@@ -46,27 +49,24 @@ namespace Forms
             this.buttonLongLasting = new System.Windows.Forms.Button();
             this.buttonHerbs = new System.Windows.Forms.Button();
             this.buttonHoney = new System.Windows.Forms.Button();
-            this.buttonOther = new System.Windows.Forms.Button();
-            this.buttonConfectionery = new System.Windows.Forms.Button();
             this.panelFruits = new System.Windows.Forms.Panel();
             this.buttonCheries = new System.Windows.Forms.Button();
             this.buttonGrapes = new System.Windows.Forms.Button();
             this.buttonPlums = new System.Windows.Forms.Button();
             this.buttonPears = new System.Windows.Forms.Button();
             this.buttonApples = new System.Windows.Forms.Button();
-            this.buttonFruits = new System.Windows.Forms.Button();
             this.panelVegetables = new System.Windows.Forms.Panel();
             this.buttonGarlics = new System.Windows.Forms.Button();
             this.buttonPotatoes = new System.Windows.Forms.Button();
             this.buttonCucumbers = new System.Windows.Forms.Button();
             this.buttonTomatoes = new System.Windows.Forms.Button();
             this.buttonOnions = new System.Windows.Forms.Button();
-            this.buttonVegetables = new System.Windows.Forms.Button();
+            this.buttonVegetables = new FontAwesome.Sharp.IconButton();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.timer4 = new System.Windows.Forms.Timer(this.components);
-            this.buttonSearch = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.buttonSearch = new FontAwesome.Sharp.IconButton();
             this.panel1.SuspendLayout();
             this.panelConfectionery.SuspendLayout();
             this.panelOther.SuspendLayout();
@@ -119,18 +119,66 @@ namespace Forms
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
-            this.panel1.Controls.Add(this.panelConfectionery);
-            this.panel1.Controls.Add(this.panelOther);
             this.panel1.Controls.Add(this.buttonOther);
             this.panel1.Controls.Add(this.buttonConfectionery);
-            this.panel1.Controls.Add(this.panelFruits);
             this.panel1.Controls.Add(this.buttonFruits);
+            this.panel1.Controls.Add(this.panelConfectionery);
+            this.panel1.Controls.Add(this.panelOther);
+            this.panel1.Controls.Add(this.panelFruits);
             this.panel1.Controls.Add(this.panelVegetables);
             this.panel1.Controls.Add(this.buttonVegetables);
             this.panel1.Location = new System.Drawing.Point(53, 101);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(230, 433);
             this.panel1.TabIndex = 3;
+            // 
+            // buttonOther
+            // 
+            this.buttonOther.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.buttonOther.IconChar = FontAwesome.Sharp.IconChar.Seedling;
+            this.buttonOther.IconColor = System.Drawing.Color.Black;
+            this.buttonOther.IconSize = 40;
+            this.buttonOther.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonOther.Location = new System.Drawing.Point(-2, 199);
+            this.buttonOther.Name = "buttonOther";
+            this.buttonOther.Rotation = 0D;
+            this.buttonOther.Size = new System.Drawing.Size(231, 69);
+            this.buttonOther.TabIndex = 2;
+            this.buttonOther.Text = "Other";
+            this.buttonOther.UseVisualStyleBackColor = true;
+            this.buttonOther.Click += new System.EventHandler(this.buttonOther_Click);
+            // 
+            // buttonConfectionery
+            // 
+            this.buttonConfectionery.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.buttonConfectionery.IconChar = FontAwesome.Sharp.IconChar.BreadSlice;
+            this.buttonConfectionery.IconColor = System.Drawing.Color.Black;
+            this.buttonConfectionery.IconSize = 40;
+            this.buttonConfectionery.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonConfectionery.Location = new System.Drawing.Point(-2, 133);
+            this.buttonConfectionery.Name = "buttonConfectionery";
+            this.buttonConfectionery.Rotation = 0D;
+            this.buttonConfectionery.Size = new System.Drawing.Size(231, 69);
+            this.buttonConfectionery.TabIndex = 2;
+            this.buttonConfectionery.Text = "Confectionery";
+            this.buttonConfectionery.UseVisualStyleBackColor = true;
+            this.buttonConfectionery.Click += new System.EventHandler(this.buttonConfectionery_Click);
+            // 
+            // buttonFruits
+            // 
+            this.buttonFruits.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.buttonFruits.IconChar = FontAwesome.Sharp.IconChar.AppleAlt;
+            this.buttonFruits.IconColor = System.Drawing.Color.Black;
+            this.buttonFruits.IconSize = 40;
+            this.buttonFruits.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonFruits.Location = new System.Drawing.Point(-2, 67);
+            this.buttonFruits.Name = "buttonFruits";
+            this.buttonFruits.Rotation = 0D;
+            this.buttonFruits.Size = new System.Drawing.Size(231, 69);
+            this.buttonFruits.TabIndex = 2;
+            this.buttonFruits.Text = "Fruits";
+            this.buttonFruits.UseVisualStyleBackColor = true;
+            this.buttonFruits.Click += new System.EventHandler(this.buttonFruits_Click);
             // 
             // panelConfectionery
             // 
@@ -213,27 +261,7 @@ namespace Forms
             this.buttonHoney.Text = "Honey products";
             this.buttonHoney.UseVisualStyleBackColor = true;
             this.buttonHoney.Click += new System.EventHandler(this.buttonCategory_Click);
-            // 
-            // buttonOther
-            // 
-            this.buttonOther.Location = new System.Drawing.Point(-2, 199);
-            this.buttonOther.Name = "buttonOther";
-            this.buttonOther.Size = new System.Drawing.Size(231, 69);
-            this.buttonOther.TabIndex = 2;
-            this.buttonOther.Text = "Other";
-            this.buttonOther.UseVisualStyleBackColor = true;
-            this.buttonOther.Click += new System.EventHandler(this.buttonOther_Click);
-            // 
-            // buttonConfectionery
-            // 
-            this.buttonConfectionery.Location = new System.Drawing.Point(-2, 133);
-            this.buttonConfectionery.Name = "buttonConfectionery";
-            this.buttonConfectionery.Size = new System.Drawing.Size(231, 69);
-            this.buttonConfectionery.TabIndex = 2;
-            this.buttonConfectionery.Text = "Confectionery";
-            this.buttonConfectionery.UseVisualStyleBackColor = true;
-            this.buttonConfectionery.Click += new System.EventHandler(this.buttonConfectionery_Click);
-            // 
+            //
             // panelFruits
             // 
             this.panelFruits.Controls.Add(this.buttonCheries);
@@ -295,17 +323,7 @@ namespace Forms
             this.buttonApples.Text = "Apples";
             this.buttonApples.UseVisualStyleBackColor = true;
             this.buttonApples.Click += new System.EventHandler(this.buttonCategory_Click);
-            // 
-            // buttonFruits
-            // 
-            this.buttonFruits.Location = new System.Drawing.Point(-2, 67);
-            this.buttonFruits.Name = "buttonFruits";
-            this.buttonFruits.Size = new System.Drawing.Size(231, 69);
-            this.buttonFruits.TabIndex = 2;
-            this.buttonFruits.Text = "Fruits";
-            this.buttonFruits.UseVisualStyleBackColor = true;
-            this.buttonFruits.Click += new System.EventHandler(this.buttonFruits_Click);
-            // 
+            //
             // panelVegetables
             // 
             this.panelVegetables.Controls.Add(this.buttonGarlics);
@@ -370,6 +388,11 @@ namespace Forms
             // 
             // buttonVegetables
             // 
+            this.buttonVegetables.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.buttonVegetables.IconChar = FontAwesome.Sharp.IconChar.Carrot;
+            this.buttonVegetables.IconColor = System.Drawing.Color.Black;
+            this.buttonVegetables.IconSize = 40;
+            this.buttonVegetables.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonVegetables.Location = new System.Drawing.Point(-2, 0);
             this.buttonVegetables.Name = "buttonVegetables";
             this.buttonVegetables.Size = new System.Drawing.Size(231, 69);
@@ -392,16 +415,7 @@ namespace Forms
             // 
             this.timer4.Interval = 20;
             this.timer4.Tick += new System.EventHandler(this.timer4_Tick);
-            // 
-            // buttonSearch
-            // 
-            this.buttonSearch.Location = new System.Drawing.Point(293, 37);
-            this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(27, 28);
-            this.buttonSearch.TabIndex = 6;
-            this.buttonSearch.UseVisualStyleBackColor = true;
-            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
-            // 
+            //
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.AutoScroll = true;
@@ -412,13 +426,27 @@ namespace Forms
             this.flowLayoutPanel1.Size = new System.Drawing.Size(655, 588);
             this.flowLayoutPanel1.TabIndex = 7;
             // 
+            // buttonSearch
+            // 
+            this.buttonSearch.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.buttonSearch.IconChar = FontAwesome.Sharp.IconChar.Search;
+            this.buttonSearch.IconColor = System.Drawing.Color.Black;
+            this.buttonSearch.IconSize = 16;
+            this.buttonSearch.Location = new System.Drawing.Point(292, 33);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Rotation = 0D;
+            this.buttonSearch.Size = new System.Drawing.Size(32, 29);
+            this.buttonSearch.TabIndex = 8;
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1018, 588);
-            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.buttonSearch);
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.textBox1);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -449,9 +477,7 @@ namespace Forms
         private System.Windows.Forms.Button buttonCucumbers;
         private System.Windows.Forms.Button buttonTomatoes;
         private System.Windows.Forms.Button buttonOnions;
-        private System.Windows.Forms.Button buttonVegetables;
         private System.Windows.Forms.Button buttonGarlics;
-        private System.Windows.Forms.Button buttonFruits;
         private System.Windows.Forms.Panel panelFruits;
         private System.Windows.Forms.Button buttonCheries;
         private System.Windows.Forms.Button buttonGrapes;
@@ -463,16 +489,18 @@ namespace Forms
         private System.Windows.Forms.Button buttonCakesAndPies;
         private System.Windows.Forms.Button buttonBunsAndDonuts;
         private System.Windows.Forms.Button buttonBread;
-        private System.Windows.Forms.Button buttonConfectionery;
         private System.Windows.Forms.Timer timer3;
-        private System.Windows.Forms.Button buttonOther;
         private System.Windows.Forms.Button buttonHoney;
         private System.Windows.Forms.Button buttonLongLasting;
         private System.Windows.Forms.Button buttonHerbs;
         private System.Windows.Forms.Timer timer4;
         private System.Windows.Forms.Panel panelOther;
-        private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private FontAwesome.Sharp.IconButton buttonVegetables;
+        private FontAwesome.Sharp.IconButton buttonFruits;
+        private FontAwesome.Sharp.IconButton buttonConfectionery;
+        private FontAwesome.Sharp.IconButton buttonOther;
+        private FontAwesome.Sharp.IconButton buttonSearch;
     }
 }
 

@@ -19,7 +19,7 @@ namespace Server
         public static readonly Buyer Buyer4 = new Buyer(nameof(Buyer4), $"{nameof(Buyer4)}_lastName", new Guid());
 
         public static readonly List<Buyer> Buyers = new List<Buyer> { Buyer1, Buyer2, Buyer3, Buyer4 };
-
+      
         public static readonly List<Product> Products = new List<Product> {
 
             new Product($"{nameof(Seller1)}_Product1","Pears", 1, Seller1.Id, new Guid(), "new"),
