@@ -17,7 +17,7 @@ namespace Forms
         bool IsPaneFruitsOpen = false;
         bool IsPanelConfectioneryOpen = false;
         bool IsPanelOtherOpen = false;
-        string category;
+        string _category;
 
         public NewListingForm()
         {
@@ -148,11 +148,11 @@ namespace Forms
 
         private void button7_Click(object sender, EventArgs e)
         {
-            Guid sellerGuid = new Guid();
-            Guid productGuid = new Guid();
+            var sellerGuid = new Guid();
+            var productGuid = new Guid();
             int price = int.Parse(textBox2.Text);
-            Product p = new Product(textBox1.Text, category, price, sellerGuid, productGuid, richTextBox1.Text);
-            MockData.Products.Add(p);
+            Product p = new Product(textBox1.Text, _category, price, sellerGuid, productGuid, richTextBox1.Text);
+            Controllers.s_productController.Insert(new[] { p });
 
             label10.Visible = true;
         }
@@ -161,7 +161,7 @@ namespace Forms
         private void category_click(object sender, EventArgs e)
         {
             Button btn = sender as Button;
-            category = btn.Text;
+            _category = btn.Text;
         }
 
         private void NewListingForm_Load(object sender, EventArgs e)
