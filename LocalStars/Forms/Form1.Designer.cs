@@ -65,8 +65,8 @@ namespace Forms
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timer3 = new System.Windows.Forms.Timer(this.components);
             this.timer4 = new System.Windows.Forms.Timer(this.components);
-            this.buttonSearch = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.buttonSearch = new FontAwesome.Sharp.IconButton();
             this.panel1.SuspendLayout();
             this.panelConfectionery.SuspendLayout();
             this.panelOther.SuspendLayout();
@@ -417,15 +417,6 @@ namespace Forms
             this.timer4.Interval = 20;
             this.timer4.Tick += new System.EventHandler(this.timer4_Tick);
             // 
-            // buttonSearch
-            // 
-            this.buttonSearch.Location = new System.Drawing.Point(293, 37);
-            this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(27, 28);
-            this.buttonSearch.TabIndex = 6;
-            this.buttonSearch.UseVisualStyleBackColor = true;
-            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
-            // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.AutoScroll = true;
@@ -436,13 +427,27 @@ namespace Forms
             this.flowLayoutPanel1.Size = new System.Drawing.Size(655, 588);
             this.flowLayoutPanel1.TabIndex = 7;
             // 
+            // buttonSearch
+            // 
+            this.buttonSearch.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.buttonSearch.IconChar = FontAwesome.Sharp.IconChar.Search;
+            this.buttonSearch.IconColor = System.Drawing.Color.Black;
+            this.buttonSearch.IconSize = 16;
+            this.buttonSearch.Location = new System.Drawing.Point(292, 33);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Rotation = 0D;
+            this.buttonSearch.Size = new System.Drawing.Size(32, 29);
+            this.buttonSearch.TabIndex = 8;
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1018, 588);
-            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.buttonSearch);
+            this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.textBox1);
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -491,12 +496,12 @@ namespace Forms
         private System.Windows.Forms.Button buttonHerbs;
         private System.Windows.Forms.Timer timer4;
         private System.Windows.Forms.Panel panelOther;
-        private System.Windows.Forms.Button buttonSearch;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private FontAwesome.Sharp.IconButton buttonVegetables;
         private FontAwesome.Sharp.IconButton buttonFruits;
         private FontAwesome.Sharp.IconButton buttonConfectionery;
         private FontAwesome.Sharp.IconButton buttonOther;
+        private FontAwesome.Sharp.IconButton buttonSearch;
     }
 }
 
