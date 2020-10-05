@@ -146,7 +146,7 @@ namespace Forms
             var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>();
             foreach (var product in productViewModels)
             {
-                if (product.Name.Contains(textBox1.Text))
+                if (product.Name1.Contains(textBox1.Text))
                 {
                     product.Show();
                 }
@@ -175,7 +175,7 @@ namespace Forms
         private Control MapToSellerListingPreview(Product product, int arg2)
         {
             var viewmodel = new SellerListingPreview();
-            viewmodel.Name = product.Title;
+            viewmodel.Name1 = product.Title;
             viewmodel.Desciption = product.Category;
             viewmodel.Price = product.Price.ToString();
             viewmodel.Picture= Resources.missing_image;
