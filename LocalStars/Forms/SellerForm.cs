@@ -40,6 +40,7 @@ namespace Forms
                 listView1.FullRowSelect = true;
 
                 listView1.Columns.Add("Title", 150);
+                listView1.Columns.Add("Category", 150);
                 listView1.Columns.Add("Price(€)", 80);
                 listView1.Columns.Add("Description", 150);
 
@@ -47,6 +48,7 @@ namespace Forms
                 {
                     var items = new ListViewItem();
                     items.Text = p.Title;
+                    items.SubItems.Add(p.Category);
                     items.SubItems.Add(p.Price.ToString());
                     items.SubItems.Add(p.Description);
                     listView1.Items.Add(items);

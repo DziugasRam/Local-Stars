@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Server;
+using Models;
 
 namespace Forms
 {
@@ -15,6 +17,7 @@ namespace Forms
         bool IsPaneFruitsOpen = false;
         bool IsPanelConfectioneryOpen = false;
         bool IsPanelOtherOpen = false;
+        string category;
 
         public NewListingForm()
         {
@@ -145,7 +148,26 @@ namespace Forms
 
         private void button7_Click(object sender, EventArgs e)
         {
+            Guid sellerGuid = new Guid();
+            Guid productGuid = new Guid();
+            int price = int.Parse(textBox2.Text);
+            Product p = new Product(textBox1.Text, category, price, sellerGuid, productGuid, richTextBox1.Text);
+            MockData.Products.Add(p);
 
+            label10.Visible = true;
         }
+
+
+        private void category_click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            category = btn.Text;
+        }
+
+        private void NewListingForm_Load(object sender, EventArgs e)
+        {
+            label10.Visible = false;
+        }
+
     }
 }

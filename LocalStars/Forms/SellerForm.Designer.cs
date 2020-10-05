@@ -40,7 +40,7 @@
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(60, 94);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(407, 141);
+            this.listView1.Size = new System.Drawing.Size(609, 183);
             this.listView1.TabIndex = 0;
             this.listView1.UseCompatibleStateImageBehavior = false;
             // 
@@ -57,7 +57,7 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Segoe UI Semibold", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button1.Location = new System.Drawing.Point(500, 126);
+            this.button1.Location = new System.Drawing.Point(567, 377);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(185, 38);
             this.button1.TabIndex = 2;
@@ -77,7 +77,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(269, 251);
+            this.button3.Location = new System.Drawing.Point(471, 283);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(198, 29);
             this.button3.TabIndex = 4;
