@@ -14,9 +14,5 @@ namespace Models
         public string FirstName { get; }
         public string LastName { get; }
         public Guid Id { get; }
-        public Guid GetId()
-        {
-            return Id;
-        }
     }
 }

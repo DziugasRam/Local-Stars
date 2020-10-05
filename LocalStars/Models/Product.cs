@@ -21,9 +21,5 @@ namespace Models
         public Guid SellerId { get; }
         public string Description { get; }
         public Guid Id { get; }
-        public Guid GetId()
-        {
-            return Id;
-        }
     }
 }

@@ -6,19 +6,19 @@ namespace Models
 {
     public interface IIdentifiable
     {
-        public Guid GetId();
+        public Guid Id { get; }
     }
 
     public class IdentifiableComparer: IEqualityComparer<IIdentifiable>
     {
         public bool Equals(IIdentifiable item1, IIdentifiable item2)
         {
-            return item1.GetId() == item2.GetId();
+            return item1.Id == item2.Id;
         }
 
         public int GetHashCode(IIdentifiable item)
         {
-            return item.GetId().GetHashCode();
+            return item.Id.GetHashCode();
         }
     }
 }
