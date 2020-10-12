@@ -31,22 +31,18 @@ namespace Forms
             if (IsPanelVegetablesOpen)
             {
                 panelVegetables.Height -= 21;
-                if (panelVegetables.Height <= 0)
-                {
-                    panelVegetables.SendToBack();
-                    timer1.Stop();
-                    IsPanelVegetablesOpen = false;
-                }
+                if (panelVegetables.Height > 0) return;
+                panelVegetables.SendToBack();
+                timer1.Stop();
+                IsPanelVegetablesOpen = false;
             }
             else if (!IsPanelVegetablesOpen)
             {
                 panelVegetables.BringToFront();
                 panelVegetables.Height += 21;
-                if(panelVegetables.Height>=351)
-                {
-                    timer1.Stop();
-                    IsPanelVegetablesOpen = true;
-                }
+                if (panelVegetables.Height < 351) return;
+                timer1.Stop();
+                IsPanelVegetablesOpen = true;
             }
         }
 
@@ -60,22 +56,18 @@ namespace Forms
             if (IsPaneFruitsOpen)
             {
                 panelFruits.Height -=21;
-                if (panelFruits.Height <= 0)
-                {
-                    panelFruits.SendToBack();
-                    IsPaneFruitsOpen = false;
-                    timer2.Stop();
-                }
+                if (panelFruits.Height > 0) return;
+                panelFruits.SendToBack();
+                IsPaneFruitsOpen = false;
+                timer2.Stop();
             }
             else
             {
                 panelFruits.BringToFront();
                 panelFruits.Height += 21;
-                if (panelFruits.Height >= 282)
-                {
-                    IsPaneFruitsOpen = true;
-                    timer2.Stop();
-                }
+                if (panelFruits.Height < 282) return;
+                IsPaneFruitsOpen = true;
+                timer2.Stop();
             }
         }
 
@@ -99,22 +91,18 @@ namespace Forms
             if (IsPanelConfectioneryOpen)
             {
                 panelConfectionery.Height -= 21;
-                if (panelConfectionery.Height == 0)
-                {                  
-                    IsPanelConfectioneryOpen = false;
-                    panelConfectionery.SendToBack();
-                    timer3.Stop();
-                }
+                if (panelConfectionery.Height != 0) return;
+                IsPanelConfectioneryOpen = false;
+                panelConfectionery.SendToBack();
+                timer3.Stop();
             }
             else
             {
                 panelConfectionery.BringToFront();
                 panelConfectionery.Height += 21;
-                if (panelConfectionery.Height >= 213)
-                {                    
-                    IsPanelConfectioneryOpen = true;
-                    timer3.Stop();
-                }
+                if (panelConfectionery.Height < 213) return;
+                IsPanelConfectioneryOpen = true;
+                timer3.Stop();
             }
         }
         private void timer4_Tick(object sender, EventArgs e)
@@ -122,22 +110,18 @@ namespace Forms
             if (IsPanelOtherOpen)
             {
                 panelOther.Height -= 20;
-                if (panelOther.Height <= 0)
-                {
-                    IsPanelOtherOpen = false;
-                    panelOther.SendToBack();
-                    timer4.Stop();
-                }
+                if (panelOther.Height > 0) return;
+                IsPanelOtherOpen = false;
+                panelOther.SendToBack();
+                timer4.Stop();
             }
             else
             {
                 panelOther.BringToFront();
                 panelOther.Height += 20;
-                if (panelOther.Height >= 150)
-                {
-                    IsPanelOtherOpen = true;
-                    timer4.Stop();
-                }
+                if (panelOther.Height < 150) return;
+                IsPanelOtherOpen = true;
+                timer4.Stop();
             }
         }
 
@@ -161,49 +145,67 @@ namespace Forms
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            populateList();
+            PopulateList();
         }
 
-        private void populateList()
+        private void PopulateList()
         {
             var products = Controllers.s_productController.Get();
-            var viewmodels = products.Select(MapToSellerListingPreview);
-            flowLayoutPanel1.Controls.AddRange(viewmodels.ToArray());
+            var viewmodel = products.Select(MapToSellerListingPreview);
+            flowLayoutPanel1.Controls.AddRange(viewmodel.ToArray());
             
         }
 
         private Control MapToSellerListingPreview(Product product, int arg2)
         {
-            var viewmodel = new SellerListingPreview();
-            viewmodel.Name1 = product.Title;
-            viewmodel.Desciption = product.Category;
-            viewmodel.Price = product.Price.ToString();
-            viewmodel.Picture= Resources.missing_image;
+            var viewmodel = new SellerListingPreview
+            {
+                Name1 = product.Title,
+                Description = product.Category,
+                Price = product.Price.ToString(),
+                Picture = Resources.missing_image
+            };
 
             return viewmodel;
         }
 
         private void buttonCategory_Click(object sender, EventArgs e)
         {
-            Button btn = sender as Button;
+            var btn = sender as Button;
 
             var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>();
 
             foreach(var product in productViewModels)
             {
-                if(product.Desciption == btn.Text)
+                if(product.Description == btn.Text)
                 {
                     product.Show();
-
-                } else
+                }
+                else
                 {
                     product.Hide();
-
                 }
                 
             }
 
         }
 
+        private void buttonFavorite_Click(object sender, EventArgs e)
+        {
+            var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>();
+
+            foreach (var product in productViewModels)
+            {
+                if (product.MouseClickCount % 2 != 0)
+                {
+                    product.Show();
+                }
+                else
+                {
+                    product.Hide();
+                }
+
+            }
+        }
     }
 }
