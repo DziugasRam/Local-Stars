@@ -67,6 +67,7 @@ namespace Forms
             this.timer4 = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.buttonSearch = new FontAwesome.Sharp.IconButton();
+            this.buttonFavorite = new FontAwesome.Sharp.IconButton();
             this.panel1.SuspendLayout();
             this.panelConfectionery.SuspendLayout();
             this.panelOther.SuspendLayout();
@@ -420,7 +421,7 @@ namespace Forms
             this.buttonVegetables.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonVegetables.Name = "buttonVegetables";
             this.buttonVegetables.Rotation = 0D;
-            this.buttonVegetables.Size = new System.Drawing.Size(202, 52);
+            this.buttonVegetables.Size = new System.Drawing.Size(231, 69);
             this.buttonVegetables.TabIndex = 2;
             this.buttonVegetables.Text = "Vegetables";
             this.buttonVegetables.UseVisualStyleBackColor = true;
@@ -465,11 +466,26 @@ namespace Forms
             this.buttonSearch.UseVisualStyleBackColor = true;
             this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
+            // buttonFavorite
+            // 
+            this.buttonFavorite.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.buttonFavorite.IconChar = FontAwesome.Sharp.IconChar.Heart;
+            this.buttonFavorite.IconColor = System.Drawing.Color.Black;
+            this.buttonFavorite.IconSize = 16;
+            this.buttonFavorite.Location = new System.Drawing.Point(290, 25);
+            this.buttonFavorite.Name = "buttonFavorite";
+            this.buttonFavorite.Rotation = 0D;
+            this.buttonFavorite.Size = new System.Drawing.Size(28, 22);
+            this.buttonFavorite.TabIndex = 9;
+            this.buttonFavorite.UseVisualStyleBackColor = true;
+            this.buttonFavorite.Click += new System.EventHandler(this.buttonFavorite_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(891, 441);
+            this.Controls.Add(this.buttonFavorite);
             this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.panel1);
@@ -525,6 +541,7 @@ namespace Forms
         private FontAwesome.Sharp.IconButton buttonConfectionery;
         private FontAwesome.Sharp.IconButton buttonOther;
         private FontAwesome.Sharp.IconButton buttonSearch;
+        private FontAwesome.Sharp.IconButton buttonFavorite;
     }
 }
 

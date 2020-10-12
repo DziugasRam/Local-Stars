@@ -1,4 +1,6 @@
-﻿namespace Forms
+﻿using FontAwesome.Sharp;
+
+namespace Forms
 {
     partial class SellerListingPreview
     {
@@ -33,7 +35,9 @@
             this.labelPrice = new System.Windows.Forms.Label();
             this.labelDescription = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.iconFavorite = new FontAwesome.Sharp.IconPictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iconFavorite)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -89,11 +93,26 @@
             this.panel1.Size = new System.Drawing.Size(393, 1);
             this.panel1.TabIndex = 2;
             // 
+            // iconFavorite
+            // 
+            this.iconFavorite.BackColor = System.Drawing.Color.Transparent;
+            this.iconFavorite.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.iconFavorite.IconChar = FontAwesome.Sharp.IconChar.Heart;
+            this.iconFavorite.IconColor = System.Drawing.SystemColors.ControlText;
+            this.iconFavorite.IconSize = 51;
+            this.iconFavorite.Location = new System.Drawing.Point(460, 9);
+            this.iconFavorite.Name = "iconFavorite";
+            this.iconFavorite.Size = new System.Drawing.Size(64, 51);
+            this.iconFavorite.TabIndex = 3;
+            this.iconFavorite.TabStop = false;
+            this.iconFavorite.Click += new System.EventHandler(this.iconPictureBox1_Click);
+            // 
             // SellerListingPreview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.iconFavorite);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelDescription);
             this.Controls.Add(this.labelPrice);
@@ -105,6 +124,7 @@
             this.MouseEnter += new System.EventHandler(this.SellerListingPreview_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.SellerListingPreview_MouseLeave);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iconFavorite)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -116,5 +136,6 @@
         private System.Windows.Forms.Label labelPrice;
         private System.Windows.Forms.Label labelDescription;
         private System.Windows.Forms.Panel panel1;
+        private FontAwesome.Sharp.IconPictureBox iconFavorite;
     }
 }

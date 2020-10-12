@@ -19,37 +19,40 @@ namespace Forms
 
         private string name;
         private string price;
-       // private string category;
+        // private string category;
         private string desctiption;
         private Image picture;
 
         [Category("Custom Properties")]
         public string Name1
         {
-            get { return name; }
+            get => name;
             set { name = value; labelPName.Text = value; }
         }
 
         [Category("Custom Properties")]
         public string Price
         {
-            get { return price; }
+            get => price;
             set { price = value; labelPrice.Text = value; }
         }
 
         [Category("Custom Properties")]
-        public string Desciption
+        public string Description
         {
-            get { return desctiption; }
+            get => desctiption;
             set { desctiption = value; labelDescription.Text = value; }
         }
 
         [Category("Custom Properties")]
         public Image Picture
         {
-            get { return picture; }
+            get => picture;
             set { picture = value; pictureBox1.Image = value; }
         }
+
+        [Category("Custom Properties")]
+        public int MouseClickCount { get; private set; } = 0;
 
         #endregion
 
@@ -65,8 +68,14 @@ namespace Forms
 
         private void SellerListingPreview_MouseClick(object sender, MouseEventArgs e)
         {
-            ListingForm listingForm = new ListingForm(labelPName.Text, labelPrice.Text, labelDescription.Text, pictureBox1.Image);
+            var listingForm = new ListingForm(labelPName.Text, labelPrice.Text, labelDescription.Text, pictureBox1.Image);
             listingForm.Show();
+        }
+
+        private void iconPictureBox1_Click(object sender, EventArgs e)
+        {
+            MouseClickCount++;
+            iconFavorite.IconChar = MouseClickCount % 2 != 0 ? FontAwesome.Sharp.IconChar.HeartBroken : FontAwesome.Sharp.IconChar.Heart;
         }
     }
 }
