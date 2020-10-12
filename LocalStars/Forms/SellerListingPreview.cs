@@ -19,7 +19,7 @@ namespace Forms
 
         private string name;
         private string price;
-        // private string category;
+        private string category;
         private string desctiption;
         private Image picture;
 
@@ -42,6 +42,13 @@ namespace Forms
         {
             get => desctiption;
             set { desctiption = value; labelDescription.Text = value; }
+        }
+
+        [Category("Custom Properties")]
+        public string Category
+        {
+            get => category;
+            set { category = value; labelCategory.Text = value; }
         }
 
         [Category("Custom Properties")]
@@ -68,7 +75,7 @@ namespace Forms
 
         private void SellerListingPreview_MouseClick(object sender, MouseEventArgs e)
         {
-            var listingForm = new ListingForm(labelPName.Text, labelPrice.Text, labelDescription.Text, pictureBox1.Image);
+            var listingForm = new ListingForm(labelPName.Text, labelPrice.Text, labelDescription.Text ,labelCategory.Text, pictureBox1.Image);
             listingForm.Show();
         }
 
