@@ -161,9 +161,10 @@ namespace Forms
             var viewmodel = new SellerListingPreview
             {
                 Name1 = product.Title,
-                Description = product.Category,
+                Description = product.Description,
                 Price = product.Price.ToString(),
-                Picture = Resources.missing_image
+                Category = product.Category,
+                Picture = Resources.missing_image,
             };
 
             return viewmodel;
@@ -206,6 +207,11 @@ namespace Forms
                 }
 
             }
+        }
+
+        private void buttonGoBack_Click(object sender, EventArgs e)
+        {
+            this.Hide();
         }
     }
 }
