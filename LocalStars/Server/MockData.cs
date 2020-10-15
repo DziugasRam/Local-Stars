@@ -22,11 +22,11 @@ namespace Server
       
         public static readonly List<Product> Products = new List<Product> {
 
-            new Product($"{nameof(Seller1)}_Product1","Pears", 1, Seller1.Id, new Guid(), "new"),
-            new Product($"{nameof(Seller1)}_Product3","Potatoes", 1, Seller1.Id, new Guid(), "new"),
+            new Product($"{nameof(Seller1)}_Product1","Pears", 2, Seller1.Id, new Guid(), "new"),
+            new Product($"{nameof(Seller1)}_Product3","Potatoes", 3, Seller1.Id, new Guid(), "new"),
             new Product($"{nameof(Seller1)}_Product2","Garlics", 1, Seller1.Id, new Guid(),"new"),
             new Product($"{nameof(Seller2)}_Product1","Cucumbers", 1, Seller2.Id, new Guid(),"new"),
-            new Product($"{nameof(Seller2)}_Product2","Garlics", 1, Seller2.Id, new Guid(),"new"),
+            new Product($"{nameof(Seller2)}_Product2","Garlics", 4, Seller2.Id, new Guid(),"new"),
             new Product($"{nameof(Seller4)}_Product1","Apples", 1, Seller4.Id, new Guid(),"new"),
             new Product($"{nameof(Seller4)}_Product2","Pears", 1, Seller4.Id, new Guid(),"new")
         };

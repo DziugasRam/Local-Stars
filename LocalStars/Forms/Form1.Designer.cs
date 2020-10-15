@@ -69,11 +69,19 @@ namespace Forms
             this.buttonSearch = new FontAwesome.Sharp.IconButton();
             this.buttonFavorite = new FontAwesome.Sharp.IconButton();
             this.buttonGoBack = new System.Windows.Forms.Button();
+            this.panelSortBy = new System.Windows.Forms.Panel();
+            this.buttonZA = new FontAwesome.Sharp.IconButton();
+            this.buttonAZ = new FontAwesome.Sharp.IconButton();
+            this.buttonHighestPrice = new FontAwesome.Sharp.IconButton();
+            this.buttonLowPrice = new FontAwesome.Sharp.IconButton();
+            this.buttonSortBy = new FontAwesome.Sharp.IconButton();
+            this.timer5 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.panelConfectionery.SuspendLayout();
             this.panelOther.SuspendLayout();
             this.panelFruits.SuspendLayout();
             this.panelVegetables.SuspendLayout();
+            this.panelSortBy.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBox1
@@ -129,7 +137,7 @@ namespace Forms
             this.panel1.Controls.Add(this.panelFruits);
             this.panel1.Controls.Add(this.panelVegetables);
             this.panel1.Controls.Add(this.buttonVegetables);
-            this.panel1.Location = new System.Drawing.Point(53, 101);
+            this.panel1.Location = new System.Drawing.Point(12, 105);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(230, 433);
             this.panel1.TabIndex = 3;
@@ -468,11 +476,110 @@ namespace Forms
             this.buttonGoBack.UseVisualStyleBackColor = true;
             this.buttonGoBack.Click += new System.EventHandler(this.buttonGoBack_Click);
             // 
+            // panelSortBy
+            // 
+            this.panelSortBy.Controls.Add(this.buttonZA);
+            this.panelSortBy.Controls.Add(this.buttonAZ);
+            this.panelSortBy.Controls.Add(this.buttonHighestPrice);
+            this.panelSortBy.Controls.Add(this.buttonLowPrice);
+            this.panelSortBy.Controls.Add(this.buttonSortBy);
+            this.panelSortBy.Location = new System.Drawing.Point(254, 105);
+            this.panelSortBy.MaximumSize = new System.Drawing.Size(109, 126);
+            this.panelSortBy.MinimumSize = new System.Drawing.Size(109, 25);
+            this.panelSortBy.Name = "panelSortBy";
+            this.panelSortBy.Size = new System.Drawing.Size(109, 25);
+            this.panelSortBy.TabIndex = 10;
+            // 
+            // buttonZA
+            // 
+            this.buttonZA.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.buttonZA.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.buttonZA.IconColor = System.Drawing.SystemColors.Control;
+            this.buttonZA.IconSize = 16;
+            this.buttonZA.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonZA.Location = new System.Drawing.Point(0, 98);
+            this.buttonZA.Name = "buttonZA";
+            this.buttonZA.Rotation = 0D;
+            this.buttonZA.Size = new System.Drawing.Size(109, 29);
+            this.buttonZA.TabIndex = 0;
+            this.buttonZA.Text = "Z-A";
+            this.buttonZA.UseVisualStyleBackColor = true;
+            this.buttonZA.Click += new System.EventHandler(this.buttonZA_Click);
+            // 
+            // buttonAZ
+            // 
+            this.buttonAZ.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.buttonAZ.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.buttonAZ.IconColor = System.Drawing.Color.Black;
+            this.buttonAZ.IconSize = 16;
+            this.buttonAZ.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonAZ.Location = new System.Drawing.Point(0, 73);
+            this.buttonAZ.Name = "buttonAZ";
+            this.buttonAZ.Rotation = 0D;
+            this.buttonAZ.Size = new System.Drawing.Size(109, 29);
+            this.buttonAZ.TabIndex = 0;
+            this.buttonAZ.Text = "A-Z";
+            this.buttonAZ.UseVisualStyleBackColor = true;
+            this.buttonAZ.Click += new System.EventHandler(this.buttonAZ_Click);
+            // 
+            // buttonHighestPrice
+            // 
+            this.buttonHighestPrice.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.buttonHighestPrice.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.buttonHighestPrice.IconColor = System.Drawing.Color.Black;
+            this.buttonHighestPrice.IconSize = 16;
+            this.buttonHighestPrice.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonHighestPrice.Location = new System.Drawing.Point(0, 48);
+            this.buttonHighestPrice.Name = "buttonHighestPrice";
+            this.buttonHighestPrice.Rotation = 0D;
+            this.buttonHighestPrice.Size = new System.Drawing.Size(109, 29);
+            this.buttonHighestPrice.TabIndex = 0;
+            this.buttonHighestPrice.Text = "Highest Price";
+            this.buttonHighestPrice.UseVisualStyleBackColor = true;
+            this.buttonHighestPrice.Click += new System.EventHandler(this.buttonHighestPrice_Click);
+            // 
+            // buttonLowPrice
+            // 
+            this.buttonLowPrice.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.buttonLowPrice.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.buttonLowPrice.IconColor = System.Drawing.Color.Black;
+            this.buttonLowPrice.IconSize = 16;
+            this.buttonLowPrice.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonLowPrice.Location = new System.Drawing.Point(0, 23);
+            this.buttonLowPrice.Name = "buttonLowPrice";
+            this.buttonLowPrice.Rotation = 0D;
+            this.buttonLowPrice.Size = new System.Drawing.Size(109, 29);
+            this.buttonLowPrice.TabIndex = 0;
+            this.buttonLowPrice.Text = "Lowest Price";
+            this.buttonLowPrice.UseVisualStyleBackColor = true;
+            this.buttonLowPrice.Click += new System.EventHandler(this.buttonLowPrice_Click);
+            // 
+            // buttonSortBy
+            // 
+            this.buttonSortBy.Flip = FontAwesome.Sharp.FlipOrientation.Normal;
+            this.buttonSortBy.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.buttonSortBy.IconColor = System.Drawing.Color.Black;
+            this.buttonSortBy.IconSize = 16;
+            this.buttonSortBy.Location = new System.Drawing.Point(0, 0);
+            this.buttonSortBy.Name = "buttonSortBy";
+            this.buttonSortBy.Rotation = 0D;
+            this.buttonSortBy.Size = new System.Drawing.Size(109, 29);
+            this.buttonSortBy.TabIndex = 0;
+            this.buttonSortBy.Text = "Sort By";
+            this.buttonSortBy.UseVisualStyleBackColor = true;
+            this.buttonSortBy.Click += new System.EventHandler(this.buttonSortBy_Click);
+            // 
+            // timer5
+            // 
+            this.timer5.Interval = 20;
+            this.timer5.Tick += new System.EventHandler(this.timer5_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1018, 588);
+            this.Controls.Add(this.panelSortBy);
             this.Controls.Add(this.buttonFavorite);
             this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.flowLayoutPanel1);
@@ -488,6 +595,7 @@ namespace Forms
             this.panelOther.ResumeLayout(false);
             this.panelFruits.ResumeLayout(false);
             this.panelVegetables.ResumeLayout(false);
+            this.panelSortBy.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -533,6 +641,13 @@ namespace Forms
         private FontAwesome.Sharp.IconButton buttonSearch;
         private FontAwesome.Sharp.IconButton buttonFavorite;
         private System.Windows.Forms.Button buttonGoBack;
+        private System.Windows.Forms.Panel panelSortBy;
+        private FontAwesome.Sharp.IconButton buttonLowPrice;
+        private FontAwesome.Sharp.IconButton buttonSortBy;
+        private FontAwesome.Sharp.IconButton buttonZA;
+        private FontAwesome.Sharp.IconButton buttonAZ;
+        private FontAwesome.Sharp.IconButton buttonHighestPrice;
+        private System.Windows.Forms.Timer timer5;
     }
 }
 
