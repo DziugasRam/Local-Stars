@@ -178,7 +178,7 @@ namespace Forms
 
             foreach(var product in productViewModels)
             {
-                if(product.Description == btn.Text)
+                if(product.Category == btn.Text)
                 {
                     product.Show();
                 }
