@@ -108,13 +108,13 @@ namespace Forms
 
         private void timer5_Tick(object sender, EventArgs e)
         {
-            if (IsPanelSortByOpen)
+            if (!IsPanelSortByOpen)
             {
                 panelSortBy.Height += 10;
                 if(panelSortBy.Size == panelSortBy.MaximumSize)
                 {
                     timer5.Stop();
-                    IsPanelSortByOpen = false;
+                    IsPanelSortByOpen = true;
                 }
             }
             else
@@ -123,7 +123,7 @@ namespace Forms
                 if (panelSortBy.Size == panelSortBy.MinimumSize)
                 {
                     timer5.Stop();
-                    IsPanelSortByOpen = true;
+                    IsPanelSortByOpen = false;
                 }
             }
         }
@@ -240,9 +240,11 @@ namespace Forms
 
         private void buttonLowPrice_Click(object sender, EventArgs e)
         {
-            var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>();
+            var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>().ToArray();
 
-            foreach (var product in productViewModels)
+            var sortedProducts = productViewModels.OrderBy(o => o.Price);
+
+            foreach (var product in sortedProducts)
             {
                 product.Show();
             }
@@ -250,17 +252,38 @@ namespace Forms
 
         private void buttonHighestPrice_Click(object sender, EventArgs e)
         {
+            var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>().ToArray();
 
+            var sortedProducts = productViewModels.OrderByDescending(o => o.Price);
+
+            foreach (var product in sortedProducts)
+            {
+                product.Show();
+            }
         }
 
         private void buttonAZ_Click(object sender, EventArgs e)
         {
+            var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>().ToArray();
 
+            var sortedProducts = productViewModels.OrderBy(o => o.Name1);
+
+            foreach (var product in sortedProducts)
+            {
+                product.Show();
+            }
         }
 
         private void buttonZA_Click(object sender, EventArgs e)
         {
+            var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>().ToArray();
 
+            var sortedProducts = productViewModels.OrderByDescending(o => o.Name1);
+
+            foreach (var product in sortedProducts)
+            {
+                product.Show();
+            }
         }
     }
 }
