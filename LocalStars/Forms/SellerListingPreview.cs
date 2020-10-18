@@ -5,6 +5,9 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
+using Microsoft.AspNetCore.Mvc;
+using Models;
+using Server;
 
 namespace Forms
 {
@@ -12,16 +15,26 @@ namespace Forms
     {
         public SellerListingPreview()
         {
+           /* foreach (var product in CurrentBuyer.FavoriteProducts)
+            {
+                if (guid == product.Id)
+                {
+                    iconFavorite.IconChar =FontAwesome.Sharp.IconChar.HeartBroken;
+                }
+            }*/
             InitializeComponent();
+
         }
 
         #region Properties
 
         private string name;
+        private Guid guid;
         private string price;
         private string category;
         private string desctiption;
         private Image picture;
+        Buyer CurrentBuyer = Controllers.s_buyerController.GetById(MockData.User1.AssociatedBuyer.Value);
 
         [Category("Custom Properties")]
         public string Name1
@@ -29,6 +42,14 @@ namespace Forms
             get => name;
             set { name = value; labelPName.Text = value; }
         }
+
+        [Category("Custom Properties")]
+        public Guid Guid
+        {
+            get => guid;
+            set { guid = value;}
+        }
+
 
         [Category("Custom Properties")]
         public string Price
@@ -81,8 +102,19 @@ namespace Forms
 
         private void iconPictureBox1_Click(object sender, EventArgs e)
         {
+
             MouseClickCount++;
-            iconFavorite.IconChar = MouseClickCount % 2 != 0 ? FontAwesome.Sharp.IconChar.HeartBroken : FontAwesome.Sharp.IconChar.Heart;
+            if(MouseClickCount % 2 != 0)
+            {
+                iconFavorite.IconChar = FontAwesome.Sharp.IconChar.Heartbeat;
+                Controllers.s_buyerController.AddLikedProduct(CurrentBuyer.Id, Controllers.s_productController.Get(Guid));
+            }
+            else
+            {
+                iconFavorite.IconChar = FontAwesome.Sharp.IconChar.Heart;
+                Controllers.s_buyerController.RemoveLikedProduct(CurrentBuyer.Id, Controllers.s_productController.Get(Guid));
+            }
+          
         }
     }
 }

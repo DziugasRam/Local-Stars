@@ -1,5 +1,6 @@
 ﻿using Forms.Properties;
 using Models;
+using Server;
 using Server.Controllers;
 using System;
 using System.Collections;
@@ -21,6 +22,8 @@ namespace Forms
         private bool IsPanelConfectioneryOpen = false;
         private bool IsPanelOtherOpen = false;
         private bool IsPanelSortByOpen = false;
+        private bool IsButtonFavoritesClicked = false;
+        Buyer CurrentBuyer = Controllers.s_buyerController.GetById(MockData.User1.AssociatedBuyer.Value);
 
         public Form1()
         {
@@ -171,6 +174,7 @@ namespace Forms
             var viewmodel = new SellerListingPreview
             {
                 Name1 = product.Title,
+                Guid = product.Id,
                 Description = product.Description,
                 Price = product.Price.ToString(),
                 Category = product.Category,
@@ -220,16 +224,28 @@ namespace Forms
         {
             var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>();
 
-            foreach (var product in productViewModels)
+            if (!IsButtonFavoritesClicked)
             {
-                if (product.MouseClickCount % 2 != 0)
+                foreach (var product in productViewModels)
+                {
+                    product.Hide();
+                    foreach (var favProduct in CurrentBuyer.FavoriteProducts)
+                    {
+                        if (product.Guid==favProduct.Id)
+                        {
+                            product.Show();                         
+                        }
+                    }
+                }
+                IsButtonFavoritesClicked = true;
+            }
+            else
+            {
+                foreach (var product in productViewModels)
                 {
                     product.Show();
                 }
-                else
-                {
-                    product.Hide();
-                }
+                IsButtonFavoritesClicked = false;
             }
         }
 

@@ -33,5 +33,16 @@ namespace Server.Providers
             Remove(buyer.Id);
             Insert(buyer);
         }
+
+
+        public void AddLikedProduct(Guid id,Product product)
+        {
+            GetById(id).FavoriteProducts.Add(product);
+        }
+
+        public void RemoveLikedProduct(Guid id, Product product)
+        {
+            GetById(id).FavoriteProducts.Remove(product);
+        }
     }
 }
