@@ -1,5 +1,6 @@
 ﻿using Forms.Properties;
 using Models;
+using Server;
 using Server.Controllers;
 using System;
 using System.Collections;
@@ -16,10 +17,13 @@ namespace Forms
 {
     public partial class Form1 : Form
     {
-        bool IsPanelVegetablesOpen = false;
-        bool IsPaneFruitsOpen = false;
-        bool IsPanelConfectioneryOpen = false;
-        bool IsPanelOtherOpen = false;
+        private bool IsPanelVegetablesOpen = false;
+        private bool IsPaneFruitsOpen = false;
+        private bool IsPanelConfectioneryOpen = false;
+        private bool IsPanelOtherOpen = false;
+        private bool IsPanelSortByOpen = false;
+        private bool IsButtonFavoritesClicked = false;
+        Buyer CurrentBuyer = Controllers.s_buyerController.GetById(MockData.User1.AssociatedBuyer.Value);
 
         public Form1()
         {
@@ -46,11 +50,6 @@ namespace Forms
             }
         }
 
-        private void buttonVegetables_Click(object sender, EventArgs e)
-        {
-            timer1.Start();
-        }
-
         private void timer2_Tick(object sender, EventArgs e)
         {
             if (IsPaneFruitsOpen)
@@ -71,22 +70,7 @@ namespace Forms
             }
         }
 
-        private void buttonFruits_Click(object sender, EventArgs e)
-        {
-            timer2.Start();
-        }
-
-        private void buttonConfectionery_Click(object sender, EventArgs e)
-        {
-            timer3.Start();
-        }
-
-        private void buttonOther_Click(object sender, EventArgs e)
-        {
-            timer4.Start();
-        }
-
-        private void timer3_Tick(object sender, EventArgs e)
+                private void timer3_Tick(object sender, EventArgs e)
         {
             if (IsPanelConfectioneryOpen)
             {
@@ -125,22 +109,51 @@ namespace Forms
             }
         }
 
-        private void buttonSearch_Click(object sender, EventArgs e)
+        private void timer5_Tick(object sender, EventArgs e)
         {
-            var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>();
-            foreach (var product in productViewModels)
+            if (!IsPanelSortByOpen)
             {
-                if (product.Name1.Contains(textBox1.Text))
+                panelSortBy.Height += 10;
+                if(panelSortBy.Size == panelSortBy.MaximumSize)
                 {
-                    product.Show();
+                    timer5.Stop();
+                    IsPanelSortByOpen = true;
                 }
-                else
-                {
-                    product.Hide();
-                }
-
             }
+            else
+            {
+                panelSortBy.Height -= 10;
+                if (panelSortBy.Size == panelSortBy.MinimumSize)
+                {
+                    timer5.Stop();
+                    IsPanelSortByOpen = false;
+                }
+            }
+        }
 
+        private void buttonVegetables_Click(object sender, EventArgs e)
+        {
+            timer1.Start();
+        }
+
+        private void buttonFruits_Click(object sender, EventArgs e)
+        {
+            timer2.Start();
+        }
+
+        private void buttonConfectionery_Click(object sender, EventArgs e)
+        {
+            timer3.Start();
+        }
+
+        private void buttonOther_Click(object sender, EventArgs e)
+        {
+            timer4.Start();
+        }
+
+        private void buttonSortBy_Click(object sender, EventArgs e)
+        {
+            timer5.Start();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -161,6 +174,7 @@ namespace Forms
             var viewmodel = new SellerListingPreview
             {
                 Name1 = product.Title,
+                Guid = product.Id,
                 Description = product.Description,
                 Price = product.Price.ToString(),
                 Category = product.Category,
@@ -178,7 +192,7 @@ namespace Forms
 
             foreach(var product in productViewModels)
             {
-                if(product.Description == btn.Text)
+                if(product.Category == btn.Text)
                 {
                     product.Show();
                 }
@@ -186,32 +200,106 @@ namespace Forms
                 {
                     product.Hide();
                 }
-                
             }
+        }
 
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+            var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>();
+            foreach (var product in productViewModels)
+            {
+                if (product.Name1.Contains(textBox1.Text) ||
+                    product.Description.Contains(textBox1.Text))
+                {
+                    product.Show();
+                }
+                else
+                {
+                    product.Hide();
+                }
+            }
         }
 
         private void buttonFavorite_Click(object sender, EventArgs e)
         {
             var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>();
 
-            foreach (var product in productViewModels)
+            if (!IsButtonFavoritesClicked)
             {
-                if (product.MouseClickCount % 2 != 0)
+                foreach (var product in productViewModels)
+                {
+                    product.Hide();
+                    foreach (var favProduct in CurrentBuyer.FavoriteProducts)
+                    {
+                        if (product.Guid==favProduct.Id)
+                        {
+                            product.Show();                         
+                        }
+                    }
+                }
+                IsButtonFavoritesClicked = true;
+            }
+            else
+            {
+                foreach (var product in productViewModels)
                 {
                     product.Show();
                 }
-                else
-                {
-                    product.Hide();
-                }
-
+                IsButtonFavoritesClicked = false;
             }
         }
 
         private void buttonGoBack_Click(object sender, EventArgs e)
         {
             this.Hide();
+        }
+
+        private void buttonLowPrice_Click(object sender, EventArgs e)
+        {
+            var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>().ToArray();
+
+            var sortedProducts = productViewModels.OrderBy(o => o.Price);
+
+            foreach (var product in sortedProducts)
+            {
+                product.Show();
+            }
+        }
+
+        private void buttonHighestPrice_Click(object sender, EventArgs e)
+        {
+            var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>().ToArray();
+
+            var sortedProducts = productViewModels.OrderByDescending(o => o.Price);
+
+            foreach (var product in sortedProducts)
+            {
+                product.Show();
+            }
+        }
+
+        private void buttonAZ_Click(object sender, EventArgs e)
+        {
+            var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>().ToArray();
+
+            var sortedProducts = productViewModels.OrderBy(o => o.Name1);
+
+            foreach (var product in sortedProducts)
+            {
+                product.Show();
+            }
+        }
+
+        private void buttonZA_Click(object sender, EventArgs e)
+        {
+            var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>().ToArray();
+
+            var sortedProducts = productViewModels.OrderByDescending(o => o.Name1);
+
+            foreach (var product in sortedProducts)
+            {
+                product.Show();
+            }
         }
     }
 }

@@ -47,5 +47,19 @@ namespace Server.Controllers
         {
             _buyerProvider.Insert(buyer);
         }
+
+        [HttpPut]
+        public void AddLikedProduct(Guid id, Product product)
+        {
+            _buyerProvider.AddLikedProduct(id, product);
+        }
+
+        public void RemoveLikedProduct(Guid id,Product product)
+        {
+            _buyerProvider.RemoveLikedProduct(id, product);
+        }
+
+
+
     }
 }
