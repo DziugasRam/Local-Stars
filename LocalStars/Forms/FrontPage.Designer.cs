@@ -35,9 +35,10 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Segoe UI Black", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button1.Location = new System.Drawing.Point(140, 150);
+            this.button1.Location = new System.Drawing.Point(122, 112);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(194, 134);
+            this.button1.Size = new System.Drawing.Size(170, 100);
             this.button1.TabIndex = 0;
             this.button1.Text = "Buyer";
             this.button1.UseVisualStyleBackColor = true;
@@ -46,9 +47,10 @@
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Segoe UI Black", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button2.Location = new System.Drawing.Point(453, 150);
+            this.button2.Location = new System.Drawing.Point(396, 112);
+            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(197, 134);
+            this.button2.Size = new System.Drawing.Size(172, 100);
             this.button2.TabIndex = 1;
             this.button2.Text = "Seller";
             this.button2.UseVisualStyleBackColor = true;
@@ -56,11 +58,12 @@
             // 
             // FrontPage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(700, 338);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FrontPage";
             this.Text = "FrontPage";
             this.ResumeLayout(false);
