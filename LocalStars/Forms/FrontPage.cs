@@ -7,15 +7,12 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using Server;
 
 namespace Forms
 {
 
     public partial class FrontPage : Form
     {
-     
-
         public FrontPage()
         {
             InitializeComponent();
@@ -32,6 +29,5 @@ namespace Forms
             SellerForm openSellerForm = new SellerForm();
             openSellerForm.Show();
         }
-
     }
 }
