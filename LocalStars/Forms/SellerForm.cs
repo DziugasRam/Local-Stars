@@ -86,7 +86,7 @@ namespace Forms
 
         private void DeleteProduct(Product p)
         {
-            Controllers.s_productProvider.RemoveById(new[] { p.Id } );
+            Controllers.s_productController.RemoveById(new[] { p.Id } );
         }
     }
 }
