@@ -5,8 +5,10 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using Microsoft.AspNetCore.Identity;
 using Models;
 using Server;
+using Server.Providers;
 
 namespace Forms
 {
@@ -46,16 +48,45 @@ namespace Forms
 
                 foreach (Product p in MockData.Products)
                 {
-                    var items = new ListViewItem();
-                    items.Text = p.Title;
-                    items.SubItems.Add(p.Category);
-                    items.SubItems.Add(p.Price.ToString());
-                    items.SubItems.Add(p.Description);
-                    listView1.Items.Add(items);
+                    if (p.SellerId == MockData.User1.AssociatedSeller.Value)
+                    {
+                        var items = new ListViewItem();
+                        items.Text = p.Title;
+                        items.SubItems.Add(p.Category);
+                        items.SubItems.Add(p.Price.ToString());
+                        items.SubItems.Add(p.Description);
+                        items.Tag = p;
+                        listView1.Items.Add(items);
+                    }
+  
                 }
 
                 onClick = false;
             }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (listView1.SelectedItems.Count > 0)
+            {
+                var confirmation = MessageBox.Show("Are you sure you want to delete selected items?", "Delete selected items", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (confirmation == DialogResult.Yes)
+                {
+                    for (int i = listView1.SelectedItems.Count - 1; i >= 0; i--)
+                    {
+
+                        ListViewItem itm = listView1.SelectedItems[i];
+                        listView1.Items[itm.Index].Remove();
+                        DeleteProduct((Product)(itm.Tag));
+                    }
+                }
+            }
+            else MessageBox.Show("You have not selected an item to remove");
+        }
+
+        private void DeleteProduct(Product p)
+        {
+            Controllers.s_productController.RemoveById(new[] { p.Id } );
         }
     }
 }

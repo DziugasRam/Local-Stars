@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Server;
 using Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Forms
 {
@@ -148,20 +149,19 @@ namespace Forms
 
         private void button7_Click(object sender, EventArgs e)
         {
-            var sellerGuid = new Guid();
-            var productGuid = new Guid();
             int price = int.Parse(textBox2.Text);
-            Product p = new Product(textBox1.Text, _category, price, sellerGuid, productGuid, richTextBox1.Text);
+            Product p = new Product(textBox1.Text, _category, price, MockData.User1.AssociatedSeller.Value, Guid.NewGuid(), richTextBox1.Text); ;
             Controllers.s_productController.Insert(new[] { p });
 
             label10.Visible = true;
         }
 
-
         private void category_click(object sender, EventArgs e)
         {
+            textBox3.Clear();
             Button btn = sender as Button;
             _category = btn.Text;
+            textBox3.AppendText(_category);
         }
 
         private void NewListingForm_Load(object sender, EventArgs e)
