@@ -2,7 +2,7 @@
 
 namespace Models
 {
-    public class Location
+    public struct Location
     {
         public Location((double, double) position, string address)
         {

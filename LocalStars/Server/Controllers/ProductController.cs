@@ -40,7 +40,7 @@ namespace Server.Controllers
 
         [HttpPost]
         [Route("sellerId")]
-        public IEnumerable<Product> GetBySeller([FromBody] IEnumerable<Guid> ids)
+        public IEnumerable<ProductsForSeller> GetBySeller([FromBody] IEnumerable<Guid> ids)
         {
             return _productProvider.GetBySeller(ids);
         }
