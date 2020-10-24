@@ -28,57 +28,55 @@ namespace Forms
 
         #region Properties
 
-        private string _name;
-        private Guid _guid;
-        private string _price;
-        private string _category;
-        private string _desctiption;
-        private Image _picture;
-        private readonly Buyer _currentBuyer = Controllers.BuyerController.GetById(MockData.User1.AssociatedBuyer.Value);
-
-        public string PhoneNumber { get; set; }
+        private string name;
+        private Guid guid;
+        private string price;
+        private string category;
+        private string desctiption;
+        private Image picture;
+        Buyer CurrentBuyer = Controllers.s_buyerController.GetById(MockData.User1.AssociatedBuyer.Value);
 
         [Category("Custom Properties")]
         public string Name1
         {
-            get => _name;
-            set { _name = value; labelPName.Text = value; }
+            get => name;
+            set { name = value; labelPName.Text = value; }
         }
 
         [Category("Custom Properties")]
         public Guid Guid
         {
-            get => _guid;
-            set { _guid = value;}
+            get => guid;
+            set { guid = value;}
         }
 
 
         [Category("Custom Properties")]
         public string Price
         {
-            get => _price;
-            set { _price = value; labelPrice.Text = value; }
+            get => price;
+            set { price = value; labelPrice.Text = value; }
         }
 
         [Category("Custom Properties")]
         public string Description
         {
-            get => _desctiption;
-            set { _desctiption = value; labelDescription.Text = value; }
+            get => desctiption;
+            set { desctiption = value; labelDescription.Text = value; }
         }
 
         [Category("Custom Properties")]
         public string Category
         {
-            get => _category;
-            set { _category = value; labelCategory.Text = value; }
+            get => category;
+            set { category = value; labelCategory.Text = value; }
         }
 
         [Category("Custom Properties")]
         public Image Picture
         {
-            get => _picture;
-            set { _picture = value; pictureBox1.Image = value; }
+            get => picture;
+            set { picture = value; pictureBox1.Image = value; }
         }
 
         [Category("Custom Properties")]
@@ -98,7 +96,7 @@ namespace Forms
 
         private void SellerListingPreview_MouseClick(object sender, MouseEventArgs e)
         {
-            var listingForm = new ListingForm(labelPName.Text, labelPrice.Text, labelDescription.Text, labelCategory.Text, pictureBox1.Image, PhoneNumber);
+            var listingForm = new ListingForm(labelPName.Text, labelPrice.Text, labelDescription.Text ,labelCategory.Text, pictureBox1.Image);
             listingForm.Show();
         }
 
@@ -109,12 +107,12 @@ namespace Forms
             if(MouseClickCount % 2 != 0)
             {
                 iconFavorite.IconChar = FontAwesome.Sharp.IconChar.Heartbeat;
-                Controllers.BuyerController.AddLikedProduct(_currentBuyer.Id, Controllers.ProductController.Get(Guid));
+                Controllers.s_buyerController.AddLikedProduct(CurrentBuyer.Id, Controllers.s_productController.Get(Guid));
             }
             else
             {
                 iconFavorite.IconChar = FontAwesome.Sharp.IconChar.Heart;
-                Controllers.BuyerController.RemoveLikedProduct(_currentBuyer.Id, Controllers.ProductController.Get(Guid));
+                Controllers.s_buyerController.RemoveLikedProduct(CurrentBuyer.Id, Controllers.s_productController.Get(Guid));
             }
           
         }
