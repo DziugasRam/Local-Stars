@@ -10,7 +10,7 @@ namespace Forms
 {
     public partial class ListingForm : Form
     {
-        public ListingForm(string name, string price, string description, string category, Image image, string phoneNumber)
+        public ListingForm(string name, string price, string description,string category, Image image)
         {
             InitializeComponent();
             labelProductName.Text = name;
@@ -18,12 +18,12 @@ namespace Forms
             labelDescription.Text = description;
             pictureBox1.Image = image;
             labelCategory.Text = category;
-            labelPhoneNumber.Text = phoneNumber;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             this.Hide();
         }
+
     }
 }

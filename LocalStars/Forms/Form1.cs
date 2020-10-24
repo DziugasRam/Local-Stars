@@ -23,7 +23,7 @@ namespace Forms
         private bool IsPanelOtherOpen = false;
         private bool IsPanelSortByOpen = false;
         private bool IsButtonFavoritesClicked = false;
-        Buyer CurrentBuyer = Controllers.BuyerController.GetById(MockData.User1.AssociatedBuyer.Value);
+        Buyer CurrentBuyer = Controllers.s_buyerController.GetById(MockData.User1.AssociatedBuyer.Value);
 
         public Form1()
         {
@@ -54,7 +54,7 @@ namespace Forms
         {
             if (IsPaneFruitsOpen)
             {
-                panelFruits.Height -= 21;
+                panelFruits.Height -=21;
                 if (panelFruits.Height > 0) return;
                 panelFruits.SendToBack();
                 IsPaneFruitsOpen = false;
@@ -70,7 +70,7 @@ namespace Forms
             }
         }
 
-        private void timer3_Tick(object sender, EventArgs e)
+                private void timer3_Tick(object sender, EventArgs e)
         {
             if (IsPanelConfectioneryOpen)
             {
@@ -114,7 +114,7 @@ namespace Forms
             if (!IsPanelSortByOpen)
             {
                 panelSortBy.Height += 10;
-                if (panelSortBy.Size == panelSortBy.MaximumSize)
+                if(panelSortBy.Size == panelSortBy.MaximumSize)
                 {
                     timer5.Stop();
                     IsPanelSortByOpen = true;
@@ -163,10 +163,10 @@ namespace Forms
 
         private void PopulateList()
         {
-            var products = Controllers.ProductController.Get();
+            var products = Controllers.s_productController.Get();
             var viewmodel = products.Select(MapToSellerListingPreview);
             flowLayoutPanel1.Controls.AddRange(viewmodel.ToArray());
-
+            
         }
 
         private Control MapToSellerListingPreview(Product product, int arg2)
@@ -179,7 +179,6 @@ namespace Forms
                 Price = product.Price.ToString(),
                 Category = product.Category,
                 Picture = Resources.missing_image,
-                PhoneNumber = Controllers.SellerController.GetById(product.SellerId).PhoneNumber
             };
 
             return viewmodel;
@@ -191,9 +190,9 @@ namespace Forms
 
             var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>();
 
-            foreach (var product in productViewModels)
+            foreach(var product in productViewModels)
             {
-                if (product.Category == btn.Text)
+                if(product.Category == btn.Text)
                 {
                     product.Show();
                 }
@@ -232,9 +231,9 @@ namespace Forms
                     product.Hide();
                     foreach (var favProduct in CurrentBuyer.FavoriteProducts)
                     {
-                        if (product.Guid == favProduct.Id)
+                        if (product.Guid==favProduct.Id)
                         {
-                            product.Show();
+                            product.Show();                         
                         }
                     }
                 }

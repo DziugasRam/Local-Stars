@@ -21,10 +21,10 @@ namespace Server.Providers
         {
             return MockData.Products;
         }
-
+        
         public IEnumerable<Product> GetByTitle(string title, bool fullMatch = true, StringComparison comparisonType = StringComparison.Ordinal)
         {
-            if (title == null || title == string.Empty)
+            if(title == null || title == string.Empty)
             {
                 return new List<Product>();
             }
@@ -43,13 +43,13 @@ namespace Server.Providers
                 .Where(product => fullMatch ? string.Equals(product.Category, category, comparisonType) : product.Category.Contains(category, comparisonType));
         }
 
-        public IEnumerable<ProductsForSeller> GetBySeller(IEnumerable<Guid> sellerIds)
+        public IEnumerable<Product> GetBySeller(IEnumerable<Guid> ids)
         {
-            return sellerIds.GroupJoin(
+            return ids.Join(
                 MockData.Products,
-                sellerId => sellerId,
-                product => product.SellerId,
-                (sellerId, products) => new ProductsForSeller(sellerId, products));
+                id => id,
+                p => p.SellerId,
+                (id, p) => p);
         }
 
         public void RemoveById(IEnumerable<Guid> ids)

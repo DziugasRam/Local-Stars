@@ -44,8 +44,9 @@ namespace Forms
             // pictureBox1
             // 
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(147, 154);
+            this.pictureBox1.Size = new System.Drawing.Size(168, 205);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SellerListingPreview_MouseClick);
@@ -53,9 +54,9 @@ namespace Forms
             // labelPName
             // 
             this.labelPName.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelPName.Location = new System.Drawing.Point(153, 9);
+            this.labelPName.Location = new System.Drawing.Point(175, 12);
             this.labelPName.Name = "labelPName";
-            this.labelPName.Size = new System.Drawing.Size(225, 23);
+            this.labelPName.Size = new System.Drawing.Size(257, 31);
             this.labelPName.TabIndex = 1;
             this.labelPName.Text = "Product Name";
             this.labelPName.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SellerListingPreview_MouseClick);
@@ -65,9 +66,9 @@ namespace Forms
             // labelPrice
             // 
             this.labelPrice.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelPrice.Location = new System.Drawing.Point(153, 32);
+            this.labelPrice.Location = new System.Drawing.Point(175, 43);
             this.labelPrice.Name = "labelPrice";
-            this.labelPrice.Size = new System.Drawing.Size(239, 23);
+            this.labelPrice.Size = new System.Drawing.Size(273, 31);
             this.labelPrice.TabIndex = 1;
             this.labelPrice.Text = "Price";
             this.labelPrice.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SellerListingPreview_MouseClick);
@@ -77,9 +78,9 @@ namespace Forms
             // labelDescription
             // 
             this.labelDescription.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelDescription.Location = new System.Drawing.Point(153, 55);
+            this.labelDescription.Location = new System.Drawing.Point(175, 73);
             this.labelDescription.Name = "labelDescription";
-            this.labelDescription.Size = new System.Drawing.Size(371, 65);
+            this.labelDescription.Size = new System.Drawing.Size(424, 121);
             this.labelDescription.TabIndex = 1;
             this.labelDescription.Text = "Description";
             this.labelDescription.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SellerListingPreview_MouseClick);
@@ -89,9 +90,10 @@ namespace Forms
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Gray;
-            this.panel1.Location = new System.Drawing.Point(153, 145);
+            this.panel1.Location = new System.Drawing.Point(175, 193);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(393, 1);
+            this.panel1.Size = new System.Drawing.Size(449, 1);
             this.panel1.TabIndex = 2;
             // 
             // iconFavorite
@@ -100,21 +102,22 @@ namespace Forms
             this.iconFavorite.ForeColor = System.Drawing.SystemColors.ControlText;
             this.iconFavorite.IconChar = FontAwesome.Sharp.IconChar.Heart;
             this.iconFavorite.IconColor = System.Drawing.SystemColors.ControlText;
-            this.iconFavorite.IconSize = 51;
-            this.iconFavorite.Location = new System.Drawing.Point(460, 9);
+            this.iconFavorite.IconSize = 68;
+            this.iconFavorite.Location = new System.Drawing.Point(526, 12);
+            this.iconFavorite.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.iconFavorite.Name = "iconFavorite";
-            this.iconFavorite.Size = new System.Drawing.Size(64, 51);
+            this.iconFavorite.Size = new System.Drawing.Size(73, 68);
             this.iconFavorite.TabIndex = 3;
             this.iconFavorite.TabStop = false;
             this.iconFavorite.Click += new System.EventHandler(this.iconPictureBox1_Click);
             // 
             // labelCategory
             // 
-            this.labelCategory.AutoSize = true;
             this.labelCategory.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelCategory.Location = new System.Drawing.Point(155, 120);
+            this.labelCategory.AutoSize = true;
+            this.labelCategory.Location = new System.Drawing.Point(177, 160);
             this.labelCategory.Name = "labelCategory";
-            this.labelCategory.Size = new System.Drawing.Size(73, 21);
+            this.labelCategory.Size = new System.Drawing.Size(69, 20);
             this.labelCategory.TabIndex = 4;
             this.labelCategory.Text = "Category";
             this.labelCategory.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SellerListingPreview_MouseClick);
@@ -123,7 +126,7 @@ namespace Forms
             // 
             // SellerListingPreview
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.labelCategory);
@@ -133,8 +136,9 @@ namespace Forms
             this.Controls.Add(this.labelPrice);
             this.Controls.Add(this.labelPName);
             this.Controls.Add(this.pictureBox1);
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "SellerListingPreview";
-            this.Size = new System.Drawing.Size(540, 154);
+            this.Size = new System.Drawing.Size(617, 205);
             this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.SellerListingPreview_MouseClick);
             this.MouseEnter += new System.EventHandler(this.SellerListingPreview_MouseEnter);
             this.MouseLeave += new System.EventHandler(this.SellerListingPreview_MouseLeave);
