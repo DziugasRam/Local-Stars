@@ -74,7 +74,6 @@ namespace Forms
                 {
                     for (int i = listView1.SelectedItems.Count - 1; i >= 0; i--)
                     {
-
                         ListViewItem itm = listView1.SelectedItems[i];
                         listView1.Items[itm.Index].Remove();
                         DeleteProduct((Product)(itm.Tag));
@@ -86,7 +85,7 @@ namespace Forms
 
         private void DeleteProduct(Product p)
         {
-            Controllers.s_productController.RemoveById(new[] { p.Id } );
+            Controllers.ProductController.RemoveById(new[] { p.Id } );
         }
     }
 }

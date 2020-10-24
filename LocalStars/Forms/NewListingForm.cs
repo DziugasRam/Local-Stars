@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Server;
 using Models;
 using Microsoft.AspNetCore.Identity;
+using System.Text.RegularExpressions;
 
 namespace Forms
 {
@@ -151,7 +152,7 @@ namespace Forms
         {
             int price = int.Parse(textBox2.Text);
             Product p = new Product(textBox1.Text, _category, price, MockData.User1.AssociatedSeller.Value, Guid.NewGuid(), richTextBox1.Text); ;
-            Controllers.s_productController.Insert(new[] { p });
+            Controllers.ProductController.Insert(new[] { p });
 
             label10.Visible = true;
         }
@@ -168,6 +169,5 @@ namespace Forms
         {
             label10.Visible = false;
         }
-
     }
 }
