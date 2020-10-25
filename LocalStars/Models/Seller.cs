@@ -2,21 +2,29 @@
 
 namespace Models
 {
-    public class Seller : IIdentifiable
+    public class Seller : Locatable, IIdentifiable
     {
-        public Seller(string firstName, string lastName, string phoneNumber, Location location, Guid id)
+        public Seller()
+        {
+        }
+
+        public Seller(string firstName, string lastName, string phoneNumber, double longitude, double latitude, string address, Guid id)
         {
             FirstName = firstName;
             LastName = lastName;
             PhoneNumber = phoneNumber;
-            Location = location;
+            Longitude = longitude;
+            Latitude = latitude;
+            Address = address;
             Id = id;
         }
 
-        public string FirstName { get; }
-        public string LastName { get; }
-        public string PhoneNumber { get; }
-        public Location Location { get; }
-        public Guid Id { get; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string PhoneNumber { get; set; }
+        public override double Longitude { get; set; }
+        public override double Latitude { get; set; }
+        public override string Address { get; set; }
+        public Guid Id { get; set; }
     }
 }

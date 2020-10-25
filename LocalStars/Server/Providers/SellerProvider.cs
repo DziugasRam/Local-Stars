@@ -9,10 +9,17 @@ namespace Server.Providers
 {
     public class SellerProvider
     {
+        private readonly DataContext _context;
+
+        public SellerProvider(DataContext context)
+        {
+            _context = context;
+        }
+
         public IEnumerable<Seller> GetById(IEnumerable<Guid> ids)
         {
             return ids.Join(
-                MockData.Sellers,
+                _context.Sellers,
                 id => id,
                 s => s.Id,
                 (id, s) => s);
@@ -20,16 +27,17 @@ namespace Server.Providers
 
         public void Insert(Seller seller)
         {
-            if (MockData.Sellers.Any(b => b.Id == seller.Id))
+            if (_context.Sellers.Any(b => b.Id == seller.Id))
             {
                 throw new ConflictException("Buyer id already exists");
             }
-            MockData.Sellers.Add(seller);
+            _context.Sellers.Add(seller);
+            _context.SaveChanges();
         }
 
         public void Remove(Guid id)
         {
-            MockData.Sellers.RemoveAll(b => b.Id == id);
+            _context.Sellers.RemoveRange(_context.Sellers.Where(b => b.Id == id));
         }
 
         public void Update(Seller seller)

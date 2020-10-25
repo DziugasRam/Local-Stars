@@ -1,4 +1,5 @@
-﻿using Server.Controllers;
+﻿using Models;
+using Server.Controllers;
 using Server.Providers;
 using System;
 using System.Collections.Generic;
@@ -8,12 +9,10 @@ namespace Forms
 {
     public static class Controllers
     {
-        private static readonly BuyerProvider _buyerProvider = new BuyerProvider();
-        private static readonly ProductProvider _productProvider = new ProductProvider();
-        private static readonly SellerProvider _sellerProvider = new SellerProvider();
-
-        public static readonly BuyerController BuyerController = new BuyerController(_buyerProvider, _productProvider, _sellerProvider);
-        public static readonly ProductController ProductController = new ProductController(_buyerProvider, _productProvider, _sellerProvider);
-        public static readonly SellerController SellerController = new SellerController(_buyerProvider, _productProvider, _sellerProvider);
+        public static readonly BuyerController BuyerController = Program.ServiceProvider.GetService(typeof(BuyerController)) as BuyerController;
+        public static readonly ProductController ProductController = Program.ServiceProvider.GetService(typeof(ProductController)) as ProductController;
+        public static readonly SellerController SellerController = Program.ServiceProvider.GetService(typeof(SellerController)) as SellerController;
+        public static Buyer CurrentBuyer = BuyerController.GetById(new Guid("7253737e-6365-4e70-aaf9-c8824680b3bf"));
+        public static Seller CurrentSeller = SellerController.GetById(new Guid("fbcfcd13-2e98-4faf-beb1-4c544d0badd2"));
     }
 }

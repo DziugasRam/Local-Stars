@@ -16,12 +16,14 @@ namespace Server.Controllers
         private readonly BuyerProvider _buyerProvider;
         private readonly ProductProvider _productProvider;
         private readonly SellerProvider _sellerProvider;
+        private readonly DataContext _context;
 
-        public ProductController(BuyerProvider buyerProvider, ProductProvider productProvider, SellerProvider sellerProvider)
+        public ProductController(BuyerProvider buyerProvider, ProductProvider productProvider, SellerProvider sellerProvider, DataContext context)
         {
             _buyerProvider = buyerProvider;
             _productProvider = productProvider;
             _sellerProvider = sellerProvider;
+            _context = context;
         }
 
         [HttpGet]

@@ -58,8 +58,5 @@ namespace Server.Controllers
         {
             _buyerProvider.RemoveLikedProduct(id, product);
         }
-
-
-
     }
 }

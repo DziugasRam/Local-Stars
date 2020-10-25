@@ -8,10 +8,17 @@ namespace Server.Providers
 {
     public class ProductProvider
     {
+        private readonly DataContext _context;
+
+        public ProductProvider(DataContext context)
+        {
+            _context = context;
+        }
+
         public IEnumerable<Product> GetById(IEnumerable<Guid> ids)
         {
             return ids.Join(
-                MockData.Products,
+                _context.Products,
                 id => id,
                 p => p.Id,
                 (id, p) => p);
@@ -19,7 +26,7 @@ namespace Server.Providers
 
         public IEnumerable<Product> Get()
         {
-            return MockData.Products;
+            return _context.Products.AsEnumerable();
         }
 
         public IEnumerable<Product> GetByTitle(string title, bool fullMatch = true, StringComparison comparisonType = StringComparison.Ordinal)
@@ -28,7 +35,7 @@ namespace Server.Providers
             {
                 return new List<Product>();
             }
-            return MockData.Products
+            return _context.Products
                 .Where(p => fullMatch ? string.Equals(p.Title, title, comparisonType) : p.Title.Contains(title, comparisonType));
         }
 
@@ -39,32 +46,30 @@ namespace Server.Providers
                 return new List<Product>();
             }
 
-            return MockData.Products
+            return _context.Products
                 .Where(product => fullMatch ? string.Equals(product.Category, category, comparisonType) : product.Category.Contains(category, comparisonType));
         }
 
         public IEnumerable<ProductsForSeller> GetBySeller(IEnumerable<Guid> sellerIds)
         {
             return sellerIds.GroupJoin(
-                MockData.Products,
+                _context.Products,
                 sellerId => sellerId,
-                product => product.SellerId,
+                product => product.Seller.Id,
                 (sellerId, products) => new ProductsForSeller(sellerId, products));
         }
 
         public void RemoveById(IEnumerable<Guid> ids)
         {
             var idsHashSet = ids.ToHashSet();
-            MockData.Products.RemoveAll(p => idsHashSet.Contains(p.Id));
+            _context.Products.RemoveRange(_context.Products.Where(p => idsHashSet.Contains(p.Id)));
+            _context.SaveChanges();
         }
 
         public void Insert(IEnumerable<Product> products)
         {
-            if (MockData.Products.Intersect(products).Any())
-            {
-                throw new ConflictException("Product id already exists");
-            }
-            MockData.Products.AddRange(products);
+            _context.Products.AddRange(products);
+            _context.SaveChanges();
         }
 
         public void Update(Product product)

@@ -6,7 +6,11 @@ namespace Models
 {
     public class User : IIdentifiable
     {
-        public User(string userName, string password, Guid id, Guid? associatedBuyer, Guid? associatedSeller)
+        public User()
+        {
+        }
+
+        public User(string userName, string password, Guid id, Buyer associatedBuyer, Seller associatedSeller)
         {
             UserName = userName;
             Password = password;
@@ -17,8 +21,8 @@ namespace Models
 
         public string UserName { get; set; }
         public string Password { get; set; }
-        public Guid Id { get; }
-        public Guid? AssociatedBuyer { get; set; }
-        public Guid? AssociatedSeller { get; set; }
+        public Guid Id { get; set;  }
+        public virtual Buyer AssociatedBuyer { get; set; }
+        public virtual Seller AssociatedSeller { get; set; }
     }
 }

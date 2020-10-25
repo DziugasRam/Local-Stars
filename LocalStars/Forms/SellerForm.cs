@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.AspNetCore.Identity;
@@ -46,9 +47,10 @@ namespace Forms
                 listView1.Columns.Add("Price(€)", 80);
                 listView1.Columns.Add("Description", 150);
 
-                foreach (Product p in MockData.Products)
+                var products = Controllers.ProductController.Get().ToList();
+                foreach (Product p in products)
                 {
-                    if (p.SellerId == MockData.User1.AssociatedSeller.Value)
+                    if (p.Seller.Id == Controllers.CurrentSeller.Id)
                     {
                         var items = new ListViewItem();
                         items.Text = p.Title;
