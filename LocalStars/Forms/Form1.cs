@@ -256,11 +256,15 @@ namespace Forms
 
         private void buttonLowPrice_Click(object sender, EventArgs e)
         {
-            var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>().ToArray();
+            hide_Products();
 
-            var sortedProducts = productViewModels.OrderBy(o => o.Price);
+            var sortedProducts = Controllers.ProductController.Get().OrderBy(o => o.Price);
+           
+            var viewmodel = sortedProducts.Select(MapToSellerListingPreview);
 
-            foreach (var product in sortedProducts)
+            flowLayoutPanel1.Controls.AddRange(viewmodel.ToArray());
+
+            foreach (var product in viewmodel)
             {
                 product.Show();
             }
@@ -268,11 +272,15 @@ namespace Forms
 
         private void buttonHighestPrice_Click(object sender, EventArgs e)
         {
-            var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>().ToArray();
+            hide_Products();
 
-            var sortedProducts = productViewModels.OrderByDescending(o => o.Price);
+            var sortedProducts = Controllers.ProductController.Get().OrderByDescending(o => o.Price);
 
-            foreach (var product in sortedProducts)
+            var viewmodel = sortedProducts.Select(MapToSellerListingPreview);
+
+            flowLayoutPanel1.Controls.AddRange(viewmodel.ToArray());
+
+            foreach (var product in viewmodel)
             {
                 product.Show();
             }
@@ -280,11 +288,15 @@ namespace Forms
 
         private void buttonAZ_Click(object sender, EventArgs e)
         {
-            var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>().ToArray();
+            hide_Products();
 
-            var sortedProducts = productViewModels.OrderBy(o => o.Name1);
+            var sortedProducts = Controllers.ProductController.Get().OrderBy(o => o.Title);
 
-            foreach (var product in sortedProducts)
+            var viewmodel = sortedProducts.Select(MapToSellerListingPreview);
+
+            flowLayoutPanel1.Controls.AddRange(viewmodel.ToArray());
+
+            foreach (var product in viewmodel)
             {
                 product.Show();
             }
@@ -292,14 +304,29 @@ namespace Forms
 
         private void buttonZA_Click(object sender, EventArgs e)
         {
-            var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>().ToArray();
+            hide_Products();
 
-            var sortedProducts = productViewModels.OrderByDescending(o => o.Name1);
+            var sortedProducts = Controllers.ProductController.Get().OrderByDescending(o => o.Title);
 
-            foreach (var product in sortedProducts)
+            var viewmodel = sortedProducts.Select(MapToSellerListingPreview);
+
+            flowLayoutPanel1.Controls.AddRange(viewmodel.ToArray());
+
+            foreach (var product in viewmodel)
             {
                 product.Show();
             }
         }
+
+        private void hide_Products()
+        {
+            var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>().ToArray();
+            foreach (var product in productViewModels)
+            {
+                product.Hide();
+            }
+        }
     }
+
+
 }
