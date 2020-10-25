@@ -35,7 +35,9 @@ namespace Forms
                     panelVegetables.SendToBack();
                     timer1.Stop();
                     IsPanelVegetablesOpen = false;
+                    buttonVegetables.BackColor = Color.Empty;
                 }
+                
             }
             else if (!IsPanelVegetablesOpen)
             {
@@ -52,6 +54,7 @@ namespace Forms
         private void button1_Click(object sender, EventArgs e)
         {
             timer1.Start();
+            setVegetableButtonColor();
         }
 
         private void timer2_Tick(object sender, EventArgs e)
@@ -64,6 +67,7 @@ namespace Forms
                     panelFruits.SendToBack();
                     IsPaneFruitsOpen = false;
                     timer2.Stop();
+                    buttonFruits.BackColor = Color.Empty;
                 }
             }
             else
@@ -81,16 +85,19 @@ namespace Forms
         private void buttonFruits_Click(object sender, EventArgs e)
         {
             timer2.Start();
+            setFruitButtonColor();
         }
 
         private void buttonConfectionery_Click(object sender, EventArgs e)
         {
             timer3.Start();
+            setConfectionaryButtonColor();
         }
 
         private void buttonOther_Click(object sender, EventArgs e)
         {
             timer4.Start();
+            setOtherButtonColor();
         }
 
         private void timer3_Tick(object sender, EventArgs e)
@@ -103,6 +110,7 @@ namespace Forms
                     IsPanelConfectioneryOpen = false;
                     panelConfectionery.SendToBack();
                     timer3.Stop();
+                    buttonConfectionery.BackColor = Color.Empty;
                 }
             }
             else
@@ -126,6 +134,7 @@ namespace Forms
                     IsPanelOtherOpen = false;
                     panelOther.SendToBack();
                     timer4.Stop();
+                    buttonOther.BackColor = Color.Empty;
                 }
             }
             else
@@ -167,6 +176,42 @@ namespace Forms
         private void NewListingForm_Load(object sender, EventArgs e)
         {
             label10.Visible = false;
+        }
+        public void setVegetableButtonColor()
+        {
+            buttonVegetables.BackColor = Color.BurlyWood;
+            buttonOnions.BackColor = Color.AntiqueWhite;
+            buttonTomatoes.BackColor = Color.AntiqueWhite;
+            buttonCucumbers.BackColor = Color.AntiqueWhite;
+            buttonPotatoes.BackColor = Color.AntiqueWhite;
+            buttonGarlics.BackColor = Color.AntiqueWhite;
+        }
+
+        public void setFruitButtonColor()
+        {
+            buttonFruits.BackColor = Color.BurlyWood;
+            buttonCherries.BackColor = Color.AntiqueWhite;
+            buttonGrapes.BackColor = Color.AntiqueWhite;
+            buttonPlums.BackColor = Color.AntiqueWhite;
+            buttonPears.BackColor = Color.AntiqueWhite;
+            buttonApples.BackColor = Color.AntiqueWhite;
+
+        }
+
+        public void setConfectionaryButtonColor()
+        {
+            buttonConfectionery.BackColor = Color.BurlyWood;
+            buttonBread.BackColor = Color.AntiqueWhite;
+            buttonBunsAndDonuts.BackColor = Color.AntiqueWhite;
+            buttonCakesAndPies.BackColor = Color.AntiqueWhite;
+        }
+
+        public void setOtherButtonColor()
+        {
+            buttonOther.BackColor = Color.BurlyWood;
+            buttonHerbs.BackColor = Color.AntiqueWhite;
+            buttonHoney.BackColor = Color.AntiqueWhite;
+            buttonLongLasting.BackColor = Color.AntiqueWhite;
         }
 
     }
