@@ -23,7 +23,7 @@ namespace Forms
         private bool IsPanelOtherOpen = false;
         private bool IsPanelSortByOpen = false;
         private bool IsButtonFavoritesClicked = false;
-        Buyer CurrentBuyer = Controllers.BuyerController.GetById(MockData.User1.AssociatedBuyer.Value);
+        Buyer CurrentBuyer = Controllers.CurrentBuyer;
 
         public Form1()
         {
@@ -166,7 +166,6 @@ namespace Forms
             var products = Controllers.ProductController.Get();
             var viewmodel = products.Select(MapToSellerListingPreview);
             flowLayoutPanel1.Controls.AddRange(viewmodel.ToArray());
-
         }
 
         private Control MapToSellerListingPreview(Product product, int arg2)
@@ -179,7 +178,7 @@ namespace Forms
                 Price = product.Price.ToString(),
                 Category = product.Category,
                 Picture = Resources.missing_image,
-                PhoneNumber = Controllers.SellerController.GetById(product.SellerId).PhoneNumber
+                PhoneNumber = product.Seller.PhoneNumber
             };
 
             return viewmodel;
@@ -230,13 +229,13 @@ namespace Forms
                 foreach (var product in productViewModels)
                 {
                     product.Hide();
-                    foreach (var favProduct in CurrentBuyer.FavoriteProducts)
-                    {
-                        if (product.Guid == favProduct.Id)
-                        {
-                            product.Show();
-                        }
-                    }
+                    //foreach (var favProduct in CurrentBuyer.FavoriteProducts)
+                    //{
+                    //    if (product.Guid == favProduct.Id)
+                    //    {
+                    //        product.Show();
+                    //    }
+                    //}
                 }
                 IsButtonFavoritesClicked = true;
             }

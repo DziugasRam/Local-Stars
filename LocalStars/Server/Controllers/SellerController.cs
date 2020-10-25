@@ -28,17 +28,17 @@ namespace Server.Controllers
         [Route("byProductTitle")]
         public IEnumerable<Seller> GetSellersForProduct(string productTitle, bool fullMatch = true)
         {
-            var productSellerIds = _productProvider.GetByTitle(productTitle, fullMatch).Select(p => p.SellerId);
+            var productSellerIds = _productProvider.GetByTitle(productTitle, fullMatch).Select(p => p.Seller.Id);
             return _sellerProvider.GetById(productSellerIds);
         }
 
         [HttpGet]
         [Route("byLocation")]
-        public IEnumerable<Seller> GetSellersByLocationForProduct(Location location, double maxDistanceToSeller, string productTitle, bool fullMatch = true)
+        public IEnumerable<Seller> GetSellersByLocationForProduct(Locatable location, double maxDistanceToSeller, string productTitle, bool fullMatch = true)
         {
             var sellers = GetSellersForProduct(productTitle, fullMatch);
             var squareMaxDistance = maxDistanceToSeller * maxDistanceToSeller;
-            return sellers.Where(s => s.Location.SquareDistanceTo(location) < squareMaxDistance);
+            return sellers.Where(s => s.SquareDistanceTo(location) < squareMaxDistance);
         }
 
         [HttpGet]

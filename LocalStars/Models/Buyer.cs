@@ -6,17 +6,21 @@ namespace Models
 {
     public class Buyer : IIdentifiable
     {
-        public Buyer(string firstName, string lastName, Guid id,List<Product> favoriteProducts)
+        public Buyer()
+        {
+        }
+
+        public Buyer(string firstName, string lastName, Guid id, List<BuyerProduct> buyerProducts)
         {
             FirstName = firstName;
             LastName = lastName;
             Id = id;
-            FavoriteProducts = favoriteProducts;
+            BuyerProducts = buyerProducts;
         }
 
-        public string FirstName { get; }
-        public string LastName { get; }
-        public Guid Id { get; }
-        public List<Product> FavoriteProducts { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public Guid Id { get; set; }
+        public virtual List<BuyerProduct> BuyerProducts { get; set; }
     }
 }

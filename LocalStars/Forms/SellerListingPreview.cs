@@ -34,7 +34,7 @@ namespace Forms
         private string _category;
         private string _desctiption;
         private Image _picture;
-        private readonly Buyer _currentBuyer = Controllers.BuyerController.GetById(MockData.User1.AssociatedBuyer.Value);
+        private readonly Buyer _currentBuyer = Controllers.CurrentBuyer;
 
         public string PhoneNumber { get; set; }
 
