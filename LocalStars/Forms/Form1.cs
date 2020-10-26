@@ -114,20 +114,16 @@ namespace Forms
             if (!IsPanelSortByOpen)
             {
                 panelSortBy.Height += 10;
-                if (panelSortBy.Size == panelSortBy.MaximumSize)
-                {
-                    timer5.Stop();
-                    IsPanelSortByOpen = true;
-                }
+                if (panelSortBy.Size != panelSortBy.MaximumSize) return;
+                timer5.Stop();
+                IsPanelSortByOpen = true;
             }
             else
             {
                 panelSortBy.Height -= 10;
-                if (panelSortBy.Size == panelSortBy.MinimumSize)
-                {
-                    timer5.Stop();
-                    IsPanelSortByOpen = false;
-                }
+                if (panelSortBy.Size != panelSortBy.MinimumSize) return;
+                timer5.Stop();
+                IsPanelSortByOpen = false;
             }
         }
 

@@ -32,6 +32,8 @@ namespace Forms
         {
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.radioButtonDark = new System.Windows.Forms.RadioButton();
+            this.radioButtonLight = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // button1
@@ -58,11 +60,37 @@ namespace Forms
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // radioButtonDark
+            // 
+            this.radioButtonDark.AutoSize = true;
+            this.radioButtonDark.Location = new System.Drawing.Point(574, 13);
+            this.radioButtonDark.Name = "radioButtonDark";
+            this.radioButtonDark.Size = new System.Drawing.Size(88, 19);
+            this.radioButtonDark.TabIndex = 2;
+            this.radioButtonDark.TabStop = true;
+            this.radioButtonDark.Text = "Dark Theme";
+            this.radioButtonDark.UseVisualStyleBackColor = true;
+            this.radioButtonDark.CheckedChanged += new System.EventHandler(this.radioButtonDark_CheckedChanged);
+            // 
+            // radioButtonLight
+            // 
+            this.radioButtonLight.AutoSize = true;
+            this.radioButtonLight.Location = new System.Drawing.Point(574, 38);
+            this.radioButtonLight.Name = "radioButtonLight";
+            this.radioButtonLight.Size = new System.Drawing.Size(91, 19);
+            this.radioButtonLight.TabIndex = 3;
+            this.radioButtonLight.TabStop = true;
+            this.radioButtonLight.Text = "Light Theme";
+            this.radioButtonLight.UseVisualStyleBackColor = true;
+            this.radioButtonLight.CheckedChanged += new System.EventHandler(this.radioButtonLight_CheckedChanged);
+            // 
             // FrontPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(700, 338);
+            this.Controls.Add(this.radioButtonLight);
+            this.Controls.Add(this.radioButtonDark);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -70,6 +98,7 @@ namespace Forms
             this.Text = "FrontPage";
             this.Load += new System.EventHandler(this.FrontPage_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -77,5 +106,7 @@ namespace Forms
 
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.RadioButton radioButtonDark;
+        private System.Windows.Forms.RadioButton radioButtonLight;
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -24,9 +25,23 @@ namespace Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            NewListingForm newListingForm = new NewListingForm();
-            newListingForm.Show();
-            this.Hide();
+            var reader = new StreamReader("SystemColors.txt");
+            try
+            {
+                var option = reader.ReadLine();
+                NewListingForm newListingForm = new NewListingForm { BackColor = Color.FromName(option) };
+                newListingForm.Show();
+                this.Hide();
+            }
+            catch (IOException exception)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(exception.Message);
+            }
+            finally
+            {
+                reader.Close();
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
