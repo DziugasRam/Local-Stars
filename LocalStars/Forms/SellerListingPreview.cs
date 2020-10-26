@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.AspNetCore.Mvc;
@@ -98,8 +99,22 @@ namespace Forms
 
         private void SellerListingPreview_MouseClick(object sender, MouseEventArgs e)
         {
-            var listingForm = new ListingForm(labelPName.Text, labelPrice.Text, labelDescription.Text, labelCategory.Text, pictureBox1.Image, PhoneNumber);
-            listingForm.Show();
+            var reader = new StreamReader("SystemColors.txt");
+            try
+            {
+                var option = reader.ReadLine();
+                var listingForm = new ListingForm(labelPName.Text, labelPrice.Text, labelDescription.Text, labelCategory.Text, pictureBox1.Image, PhoneNumber) {BackColor = Color.FromName(option)};
+                listingForm.Show();
+            }
+            catch (IOException exception)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(exception.Message);
+            }
+            finally
+            {
+                reader.Close();
+            }
         }
 
         private void iconPictureBox1_Click(object sender, EventArgs e)

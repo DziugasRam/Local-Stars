@@ -13,7 +13,6 @@ using System.Linq;
 
 namespace Forms
 {
-
     public partial class FrontPage : Form
     {
         public FrontPage()
@@ -23,14 +22,42 @@ namespace Forms
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form1 openBuyerForm = new Form1();
-            openBuyerForm.Show();
+            var reader = new StreamReader("SystemColors.txt");
+            try
+            {
+                var option = reader.ReadLine();
+                Form1 openBuyerForm = new Form1 { BackColor = Color.FromName(option) };
+                openBuyerForm.Show();
+            }
+            catch (IOException exception)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(exception.Message);
+            }
+            finally
+            {
+                reader.Close();
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            SellerForm openSellerForm = new SellerForm();
-            openSellerForm.Show();
+            var reader = new StreamReader("SystemColors.txt");
+            try
+            {
+                var option = reader.ReadLine();
+                SellerForm openSellerForm = new SellerForm { BackColor = Color.FromName(option) };
+                openSellerForm.Show();
+            }
+            catch (IOException exception)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(exception.Message);
+            }
+            finally
+            {
+                reader.Close();
+            }
         }
 
         private void FrontPage_Load(object sender, EventArgs e)
@@ -53,6 +80,16 @@ namespace Forms
                 Console.WriteLine("The file could not be read:");
                 Console.WriteLine(exception.Message);
             }
+        }
+
+        private void radioButtonDark_CheckedChanged(object sender, EventArgs e)
+        {
+            File.WriteAllText("SystemColors.txt", "ControlDark");
+        }
+
+        private void radioButtonLight_CheckedChanged(object sender, EventArgs e)
+        {
+            File.WriteAllText("SystemColors.txt", "Control");
         }
     }
 }
