@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -143,9 +144,23 @@ namespace Forms
 
         private void button13_Click(object sender, EventArgs e)
         {
-            SellerForm sellerForm = new SellerForm();
-            sellerForm.Show();
-            this.Hide();
+            var reader = new StreamReader("SystemColors.txt");
+            try
+            {
+                var option = reader.ReadLine();
+                SellerForm sellerForm = new SellerForm { BackColor = Color.FromName(option) };
+                sellerForm.Show();
+                this.Hide();
+            }
+            catch (IOException exception)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(exception.Message);
+            }
+            finally
+            {
+                reader.Close();
+            }
         }
 
         private void ValidateNewListingValues(string title, string price, string description)
