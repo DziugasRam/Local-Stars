@@ -42,14 +42,14 @@
             // 
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(355, 288);
+            this.pictureBox1.Size = new System.Drawing.Size(175, 217);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
             // labelProductName
             // 
             this.labelProductName.Font = new System.Drawing.Font("Segoe UI", 17F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.labelProductName.Location = new System.Drawing.Point(373, 12);
+            this.labelProductName.Location = new System.Drawing.Point(193, 12);
             this.labelProductName.Name = "labelProductName";
             this.labelProductName.Size = new System.Drawing.Size(432, 56);
             this.labelProductName.TabIndex = 1;
@@ -58,24 +58,24 @@
             // labelPrice
             // 
             this.labelPrice.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelPrice.Location = new System.Drawing.Point(818, 10);
+            this.labelPrice.Location = new System.Drawing.Point(414, 14);
             this.labelPrice.Name = "labelPrice";
-            this.labelPrice.Size = new System.Drawing.Size(99, 71);
+            this.labelPrice.Size = new System.Drawing.Size(99, 33);
             this.labelPrice.TabIndex = 2;
             this.labelPrice.Text = "Price";
             // 
             // labelDescription
             // 
             this.labelDescription.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelDescription.Location = new System.Drawing.Point(375, 94);
+            this.labelDescription.Location = new System.Drawing.Point(193, 81);
             this.labelDescription.Name = "labelDescription";
-            this.labelDescription.Size = new System.Drawing.Size(521, 127);
+            this.labelDescription.Size = new System.Drawing.Size(361, 109);
             this.labelDescription.TabIndex = 3;
             this.labelDescription.Text = "Description";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(842, 285);
+            this.button1.Location = new System.Drawing.Point(472, 208);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 4;
@@ -86,18 +86,18 @@
             // labelCategory
             // 
             this.labelCategory.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelCategory.Location = new System.Drawing.Point(374, 266);
+            this.labelCategory.Location = new System.Drawing.Point(193, 43);
             this.labelCategory.Name = "labelCategory";
-            this.labelCategory.Size = new System.Drawing.Size(131, 38);
+            this.labelCategory.Size = new System.Drawing.Size(361, 38);
             this.labelCategory.TabIndex = 5;
             this.labelCategory.Text = "Category";
             // 
             // labelPhoneNumber
             // 
             this.labelPhoneNumber.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.labelPhoneNumber.Location = new System.Drawing.Point(374, 225);
+            this.labelPhoneNumber.Location = new System.Drawing.Point(193, 190);
             this.labelPhoneNumber.Name = "labelPhoneNumber";
-            this.labelPhoneNumber.Size = new System.Drawing.Size(521, 41);
+            this.labelPhoneNumber.Size = new System.Drawing.Size(273, 41);
             this.labelPhoneNumber.TabIndex = 6;
             this.labelPhoneNumber.Text = "PhoneNumber";
             // 
@@ -105,7 +105,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(928, 320);
+            this.ClientSize = new System.Drawing.Size(566, 241);
             this.Controls.Add(this.labelPhoneNumber);
             this.Controls.Add(this.labelCategory);
             this.Controls.Add(this.button1);
