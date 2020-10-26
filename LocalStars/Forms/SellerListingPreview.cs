@@ -57,7 +57,7 @@ namespace Forms
         public string Price
         {
             get => _price;
-            set { _price = value; labelPrice.Text = value; }
+            set { _price = value; labelPrice.Text = $"{value} €"; }
         }
 
         [Category("Custom Properties")]
@@ -98,7 +98,7 @@ namespace Forms
 
         private void SellerListingPreview_MouseClick(object sender, MouseEventArgs e)
         {
-            var listingForm = new ListingForm(labelPName.Text, labelPrice.Text, labelDescription.Text, labelCategory.Text, pictureBox1.Image, PhoneNumber);
+            var listingForm = new ListingForm(_name, _price, _desctiption, _category, _picture, PhoneNumber);
             listingForm.Show();
         }
 
