@@ -531,7 +531,7 @@ namespace Forms
             this.buttonZA.TabIndex = 0;
             this.buttonZA.Text = "Z-A";
             this.buttonZA.UseVisualStyleBackColor = true;
-            this.buttonZA.Click += new System.EventHandler(this.buttonZA_Click);
+            this.buttonZA.Click += new System.EventHandler(this.buttonSort_Click);
             // 
             // buttonAZ
             // 
@@ -548,7 +548,7 @@ namespace Forms
             this.buttonAZ.TabIndex = 0;
             this.buttonAZ.Text = "A-Z";
             this.buttonAZ.UseVisualStyleBackColor = true;
-            this.buttonAZ.Click += new System.EventHandler(this.buttonAZ_Click);
+            this.buttonAZ.Click += new System.EventHandler(this.buttonSort_Click);
             // 
             // buttonHighestPrice
             // 
@@ -565,7 +565,7 @@ namespace Forms
             this.buttonHighestPrice.TabIndex = 0;
             this.buttonHighestPrice.Text = "Highest Price";
             this.buttonHighestPrice.UseVisualStyleBackColor = true;
-            this.buttonHighestPrice.Click += new System.EventHandler(this.buttonHighestPrice_Click);
+            this.buttonHighestPrice.Click += new System.EventHandler(this.buttonSort_Click);
             // 
             // buttonLowPrice
             // 
@@ -582,7 +582,7 @@ namespace Forms
             this.buttonLowPrice.TabIndex = 0;
             this.buttonLowPrice.Text = "Lowest Price";
             this.buttonLowPrice.UseVisualStyleBackColor = true;
-            this.buttonLowPrice.Click += new System.EventHandler(this.buttonLowPrice_Click);
+            this.buttonLowPrice.Click += new System.EventHandler(this.buttonSort_Click);
             // 
             // buttonSortBy
             // 
