@@ -50,7 +50,7 @@ namespace Forms
             this.buttonHerbs = new System.Windows.Forms.Button();
             this.buttonHoney = new System.Windows.Forms.Button();
             this.panelFruits = new System.Windows.Forms.Panel();
-            this.buttonCheries = new System.Windows.Forms.Button();
+            this.buttonCherries = new System.Windows.Forms.Button();
             this.buttonGrapes = new System.Windows.Forms.Button();
             this.buttonPlums = new System.Windows.Forms.Button();
             this.buttonPears = new System.Windows.Forms.Button();
@@ -285,7 +285,7 @@ namespace Forms
             // 
             // panelFruits
             // 
-            this.panelFruits.Controls.Add(this.buttonCheries);
+            this.panelFruits.Controls.Add(this.buttonCherries);
             this.panelFruits.Controls.Add(this.buttonGrapes);
             this.panelFruits.Controls.Add(this.buttonPlums);
             this.panelFruits.Controls.Add(this.buttonPears);
@@ -296,16 +296,16 @@ namespace Forms
             this.panelFruits.Size = new System.Drawing.Size(201, 0);
             this.panelFruits.TabIndex = 3;
             // 
-            // buttonCheries
+            // buttonCherries
             // 
-            this.buttonCheries.Location = new System.Drawing.Point(-1, 70);
-            this.buttonCheries.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.buttonCheries.Name = "buttonCheries";
-            this.buttonCheries.Size = new System.Drawing.Size(201, 37);
-            this.buttonCheries.TabIndex = 0;
-            this.buttonCheries.Text = "Cheries";
-            this.buttonCheries.UseVisualStyleBackColor = true;
-            this.buttonCheries.Click += new System.EventHandler(this.buttonCategory_Click);
+            this.buttonCherries.Location = new System.Drawing.Point(-1, 70);
+            this.buttonCherries.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonCherries.Name = "buttonCherries";
+            this.buttonCherries.Size = new System.Drawing.Size(201, 37);
+            this.buttonCherries.TabIndex = 0;
+            this.buttonCherries.Text = "Cherries";
+            this.buttonCherries.UseVisualStyleBackColor = true;
+            this.buttonCherries.Click += new System.EventHandler(this.buttonCategory_Click);
             // 
             // buttonGrapes
             // 
@@ -646,7 +646,7 @@ namespace Forms
         private System.Windows.Forms.Button buttonOnions;
         private System.Windows.Forms.Button buttonGarlics;
         private System.Windows.Forms.Panel panelFruits;
-        private System.Windows.Forms.Button buttonCheries;
+        private System.Windows.Forms.Button buttonCherries;
         private System.Windows.Forms.Button buttonGrapes;
         private System.Windows.Forms.Button buttonPlums;
         private System.Windows.Forms.Button buttonPears;
