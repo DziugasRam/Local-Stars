@@ -85,18 +85,12 @@ namespace Forms
 
         private void radioButtonDark_CheckedChanged(object sender, EventArgs e)
         {
-            File.Delete("SystemColors.txt");
-            var writer = new StreamWriter("SystemColors.txt");
-            writer.WriteLine("ControlDark");
-            writer.Close();
+            File.WriteAllText("SystemColors.txt", "ControlDark");
         }
 
         private void radioButtonLight_CheckedChanged(object sender, EventArgs e)
         {
-            File.Delete("SystemColors.txt");
-            var writer = new StreamWriter("SystemColors.txt");
-            writer.WriteLine("Control");
-            writer.Close();
+            File.WriteAllText("SystemColors.txt", "Control");
         }
     }
 }
