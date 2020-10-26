@@ -13,7 +13,6 @@ using System.Linq;
 
 namespace Forms
 {
-
     public partial class FrontPage : Form
     {
         public FrontPage()
