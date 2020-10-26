@@ -298,14 +298,10 @@ namespace Forms
             {
                 product.Hide();
             }
+        
+   
         }
-    }
-
-            foreach (var product in sortedProducts)
-            {
-                product.Show();
-            }
-        }
+         
 
         public void setVegetableButtonColor()
         {
