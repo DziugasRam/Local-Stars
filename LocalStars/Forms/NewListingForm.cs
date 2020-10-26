@@ -148,13 +148,39 @@ namespace Forms
             this.Hide();
         }
 
+        private void ValidateNewListingValues(string title, string price, string description)
+        {
+            var titleRegex = new Regex(@"[\.@!#$%?{}\[\]]");
+            var titleMatch = titleRegex.Match(title);
+            if (titleMatch.Length > 0)
+            {
+                throw new ArgumentException($"Invalid character : {titleMatch.Groups[0]} found in title");
+            }
+
+            var numberRegex = new Regex(@"^[0-9]+$"); // TODO: float support (?:[,\.][0-9]+)?
+            if (!numberRegex.IsMatch(price))
+            {
+                throw new ArgumentException("Price is not valid");
+            }
+        }
+
         private void button7_Click(object sender, EventArgs e)
         {
             int price = int.Parse(textBox2.Text);
-            Product p = new Product(title: textBox1.Text,category: _category,price: price,seller: Controllers.CurrentSeller,description: richTextBox1.Text,id: Guid.NewGuid());
+            Product p = new Product(title: textBox1.Text, category: _category, price: price, seller: Controllers.CurrentSeller, description: richTextBox1.Text, id: Guid.NewGuid());
             Controllers.ProductController.Insert(new[] { p });
 
-            label10.Visible = true;
+                NewListingStatus("Successfully added a new product!");
+            }
+            catch (ArgumentException exception)
+            {
+                NewListingStatus(exception.Message);
+            }
+            catch
+            {
+                NewListingStatus("Failed to add a new product");
+            }
+
         }
 
         private void category_click(object sender, EventArgs e)
@@ -167,7 +193,12 @@ namespace Forms
 
         private void NewListingForm_Load(object sender, EventArgs e)
         {
-            label10.Visible = false;
+            NewListingStatus(null);
+        }
+
+        private void NewListingStatus(string text)
+        {
+            label10.Text = text;
         }
     }
 }
