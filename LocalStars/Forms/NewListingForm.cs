@@ -151,7 +151,7 @@ namespace Forms
         private void button7_Click(object sender, EventArgs e)
         {
             int price = int.Parse(textBox2.Text);
-            Product p = new Product(textBox1.Text, _category, price, Controllers.CurrentSeller, richTextBox1.Text, Guid.NewGuid());
+            Product p = new Product(title: textBox1.Text,category: _category,price: price,seller: Controllers.CurrentSeller,description: richTextBox1.Text,id: Guid.NewGuid());
             Controllers.ProductController.Insert(new[] { p });
 
             label10.Visible = true;
