@@ -189,6 +189,7 @@ namespace Forms
 
         private void button7_Click(object sender, EventArgs e)
         {
+            try { 
             int price = int.Parse(textBox2.Text);
             Product p = new Product(title: textBox1.Text, category: _category, price: price, seller: Controllers.CurrentSeller, description: richTextBox1.Text, id: Guid.NewGuid());
             Controllers.ProductController.Insert(new[] { p });
@@ -196,7 +197,8 @@ namespace Forms
             NewListingStatus("Successfully added a new product!");
 
 
-            try { }
+            
+             }
             catch (ArgumentException exception)
             {
                 NewListingStatus(exception.Message);
@@ -206,6 +208,9 @@ namespace Forms
                 NewListingStatus("Failed to add a new product");
             }
 
+             
+        
+        
         }
 
         private void category_click(object sender, EventArgs e)
