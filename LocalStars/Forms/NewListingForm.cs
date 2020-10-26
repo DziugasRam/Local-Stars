@@ -193,8 +193,10 @@ namespace Forms
             Product p = new Product(title: textBox1.Text, category: _category, price: price, seller: Controllers.CurrentSeller, description: richTextBox1.Text, id: Guid.NewGuid());
             Controllers.ProductController.Insert(new[] { p });
 
-                NewListingStatus("Successfully added a new product!");
-            }
+            NewListingStatus("Successfully added a new product!");
+
+
+            try { }
             catch (ArgumentException exception)
             {
                 NewListingStatus(exception.Message);
