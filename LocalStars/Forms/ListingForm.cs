@@ -14,7 +14,7 @@ namespace Forms
         {
             InitializeComponent();
             labelProductName.Text = name;
-            labelPrice.Text = price;
+            labelPrice.Text = $"{price} €";
             labelDescription.Text = description;
             pictureBox1.Image = image;
             labelCategory.Text = category;
