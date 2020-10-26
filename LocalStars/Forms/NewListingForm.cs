@@ -166,12 +166,9 @@ namespace Forms
 
         private void button7_Click(object sender, EventArgs e)
         {
-            try
-            {
-                ValidateNewListingValues(title: textBox1.Text, price: textBox2.Text, description: richTextBox1.Text);
-
-                Product p = new Product(title: textBox1.Text, category: _category, price: int.Parse(textBox2.Text), seller: Controllers.CurrentSeller, description: richTextBox1.Text, id: Guid.NewGuid());
-                Controllers.ProductController.Insert(new[] { p });
+            int price = int.Parse(textBox2.Text);
+            Product p = new Product(title: textBox1.Text, category: _category, price: price, seller: Controllers.CurrentSeller, description: richTextBox1.Text, id: Guid.NewGuid());
+            Controllers.ProductController.Insert(new[] { p });
 
                 NewListingStatus("Successfully added a new product!");
             }
