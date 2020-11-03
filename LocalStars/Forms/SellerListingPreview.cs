@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Server;
+using Microsoft.EntityFrameworkCore.Internal;
+using System.Linq;
 
 namespace Forms
 {
@@ -16,13 +18,7 @@ namespace Forms
     {
         public SellerListingPreview()
         {
-           /* foreach (var product in CurrentBuyer.FavoriteProducts)
-            {
-                if (guid == product.Id)
-                {
-                    iconFavorite.IconChar =FontAwesome.Sharp.IconChar.HeartBroken;
-                }
-            }*/
+
             InitializeComponent();
 
         }
@@ -36,6 +32,7 @@ namespace Forms
         private string _desctiption;
         private Image _picture;
         private readonly Buyer _currentBuyer = Controllers.CurrentBuyer;
+        
 
         public string PhoneNumber { get; set; }
 
@@ -47,7 +44,7 @@ namespace Forms
         }
 
         [Category("Custom Properties")]
-        public Guid Guid
+        public Guid id
         {
             get => _guid;
             set { _guid = value;}
@@ -82,8 +79,24 @@ namespace Forms
             set { _picture = value; pictureBox1.Image = value; }
         }
 
+
         [Category("Custom Properties")]
-        public int MouseClickCount { get; private set; } = 0;
+        public bool IsLikedProduct { 
+            get {
+                return Controllers.BuyerController.IsLikedProduct(_currentBuyer.Id, Controllers.ProductController.Get(id));
+            }
+            private set { 
+            
+                if(value)
+                { 
+                    Controllers.BuyerController.AddLikedProduct(_currentBuyer.Id, Controllers.ProductController.Get(id)); 
+                }
+                else
+                {
+                    Controllers.BuyerController.RemoveLikedProduct(_currentBuyer.Id, Controllers.ProductController.Get(id));
+                }
+            }
+        }
 
         #endregion
 
@@ -119,19 +132,15 @@ namespace Forms
 
         private void iconPictureBox1_Click(object sender, EventArgs e)
         {
+            IsLikedProduct = !IsLikedProduct;
+            iconFavorite.IconChar = IsLikedProduct ? FontAwesome.Sharp.IconChar.Heartbeat : FontAwesome.Sharp.IconChar.Heart;
 
-            MouseClickCount++;
-            if(MouseClickCount % 2 != 0)
-            {
-                iconFavorite.IconChar = FontAwesome.Sharp.IconChar.Heartbeat;
-                Controllers.BuyerController.AddLikedProduct(_currentBuyer.Id, Controllers.ProductController.Get(Guid));
-            }
-            else
-            {
-                iconFavorite.IconChar = FontAwesome.Sharp.IconChar.Heart;
-                Controllers.BuyerController.RemoveLikedProduct(_currentBuyer.Id, Controllers.ProductController.Get(Guid));
-            }
-          
         }
+
+        private void Form_Load(object sender, EventArgs e)
+        {
+            iconFavorite.IconChar = IsLikedProduct ? FontAwesome.Sharp.IconChar.Heartbeat : FontAwesome.Sharp.IconChar.Heart;
+        }
+
     }
 }

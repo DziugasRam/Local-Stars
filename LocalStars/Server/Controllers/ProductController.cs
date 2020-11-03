@@ -56,7 +56,9 @@ namespace Server.Controllers
         [HttpGet]
         public IEnumerable<Product> Get()
         {
-            return _productProvider.Get();
+            return _productProvider
+                .Get()
+                .ToArray();
         }
 
 

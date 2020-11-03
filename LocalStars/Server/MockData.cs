@@ -20,7 +20,7 @@ namespace Server
 
         public static readonly List<Buyer> Buyers = new List<Buyer> { Buyer1, Buyer2, Buyer3, Buyer4 };
 
-        public static readonly List<Product> Products = new List<Product> 
+        public static readonly List<Product> Products = new List<Product>
         {
             new Product($"{nameof(Seller1)}_Product1", "Pears", 2, Seller1, "new", Guid.NewGuid()),
             new Product($"{nameof(Seller1)}_Product3", "Potatoes", 3, Seller1, "new", Guid.NewGuid()),
@@ -30,6 +30,12 @@ namespace Server
             new Product($"{nameof(Seller4)}_Product1", "Apples", 1, Seller4, "new", Guid.NewGuid()),
             new Product($"{nameof(Seller4)}_Product2", "Pears", 1, Seller4, "new", Guid.NewGuid())
         };
+
+
+        public static readonly List<BuyerProduct> BuyerProducts = new List<BuyerProduct>(){
+            new BuyerProduct(BuyerProduct.RelationType.Favorite, Buyer4, Products[0])
+        };
+
 
         public static readonly User User1 = new User("user1", "psw", Guid.NewGuid(), Buyer1, Seller1);
         public static readonly User User2 = new User("user2", "psw", Guid.NewGuid(), Buyer2, Seller3);

@@ -27,6 +27,7 @@ namespace Server.Controllers
             _context.Buyers.AddRange(MockData.Buyers);
             _context.Users.AddRange(MockData.Users);
             _context.Products.AddRange(MockData.Products);
+            _context.BuyerProducts.AddRange(MockData.BuyerProducts);
             _context.SaveChanges();
         }
 
