@@ -10,11 +10,12 @@ namespace Models
         {
         }
 
-        public BuyerProduct(RelationType type, Guid id, Product product)
+        public BuyerProduct(RelationType type, Buyer buyer, Product product)
         {
             Type = type;
-            Id = id;
+            Buyer = buyer;
             Product = product;
+
         }
 
         public enum RelationType
@@ -24,7 +25,9 @@ namespace Models
         }
 
         public RelationType Type { get; set; }
-        public Guid Id { get; set; }
+        public Guid ProductId { get; set; }
+        public Guid BuyerId { get; set; }
         public virtual Product Product { get; set; }
+        public virtual Buyer Buyer { get; set; }
     }
 }

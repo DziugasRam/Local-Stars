@@ -58,5 +58,10 @@ namespace Server.Controllers
         {
             _buyerProvider.RemoveLikedProduct(id, product);
         }
+
+        public bool IsLikedProduct(Guid id, Product product)
+        {
+            return _buyerProvider.IsLikedProduct(id, product);
+        }
     }
 }

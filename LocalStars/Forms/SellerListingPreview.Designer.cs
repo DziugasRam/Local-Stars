@@ -98,7 +98,7 @@ namespace Forms
             // 
             this.iconFavorite.BackColor = System.Drawing.Color.Transparent;
             this.iconFavorite.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.iconFavorite.IconChar = FontAwesome.Sharp.IconChar.Heart;
+
             this.iconFavorite.IconColor = System.Drawing.SystemColors.ControlText;
             this.iconFavorite.IconSize = 51;
             this.iconFavorite.Location = new System.Drawing.Point(460, 9);
@@ -143,6 +143,7 @@ namespace Forms
             this.ResumeLayout(false);
             this.PerformLayout();
 
+            this.Load += new System.EventHandler(this.Form_Load);
         }
 
         #endregion

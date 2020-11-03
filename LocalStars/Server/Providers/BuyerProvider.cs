@@ -43,16 +43,23 @@ namespace Server.Providers
 
         public void AddLikedProduct(Guid id, Product product)
         {
-            //var buyer = GetById(id);
-            //buyer.BuyerProducts.Add(new BuyerProduct(BuyerProduct.RelationType.Favorite, Guid.NewGuid(), product));
-            //_context.SaveChanges();
+            var buyer = GetById(id);
+            buyer.BuyerProducts.Add(new BuyerProduct(BuyerProduct.RelationType.Favorite, buyer, product));
+            _context.SaveChanges();
         }
 
         public void RemoveLikedProduct(Guid id, Product product)
         {
-            //var buyer = GetById(id);
-            //buyer.BuyerProducts.Remove(new BuyerProduct(BuyerProduct.RelationType.Favorite, Guid.NewGuid(), product));
-            //_context.SaveChanges();
+            var buyer = GetById(id);
+            var buyerProduct = buyer.BuyerProducts.First(bp => bp.ProductId == product.Id);
+            buyer.BuyerProducts.Remove(buyerProduct);
+            _context.SaveChanges();
+        }
+
+        public bool IsLikedProduct(Guid id, Product product)
+        {
+            var buyer = GetById(id);
+            return buyer.BuyerProducts.Any(bp => bp.ProductId == product.Id);
         }
     }
 }

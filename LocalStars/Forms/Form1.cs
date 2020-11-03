@@ -233,13 +233,13 @@ namespace Forms
                 foreach (var product in productViewModels)
                 {
                     product.Hide();
-                    //foreach (var favProduct in CurrentBuyer.FavoriteProducts)
-                    //{
-                    //    if (product.Guid == favProduct.Id)
-                    //    {
-                    //        product.Show();
-                    //    }
-                    //}
+                    foreach (var favProduct in CurrentBuyer.BuyerProducts)
+                    {
+                        if (product.Guid == favProduct.ProductId)
+                        {
+                            product.Show();
+                        }
+                    }
                 }
                 IsButtonFavoritesClicked = true;
             }
@@ -260,8 +260,9 @@ namespace Forms
 
         private void buttonSort_Click(object sender, EventArgs e)
         {
+          
             var btn = sender as Button;
-            var sortedProducts= Controllers.ProductController.Get();
+            var sortedProducts = flowLayoutPanel1.Controls.Cast<SellerListingPreview>();
             hide_Products();
 
             switch(btn.Text)
@@ -273,19 +274,31 @@ namespace Forms
                     sortedProducts = sortedProducts.OrderByDescending(o => o.Price);
                     break;
                 case "A-Z":
-                    sortedProducts = sortedProducts.OrderBy(o => o.Title);
+                    sortedProducts = sortedProducts.OrderBy(o => o.Name1);
                     break;
                 case "Z-A":
-                    sortedProducts = sortedProducts.OrderByDescending(o => o.Title);
+                    sortedProducts = sortedProducts.OrderByDescending(o => o.Name1);
                     break;
             }
            
-            var viewmodel = sortedProducts.Select(MapToSellerListingPreview);
 
-            flowLayoutPanel1.Controls.AddRange(viewmodel.ToArray());
+            flowLayoutPanel1.Controls.AddRange(sortedProducts.ToArray());
 
-            foreach (var product in viewmodel)
+            foreach (var product in sortedProducts)
             {
+                if (IsButtonFavoritesClicked)
+                {
+
+                    foreach (var favProduct in CurrentBuyer.BuyerProducts)
+                    {
+                        if (product.Guid == favProduct.ProductId)
+                        {
+                            product.Show();
+                        }
+                    }
+
+                }
+                else
                 product.Show();
             }
         }

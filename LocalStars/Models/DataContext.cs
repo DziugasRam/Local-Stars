@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
+
 namespace Models
 {
     public class DataContext : DbContext
@@ -20,16 +21,17 @@ namespace Models
         public DbSet<Buyer> Buyers { get; set; }
         public DbSet<Seller> Sellers { get; set; }
         public DbSet<Product> Products { get; set; }
-        //public DbSet<BuyerProduct> BuyerProducts { get; set; }
+        public DbSet<BuyerProduct> BuyerProducts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Buyer>().HasKey(b => b.Id);
-            //modelBuilder.Entity<Buyer>().HasMany(b => b.BuyerProducts).WithOne();
+            modelBuilder.Entity<Buyer>().HasMany(b => b.BuyerProducts);
             modelBuilder.Entity<Product>().HasKey(p => p.Id);
             modelBuilder.Entity<Seller>().HasKey(s => s.Id);
             modelBuilder.Entity<User>().HasKey(u => u.Id);
-            //modelBuilder.Entity<BuyerProduct>().HasKey(bp => bp.Id);
+            modelBuilder.Entity<BuyerProduct>()
+                .HasKey(bp => new { bp.BuyerId, bp.ProductId });
         }
     }
 }
