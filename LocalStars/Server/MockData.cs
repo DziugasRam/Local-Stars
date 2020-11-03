@@ -16,9 +16,7 @@ namespace Server
         public static readonly Buyer Buyer1 = new Buyer(nameof(Buyer1), $"{nameof(Buyer1)}_lastName", Guid.NewGuid(), new List<BuyerProduct>());
         public static readonly Buyer Buyer2 = new Buyer(nameof(Buyer2), $"{nameof(Buyer2)}_lastName", Guid.NewGuid(), new List<BuyerProduct>());
         public static readonly Buyer Buyer3 = new Buyer(nameof(Buyer3), $"{nameof(Buyer3)}_lastName", Guid.NewGuid(), new List<BuyerProduct>());
-        public static readonly Buyer Buyer4 =
-            new Buyer(nameof(Buyer4), $"{nameof(Buyer4)}_lastName", Guid.NewGuid(),
-                new List<BuyerProduct>());
+        public static readonly Buyer Buyer4 = new Buyer(nameof(Buyer4), $"{nameof(Buyer4)}_lastName", Guid.NewGuid(), new List<BuyerProduct>());
 
         public static readonly List<Buyer> Buyers = new List<Buyer> { Buyer1, Buyer2, Buyer3, Buyer4 };
 

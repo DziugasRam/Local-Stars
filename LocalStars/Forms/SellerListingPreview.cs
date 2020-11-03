@@ -44,7 +44,7 @@ namespace Forms
         }
 
         [Category("Custom Properties")]
-        public Guid Guid
+        public Guid id
         {
             get => _guid;
             set { _guid = value;}
@@ -83,17 +83,17 @@ namespace Forms
         [Category("Custom Properties")]
         public bool IsLikedProduct { 
             get {
-                return Controllers.BuyerController.IsLikedProduct(_currentBuyer.Id, Controllers.ProductController.Get(Guid));
+                return Controllers.BuyerController.IsLikedProduct(_currentBuyer.Id, Controllers.ProductController.Get(id));
             }
             private set { 
             
                 if(value)
                 { 
-                    Controllers.BuyerController.AddLikedProduct(_currentBuyer.Id, Controllers.ProductController.Get(Guid)); 
+                    Controllers.BuyerController.AddLikedProduct(_currentBuyer.Id, Controllers.ProductController.Get(id)); 
                 }
                 else
                 {
-                    Controllers.BuyerController.RemoveLikedProduct(_currentBuyer.Id, Controllers.ProductController.Get(Guid));
+                    Controllers.BuyerController.RemoveLikedProduct(_currentBuyer.Id, Controllers.ProductController.Get(id));
                 }
             }
         }
@@ -132,29 +132,14 @@ namespace Forms
 
         private void iconPictureBox1_Click(object sender, EventArgs e)
         {
-            if (!IsLikedProduct)
-            {
-                iconFavorite.IconChar = FontAwesome.Sharp.IconChar.Heartbeat;
-                IsLikedProduct = true;
-            }
-            else
-            {
-                iconFavorite.IconChar = FontAwesome.Sharp.IconChar.Heart;
-                IsLikedProduct = false;
-            }
-          
+            IsLikedProduct = !IsLikedProduct;
+            iconFavorite.IconChar = IsLikedProduct ? FontAwesome.Sharp.IconChar.Heartbeat : FontAwesome.Sharp.IconChar.Heart;
+
         }
 
         private void Form_Load(object sender, EventArgs e)
         {
-            if (IsLikedProduct)
-            {
-                this.iconFavorite.IconChar = FontAwesome.Sharp.IconChar.Heartbeat;
-            }
-            else
-            {
-                this.iconFavorite.IconChar = FontAwesome.Sharp.IconChar.Heart;
-            }
+            iconFavorite.IconChar = IsLikedProduct ? FontAwesome.Sharp.IconChar.Heartbeat : FontAwesome.Sharp.IconChar.Heart;
         }
 
     }
