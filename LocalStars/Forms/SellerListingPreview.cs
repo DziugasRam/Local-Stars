@@ -26,7 +26,7 @@ namespace Forms
         #region Properties
 
         private string _name;
-        private Guid _guid;
+        private Guid _id;
         private string _price;
         private string _category;
         private string _desctiption;
@@ -44,10 +44,10 @@ namespace Forms
         }
 
         [Category("Custom Properties")]
-        public Guid id
+        public Guid Id
         {
-            get => _guid;
-            set { _guid = value;}
+            get => _id;
+            set { _id = value;}
         }
 
 
@@ -83,17 +83,17 @@ namespace Forms
         [Category("Custom Properties")]
         public bool IsLikedProduct { 
             get {
-                return Controllers.BuyerController.IsLikedProduct(_currentBuyer.Id, Controllers.ProductController.Get(id));
+                return Controllers.BuyerController.IsLikedProduct(_currentBuyer.Id, Controllers.ProductController.Get(Id));
             }
             private set { 
             
                 if(value)
                 { 
-                    Controllers.BuyerController.AddLikedProduct(_currentBuyer.Id, Controllers.ProductController.Get(id)); 
+                    Controllers.BuyerController.AddLikedProduct(_currentBuyer.Id, Controllers.ProductController.Get(Id)); 
                 }
                 else
                 {
-                    Controllers.BuyerController.RemoveLikedProduct(_currentBuyer.Id, Controllers.ProductController.Get(id));
+                    Controllers.BuyerController.RemoveLikedProduct(_currentBuyer.Id, Controllers.ProductController.Get(Id));
                 }
             }
         }
