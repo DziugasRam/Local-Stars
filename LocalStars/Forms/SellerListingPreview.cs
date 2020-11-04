@@ -44,11 +44,7 @@ namespace Forms
         }
 
         [Category("Custom Properties")]
-        public Guid Id
-        {
-            get => _id;
-            set { _id = value;}
-        }
+        public Guid Id { get; set;}
 
 
         [Category("Custom Properties")]
