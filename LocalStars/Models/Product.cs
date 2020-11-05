@@ -33,7 +33,7 @@ namespace Models
                 && Category == product.Category
                 && Price == product.Price
                 && Description == product.Description
-                && Seller == product.Seller;
+                && Seller.Id == product.Seller.Id;
 
         }
 
