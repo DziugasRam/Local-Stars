@@ -26,7 +26,6 @@ namespace Forms
         #region Properties
 
         private string _name;
-        private Guid _id;
         private string _price;
         private string _category;
         private string _desctiption;
