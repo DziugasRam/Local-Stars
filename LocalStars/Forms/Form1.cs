@@ -177,7 +177,7 @@ namespace Forms
             var viewmodel = new SellerListingPreview
             {
                 Name1 = product.Title,
-                Guid = product.Id,
+                Id = product.Id,
                 Description = product.Description,
                 Price = product.Price.ToString(),
                 Category = product.Category,
@@ -235,7 +235,7 @@ namespace Forms
                     product.Hide();
                     foreach (var favProduct in CurrentBuyer.BuyerProducts)
                     {
-                        if (product.Guid == favProduct.ProductId)
+                        if (product.Id == favProduct.ProductId)
                         {
                             product.Show();
                         }
@@ -268,10 +268,10 @@ namespace Forms
             switch(btn.Text)
             {
                 case "Lowest Price":
-                    sortedProducts = sortedProducts.OrderBy(o => o.Price);
+                    sortedProducts = sortedProducts.OrderBy(o => Convert.ToInt32(o.Price));
                     break;
                 case "Highest Price":
-                    sortedProducts = sortedProducts.OrderByDescending(o => o.Price);
+                    sortedProducts = sortedProducts.OrderByDescending(o => Convert.ToInt32(o.Price));
                     break;
                 case "A-Z":
                     sortedProducts = sortedProducts.OrderBy(o => o.Name1);
@@ -291,7 +291,7 @@ namespace Forms
 
                     foreach (var favProduct in CurrentBuyer.BuyerProducts)
                     {
-                        if (product.Guid == favProduct.ProductId)
+                        if (product.Id == favProduct.ProductId)
                         {
                             product.Show();
                         }

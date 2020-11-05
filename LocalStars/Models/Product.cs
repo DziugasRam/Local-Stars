@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Models
 {
-    public class Product : IIdentifiable
+    public class Product : IIdentifiable, IEquatable<Product>
     {
         public Product()
         {
@@ -25,5 +25,26 @@ namespace Models
         public virtual Seller Seller { get; set; }
         public string Description { get; set; }
         public Guid Id { get; set; }
+
+        public bool Equals(Product product)
+        {
+            return
+                Title == product.Title
+                && Category == product.Category
+                && Price == product.Price
+                && Description == product.Description
+                && Seller.Id == product.Seller.Id;
+
+        }
+
+        public static bool operator ==(Product p1, Product p2)
+        {
+            return p1.Equals(p2);
+        }
+
+        public static bool operator !=(Product p1, Product p2)
+        {
+            return !p1.Equals(p2);
+        }
     }
 }
