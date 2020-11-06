@@ -108,15 +108,5 @@ namespace Forms
             Controllers.ProductController.RemoveById(new[] { p.Id } );
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            Buyer buyer = new Buyer();
-            buyer.FirstName = Controllers.CurrentSeller.FirstName;
-            buyer.LastName = Controllers.CurrentSeller.LastName;
-            buyer.Id = Controllers.CurrentSeller.Id;
-            buyer.BuyerProducts = new List<BuyerProduct>();
-            Controllers.BuyerController.Insert(buyer);
-            Controllers.SellerController.Remove(Controllers.CurrentSeller.Id);
-        }
     }
 }
