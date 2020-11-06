@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Models
 {
-    public class Product : IIdentifiable, IEquatable<Product>
+    public class Product : IIdentifiable<Guid>, IEquatable<Product>
     {
         public Product()
         {

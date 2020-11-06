@@ -31,7 +31,7 @@ namespace Server.Providers
 
         public IEnumerable<Product> GetByTitle(string title, bool fullMatch = true, StringComparison comparisonType = StringComparison.Ordinal)
         {
-            if (title == null || title == string.Empty)
+            if (string.IsNullOrEmpty(title))
             {
                 return new List<Product>();
             }
@@ -41,7 +41,7 @@ namespace Server.Providers
 
         public IEnumerable<Product> GetByType(string category, bool fullMatch = true, StringComparison comparisonType = StringComparison.Ordinal)
         {
-            if (category == null || category == string.Empty)
+            if (string.IsNullOrEmpty(category))
             {
                 return new List<Product>();
             }
@@ -57,7 +57,7 @@ namespace Server.Providers
                 seller => seller,
                 product => product.Seller,
                 (seller, products) => new ProductsForSeller(seller, products.ToArray()),
-                new IdentifiableComparer());
+                new IdentifiableComparer<Guid>());
         }
 
         public void RemoveById(IEnumerable<Guid> ids)
