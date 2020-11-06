@@ -173,20 +173,23 @@ namespace Forms
 
         private void button7_Click(object sender, EventArgs e)
         {
-            try { 
-                var price = int.Parse(textBox2.Text);
-                var product = new Product(title: textBox1.Text, category: _category, price: price, seller: Controllers.CurrentSeller, description: richTextBox1.Text, id: Guid.NewGuid());
+            try
+            {
+                ValidateNewListingValues(title: textBox1.Text, price: textBox2.Text, description: richTextBox1.Text);
+                int price = int.Parse(textBox2.Text);
+                Product product = new Product(title: textBox1.Text, category: _category, price: price, seller: Controllers.CurrentSeller, description: richTextBox1.Text, id: Guid.NewGuid());
 
                 var products = Controllers.ProductController.Get();
-                var doesExist = products.Any(p => p == product);
 
-                if(!doesExist)
+                if (!products.Contains(product))
                 {
                     Controllers.ProductController.Insert(new[] { product });
                     NewListingStatus("Successfully added a new product!");
                 }
                 else
+                {
                     NewListingStatus("This product is already in market");
+                }
             }
             catch (ArgumentException exception)
             {

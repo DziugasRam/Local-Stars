@@ -23,7 +23,7 @@ namespace Server.Providers
 
         public void Insert(Buyer buyer)
         {
-            if (_context.Buyers.Any(b => b.Id == buyer.Id))
+            if (_context.Buyers.Contains(buyer, new IdentifiableComparer()))
             {
                 throw new ConflictException("Buyer id already exists");
             }
@@ -59,7 +59,7 @@ namespace Server.Providers
         public bool IsLikedProduct(Guid id, Product product)
         {
             var buyer = GetById(id);
-            return buyer.BuyerProducts.Any(bp => bp.ProductId == product.Id);
+            return buyer.BuyerProducts.Any(bp => bp.Type == BuyerProduct.RelationType.Favorite && bp.ProductId == product.Id);
         }
     }
 }

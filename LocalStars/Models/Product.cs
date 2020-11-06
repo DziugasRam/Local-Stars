@@ -34,7 +34,16 @@ namespace Models
                 && Price == product.Price
                 && Description == product.Description
                 && Seller.Id == product.Seller.Id;
+        }
 
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as Product);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Title, Category, Price, Description, Seller.Id);
         }
 
         public static bool operator ==(Product p1, Product p2)

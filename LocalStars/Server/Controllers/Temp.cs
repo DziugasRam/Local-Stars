@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Server.Providers;
 
 namespace Server.Controllers
 {
@@ -13,15 +14,17 @@ namespace Server.Controllers
     public class TempController : ControllerBase
     {
         private readonly DataContext _context;
+        private readonly ProductProvider _productProvider;
 
-        public TempController(DataContext context)
+        public TempController(DataContext context, ProductProvider productProvider)
         {
             _context = context;
+            _productProvider = productProvider;
         }
 
         [HttpGet]
         [Route("populate")]
-        public void GetProducts()
+        public void InsertMockDataIntoDB()
         {
             _context.Sellers.AddRange(MockData.Sellers);
             _context.Buyers.AddRange(MockData.Buyers);
@@ -33,30 +36,38 @@ namespace Server.Controllers
 
         [HttpGet]
         [Route("getp")]
-        public IEnumerable<Product> asd()
+        public IEnumerable<Product> GetProducts()
         {
             return _context.Products.AsEnumerable();
         }
 
         [HttpGet]
         [Route("getb")]
-        public IEnumerable<Buyer> hdgf()
+        public IEnumerable<Buyer> GetBuyers()
         {
             return _context.Buyers.AsEnumerable();
         }
 
         [HttpGet]
         [Route("gets")]
-        public IEnumerable<Seller> asdf()
+        public IEnumerable<Seller> GetSellers()
         {
             return _context.Sellers.AsEnumerable();
         }
 
         [HttpGet]
         [Route("getu")]
-        public IEnumerable<User> qw3rwe()
+        public IEnumerable<User> GetUsers()
         {
             return _context.Users.AsEnumerable();
+        }
+
+        [HttpGet]
+        [Route("getProductsForSellers")]
+        public IEnumerable<ProductsForSeller> GetProductsForSellers()
+        {
+            var sellers = GetSellers().ToList();
+            return _productProvider.GetBySeller(sellers);
         }
     }
 }

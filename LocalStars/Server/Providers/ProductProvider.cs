@@ -50,13 +50,14 @@ namespace Server.Providers
                 .Where(product => fullMatch ? string.Equals(product.Category, category, comparisonType) : product.Category.Contains(category, comparisonType));
         }
 
-        public IEnumerable<ProductsForSeller> GetBySeller(IEnumerable<Guid> sellerIds)
+        public IEnumerable<ProductsForSeller> GetBySeller(IEnumerable<Seller> sellers)
         {
-            return sellerIds.GroupJoin(
+            return sellers.GroupJoin(
                 _context.Products,
-                sellerId => sellerId,
-                product => product.Seller.Id,
-                (sellerId, products) => new ProductsForSeller(sellerId, products));
+                seller => seller,
+                product => product.Seller,
+                (seller, products) => new ProductsForSeller(seller, products.ToArray()),
+                new IdentifiableComparer());
         }
 
         public void RemoveById(IEnumerable<Guid> ids)
