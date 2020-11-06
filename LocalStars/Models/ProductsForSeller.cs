@@ -1,18 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Models
 {
     public class ProductsForSeller
     {
-        public ProductsForSeller(Guid sellerId, IEnumerable<Product> products)
-        {
-            SellerId = sellerId;
-            Products = products;
+        public Product this[int index] => Products[index];
+        public int Length { 
+            get {
+                return Products.Length;
+            }
         }
 
-        public Guid SellerId { get; }
-        public IEnumerable<Product> Products { get; }
+        public ProductsForSeller(Seller seller, Product[] products)
+        {
+            Seller = seller;
+            Products = products;
+        }
+        public Seller Seller { get; }
+        public Product[] Products { get; }
     }
 }

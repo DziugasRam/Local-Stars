@@ -23,8 +23,6 @@ namespace Forms
         private bool IsPanelOtherOpen = false;
         private bool IsPanelSortByOpen = false;
         private bool IsButtonFavoritesClicked = false;
-        private static readonly Controllers controllers = new Controllers();
-        private readonly Buyer CurrentBuyer = controllers[0];
 
         public Form1()
         {
@@ -180,7 +178,7 @@ namespace Forms
                 Name1 = product.Title,
                 Id = product.Id,
                 Description = product.Description,
-                Price = product.Price.ToString(),
+                Price = product.Price,
                 Category = product.Category,
                 Picture = Resources.missing_image,
                 PhoneNumber = product.Seller.PhoneNumber
@@ -227,28 +225,8 @@ namespace Forms
 
         private void buttonFavorite_Click(object sender, EventArgs e)
         {
-            var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>();
-
-            if (!IsButtonFavoritesClicked)
-            {
-                foreach (var product in productViewModels)
-                {
-                    product.Hide();
-                    foreach (var favProduct in CurrentBuyer.BuyerProducts.Where(favProduct => product.Id == favProduct.ProductId))
-                    {
-                        product.Show();
-                    }
-                }
-                IsButtonFavoritesClicked = true;
-            }
-            else
-            {
-                foreach (var product in productViewModels)
-                {
-                    product.Show();
-                }
-                IsButtonFavoritesClicked = false;
-            }
+            IsButtonFavoritesClicked = !IsButtonFavoritesClicked;
+            showOnlyLikedIfNeeded();
         }
 
         private void buttonGoBack_Click(object sender, EventArgs e)
@@ -258,33 +236,40 @@ namespace Forms
 
         private void buttonSort_Click(object sender, EventArgs e)
         {
-          
             var btn = sender as Button;
-            var sortedProducts = flowLayoutPanel1.Controls.Cast<SellerListingPreview>();
+            var products = flowLayoutPanel1.Controls.Cast<SellerListingPreview>();
             hide_Products();
 
-            sortedProducts = btn.Text switch
+            var sortedProducts = btn.Text switch
             {
-                "Lowest Price" => sortedProducts.OrderBy(o => Convert.ToInt32(o.Price)),
-                "Highest Price" => sortedProducts.OrderByDescending(o => Convert.ToInt32(o.Price)),
-                "A-Z" => sortedProducts.OrderBy(o => o.Name1),
-                "Z-A" => sortedProducts.OrderByDescending(o => o.Name1),
-                _ => sortedProducts
+                "Lowest Price" => products.OrderBy(o => o.Price),
+                "Highest Price" => products.OrderByDescending(o => o.Price),
+                "A-Z" => products.OrderBy(o => o.Name1),
+                "Z-A" => products.OrderByDescending(o => o.Name1),
+                _ => products
             };
 
             flowLayoutPanel1.Controls.AddRange(sortedProducts.ToArray());
 
-            foreach (var product in sortedProducts)
+            showOnlyLikedIfNeeded();
+        }
+
+        private void showOnlyLikedIfNeeded()
+        {
+            var products = flowLayoutPanel1.Controls.Cast<SellerListingPreview>();
+            foreach (var product in products)
             {
                 if (IsButtonFavoritesClicked)
                 {
-                    foreach (var favProduct in CurrentBuyer.BuyerProducts.Where(favProduct => product.Id == favProduct.ProductId))
-                    {
+                    if (product.IsLikedProduct)
                         product.Show();
-                    }
+                    else
+                        product.Hide();
                 }
                 else
+                {
                     product.Show();
+                }
             }
         }
 

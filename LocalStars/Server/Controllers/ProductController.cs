@@ -44,7 +44,8 @@ namespace Server.Controllers
         [Route("sellerId")]
         public IEnumerable<ProductsForSeller> GetBySeller([FromBody] IEnumerable<Guid> ids)
         {
-            return _productProvider.GetBySeller(ids);
+            var sellers = _sellerProvider.GetById(ids).ToList();
+            return _productProvider.GetBySeller(sellers);
         }
 
         [HttpGet]
@@ -53,6 +54,7 @@ namespace Server.Controllers
             return _productProvider.GetById(new[] { id }).Single();
         }
 
+        // Needs to be replaced with location based search
         [HttpGet]
         public IEnumerable<Product> Get()
         {

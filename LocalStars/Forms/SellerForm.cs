@@ -63,23 +63,20 @@ namespace Forms
                 listView1.Columns.Add("Price(€)", 80);
                 listView1.Columns.Add("Description", 220);
 
-                var products = Controllers.ProductController.Get().ToList();
-                foreach (Product p in products)
+                var sellerProducts = Controllers.ProductController.GetBySeller(new[] { Controllers.CurrentSeller.Id }).Single();
+                for(int i = 0; i < sellerProducts.Length; ++i)
                 {
-                    if (p.Seller.Id == Controllers.CurrentSeller.Id)
-                    {
-                        var items = new ListViewItem();
-                        items.Text = p.Title;
-                        items.SubItems.Add(p.Category);
-                        items.SubItems.Add(p.Price.ToString());
-                        items.SubItems.Add(p.Description);
-                        items.Tag = p;
-                        listView1.Items.Add(items);
-                    }
-  
+                    var p = sellerProducts[i];
+                    var items = new ListViewItem();
+                    items.Text = p.Title;
+                    items.SubItems.Add(p.Category);
+                    items.SubItems.Add(p.Price.ToString());
+                    items.SubItems.Add(p.Description);
+                    items.Tag = p;
+                    listView1.Items.Add(items);
                 }
 
-                listView1.highlightRows();
+                listView1.HighlightRows();
 
                 onClick = false;
             }

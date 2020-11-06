@@ -11,6 +11,7 @@ using Models;
 using Server;
 using Microsoft.EntityFrameworkCore.Internal;
 using System.Linq;
+using System.Runtime.CompilerServices;
 
 namespace Forms
 {
@@ -26,7 +27,7 @@ namespace Forms
         #region Properties
 
         private string _name;
-        private string _price;
+        private int _price;
         private string _category;
         private string _desctiption;
         private Image _picture;
@@ -47,7 +48,7 @@ namespace Forms
 
 
         [Category("Custom Properties")]
-        public string Price
+        public int Price
         {
             get => _price;
             set { _price = value; labelPrice.Text = $"{value} €"; }
@@ -76,7 +77,7 @@ namespace Forms
 
 
         [Category("Custom Properties")]
-        public bool IsLikedProduct { 
+        public bool IsLikedProduct {
             get {
                 return Controllers.BuyerController.IsLikedProduct(_currentBuyer.Id, Controllers.ProductController.Get(Id));
             }
