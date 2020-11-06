@@ -2,7 +2,7 @@
 
 namespace Models
 {
-    public class Seller : Locatable, IIdentifiable
+    public class Seller : Locatable, IIdentifiable<Guid>
     {
         public Seller()
         {

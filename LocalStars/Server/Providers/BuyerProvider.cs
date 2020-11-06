@@ -23,7 +23,7 @@ namespace Server.Providers
 
         public void Insert(Buyer buyer)
         {
-            if (_context.Buyers.Contains(buyer, new IdentifiableComparer()))
+            if (_context.Buyers.Contains(buyer, new IdentifiableComparer<Guid>()))
             {
                 throw new ConflictException("Buyer id already exists");
             }

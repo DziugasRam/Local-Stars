@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Models
 {
-    public class User : IIdentifiable
+    public class User : IIdentifiable<Guid>
     {
         public User()
         {

@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace Models
 {
-    public class Buyer : IIdentifiable
+    public class Buyer : IIdentifiable<Guid>
     {
         public Buyer()
         {
