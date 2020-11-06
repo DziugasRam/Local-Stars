@@ -23,7 +23,8 @@ namespace Forms
         private bool IsPanelOtherOpen = false;
         private bool IsPanelSortByOpen = false;
         private bool IsButtonFavoritesClicked = false;
-        readonly Buyer CurrentBuyer = Controllers.CurrentBuyer;
+        private static readonly Controllers controllers = new Controllers();
+        private readonly Buyer CurrentBuyer = controllers[0];
 
         public Form1()
         {

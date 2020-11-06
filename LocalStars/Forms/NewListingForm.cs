@@ -32,30 +32,26 @@ namespace Forms
             if (IsPanelVegetablesOpen)
             {
                 panelVegetables.Height -= 21;
-                if (panelVegetables.Height <= 0)
-                {
-                    panelVegetables.SendToBack();
-                    timer1.Stop();
-                    IsPanelVegetablesOpen = false;
-                    button1.BackColor = Color.Empty;
-                }
+                if (panelVegetables.Height > 0) return;
+                panelVegetables.SendToBack();
+                timer1.Stop();
+                IsPanelVegetablesOpen = false;
+                button1.BackColor = Color.Empty;
             }
             else if (!IsPanelVegetablesOpen)
             {
                 panelVegetables.BringToFront();
                 panelVegetables.Height += 21;
-                if (panelVegetables.Height >= 351)
-                {
-                    timer1.Stop();
-                    IsPanelVegetablesOpen = true;
-                }
+                if (panelVegetables.Height < 351) return;
+                timer1.Stop();
+                IsPanelVegetablesOpen = true;
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             timer1.Start();
-            setVegetableButtonColor();
+            SetVegetableButtonColor();
         }
 
         private void timer2_Tick(object sender, EventArgs e)
@@ -63,42 +59,38 @@ namespace Forms
             if (IsPaneFruitsOpen)
             {
                 panelFruits.Height -= 21;
-                if (panelFruits.Height <= 0)
-                {
-                    panelFruits.SendToBack();
-                    IsPaneFruitsOpen = false;
-                    timer2.Stop();
-                    buttonFruits.BackColor = Color.Empty;
-                }
+                if (panelFruits.Height > 0) return;
+                panelFruits.SendToBack();
+                IsPaneFruitsOpen = false;
+                timer2.Stop();
+                buttonFruits.BackColor = Color.Empty;
             }
             else
             {
                 panelFruits.BringToFront();
                 panelFruits.Height += 21;
-                if (panelFruits.Height >= 282)
-                {
-                    IsPaneFruitsOpen = true;
-                    timer2.Stop();
-                }
+                if (panelFruits.Height < 282) return;
+                IsPaneFruitsOpen = true;
+                timer2.Stop();
             }
         }
 
         private void buttonFruits_Click(object sender, EventArgs e)
         {
             timer2.Start();
-            setFruitButtonColor();
+            SetFruitButtonColor();
         }
 
         private void buttonConfectionery_Click(object sender, EventArgs e)
         {
             timer3.Start();
-            setConfectionaryButtonColor();
+            SetConfectioneryButtonColor();
         }
 
         private void buttonOther_Click(object sender, EventArgs e)
         {
             timer4.Start();
-            setOtherButtonColor();
+            SetOtherButtonColor();
         }
 
         private void timer3_Tick(object sender, EventArgs e)
@@ -106,23 +98,19 @@ namespace Forms
             if (IsPanelConfectioneryOpen)
             {
                 panelConfectionery.Height -= 21;
-                if (panelConfectionery.Height == 0)
-                {
-                    IsPanelConfectioneryOpen = false;
-                    panelConfectionery.SendToBack();
-                    timer3.Stop();
-                    buttonConfectionery.BackColor = Color.Empty;
-                }
+                if (panelConfectionery.Height != 0) return;
+                IsPanelConfectioneryOpen = false;
+                panelConfectionery.SendToBack();
+                timer3.Stop();
+                buttonConfectionery.BackColor = Color.Empty;
             }
             else
             {
                 panelConfectionery.BringToFront();
                 panelConfectionery.Height += 21;
-                if (panelConfectionery.Height >= 213)
-                {
-                    IsPanelConfectioneryOpen = true;
-                    timer3.Stop();
-                }
+                if (panelConfectionery.Height < 213) return;
+                IsPanelConfectioneryOpen = true;
+                timer3.Stop();
             }
         }
         private void timer4_Tick(object sender, EventArgs e)
@@ -130,23 +118,19 @@ namespace Forms
             if (IsPanelOtherOpen)
             {
                 panelOther.Height -= 20;
-                if (panelOther.Height <= 0)
-                {
-                    IsPanelOtherOpen = false;
-                    panelOther.SendToBack();
-                    timer4.Stop();
-                    buttonOther.BackColor = Color.Empty;
-                }
+                if (panelOther.Height > 0) return;
+                IsPanelOtherOpen = false;
+                panelOther.SendToBack();
+                timer4.Stop();
+                buttonOther.BackColor = Color.Empty;
             }
             else
             {
                 panelOther.BringToFront();
                 panelOther.Height += 20;
-                if (panelOther.Height >= 150)
-                {
-                    IsPanelOtherOpen = true;
-                    timer4.Stop();
-                }
+                if (panelOther.Height < 150) return;
+                IsPanelOtherOpen = true;
+                timer4.Stop();
             }
         }
 
@@ -190,22 +174,20 @@ namespace Forms
         private void button7_Click(object sender, EventArgs e)
         {
             try { 
-            int price = int.Parse(textBox2.Text);
-            Product product = new Product(title: textBox1.Text, category: _category, price: price, seller: Controllers.CurrentSeller, description: richTextBox1.Text, id: Guid.NewGuid());
+                var price = int.Parse(textBox2.Text);
+                var product = new Product(title: textBox1.Text, category: _category, price: price, seller: Controllers.CurrentSeller, description: richTextBox1.Text, id: Guid.NewGuid());
 
-            var products = Controllers.ProductController.Get();
-            var doesExist = products.Any(p => p == product);
+                var products = Controllers.ProductController.Get();
+                var doesExist = products.Any(p => p == product);
 
-            if(!doesExist)
-            {
-                Controllers.ProductController.Insert(new[] { product });
-                NewListingStatus("Successfully added a new product!");
+                if(!doesExist)
+                {
+                    Controllers.ProductController.Insert(new[] { product });
+                    NewListingStatus("Successfully added a new product!");
+                }
+                else
+                    NewListingStatus("This product is already in market");
             }
-            else
-                NewListingStatus("This product is already in market");
-
-            
-             }
             catch (ArgumentException exception)
             {
                 NewListingStatus(exception.Message);
@@ -214,16 +196,12 @@ namespace Forms
             {
                 NewListingStatus("Failed to add a new product");
             }
-
-             
-        
-        
         }
 
         private void category_click(object sender, EventArgs e)
         {
             textBox3.Clear();
-            Button btn = sender as Button;
+            var btn = sender as Button;
             _category = btn.Text;
             textBox3.AppendText(_category);
         }
@@ -238,7 +216,7 @@ namespace Forms
             label10.Text = text;
         }
 
-        public void setVegetableButtonColor()
+        public void SetVegetableButtonColor()
         {
             button1.BackColor = Color.BurlyWood;
             button2.BackColor = Color.AntiqueWhite;
@@ -248,7 +226,7 @@ namespace Forms
             button6.BackColor = Color.AntiqueWhite;
         }
 
-        public void setFruitButtonColor()
+        public void SetFruitButtonColor()
         {
             buttonFruits.BackColor = Color.BurlyWood;
             button8.BackColor = Color.AntiqueWhite;
@@ -259,7 +237,7 @@ namespace Forms
 
         }
 
-        public void setConfectionaryButtonColor()
+        public void SetConfectioneryButtonColor()
         {
             buttonConfectionery.BackColor = Color.BurlyWood;
             buttonBread.BackColor = Color.AntiqueWhite;
@@ -267,7 +245,7 @@ namespace Forms
             buttonCakesAndPies.BackColor = Color.AntiqueWhite;
         }
 
-        public void setOtherButtonColor()
+        public void SetOtherButtonColor()
         {
             buttonOther.BackColor = Color.BurlyWood;
             buttonHerbs.BackColor = Color.AntiqueWhite;
