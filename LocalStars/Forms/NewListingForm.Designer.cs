@@ -1,4 +1,6 @@
-﻿namespace Forms
+﻿using System.Drawing;
+
+namespace Forms
 {
     partial class NewListingForm
     {

@@ -215,9 +215,6 @@ namespace Forms
                 NewListingStatus("Failed to add a new product");
             }
 
-             
-        
-        
         }
 
         private void category_click(object sender, EventArgs e)
@@ -274,5 +271,6 @@ namespace Forms
             buttonHoney.BackColor = Color.AntiqueWhite;
             buttonLongLasting.BackColor = Color.AntiqueWhite;
         }
+
     }
 }
