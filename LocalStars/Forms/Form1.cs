@@ -23,7 +23,8 @@ namespace Forms
         private bool IsPanelOtherOpen = false;
         private bool IsPanelSortByOpen = false;
         private bool IsButtonFavoritesClicked = false;
-        Buyer CurrentBuyer = Controllers.CurrentBuyer;
+        private static readonly Controllers controllers = new Controllers();
+        private readonly Buyer CurrentBuyer = controllers[0];
 
         public Form1()
         {
@@ -134,25 +135,25 @@ namespace Forms
         private void buttonVegetables_Click(object sender, EventArgs e)
         {
             timer1.Start();
-            setVegetableButtonColor();
+            SetVegetableButtonColor();
         }
 
         private void buttonFruits_Click(object sender, EventArgs e)
         {
             timer2.Start();
-            setFruitButtonColor();
+            SetFruitButtonColor();
         }
 
         private void buttonConfectionery_Click(object sender, EventArgs e)
         {
             timer3.Start();
-            setConfectionaryButtonColor();
+            SetConfectioneryButtonColor();
         }
 
         private void buttonOther_Click(object sender, EventArgs e)
         {
             timer4.Start();
-            setOtherButtonColor();
+            SetOtherButtonColor();
         }
 
         private void buttonSortBy_Click(object sender, EventArgs e)
@@ -172,7 +173,7 @@ namespace Forms
             flowLayoutPanel1.Controls.AddRange(viewmodel.ToArray());
         }
 
-        private Control MapToSellerListingPreview(Product product, int arg2)
+        private static Control MapToSellerListingPreview(Product product, int arg2)
         {
             var viewmodel = new SellerListingPreview
             {
@@ -233,12 +234,9 @@ namespace Forms
                 foreach (var product in productViewModels)
                 {
                     product.Hide();
-                    foreach (var favProduct in CurrentBuyer.BuyerProducts)
+                    foreach (var favProduct in CurrentBuyer.BuyerProducts.Where(favProduct => product.Id == favProduct.ProductId))
                     {
-                        if (product.Id == favProduct.ProductId)
-                        {
-                            product.Show();
-                        }
+                        product.Show();
                     }
                 }
                 IsButtonFavoritesClicked = true;
@@ -265,22 +263,14 @@ namespace Forms
             var sortedProducts = flowLayoutPanel1.Controls.Cast<SellerListingPreview>();
             hide_Products();
 
-            switch(btn.Text)
+            sortedProducts = btn.Text switch
             {
-                case "Lowest Price":
-                    sortedProducts = sortedProducts.OrderBy(o => Convert.ToInt32(o.Price));
-                    break;
-                case "Highest Price":
-                    sortedProducts = sortedProducts.OrderByDescending(o => Convert.ToInt32(o.Price));
-                    break;
-                case "A-Z":
-                    sortedProducts = sortedProducts.OrderBy(o => o.Name1);
-                    break;
-                case "Z-A":
-                    sortedProducts = sortedProducts.OrderByDescending(o => o.Name1);
-                    break;
-            }
-           
+                "Lowest Price" => sortedProducts.OrderBy(o => Convert.ToInt32(o.Price)),
+                "Highest Price" => sortedProducts.OrderByDescending(o => Convert.ToInt32(o.Price)),
+                "A-Z" => sortedProducts.OrderBy(o => o.Name1),
+                "Z-A" => sortedProducts.OrderByDescending(o => o.Name1),
+                _ => sortedProducts
+            };
 
             flowLayoutPanel1.Controls.AddRange(sortedProducts.ToArray());
 
@@ -288,22 +278,16 @@ namespace Forms
             {
                 if (IsButtonFavoritesClicked)
                 {
-
-                    foreach (var favProduct in CurrentBuyer.BuyerProducts)
+                    foreach (var favProduct in CurrentBuyer.BuyerProducts.Where(favProduct => product.Id == favProduct.ProductId))
                     {
-                        if (product.Id == favProduct.ProductId)
-                        {
-                            product.Show();
-                        }
+                        product.Show();
                     }
-
                 }
                 else
-                product.Show();
+                    product.Show();
             }
         }
 
-  
         private void hide_Products()
         {
             var productViewModels = flowLayoutPanel1.Controls.Cast<SellerListingPreview>().ToArray();
@@ -311,12 +295,9 @@ namespace Forms
             {
                 product.Hide();
             }
-        
-   
         }
-         
-
-        public void setVegetableButtonColor()
+        
+        public void SetVegetableButtonColor()
         {
             buttonVegetables.BackColor = Color.BurlyWood;
             buttonOnions.BackColor = Color.AntiqueWhite;
@@ -326,7 +307,7 @@ namespace Forms
             buttonGarlics.BackColor = Color.AntiqueWhite;
         }
 
-        public void setFruitButtonColor()
+        public void SetFruitButtonColor()
         {
             buttonFruits.BackColor = Color.BurlyWood;
             buttonCherries.BackColor = Color.AntiqueWhite;
@@ -337,7 +318,7 @@ namespace Forms
 
         }
 
-        public void setConfectionaryButtonColor()
+        public void SetConfectioneryButtonColor()
         {
             buttonConfectionery.BackColor = Color.BurlyWood;
             buttonBread.BackColor = Color.AntiqueWhite;
@@ -345,7 +326,7 @@ namespace Forms
             buttonCakesAndPies.BackColor = Color.AntiqueWhite;
         }
 
-        public void setOtherButtonColor()
+        public void SetOtherButtonColor()
         {
             buttonOther.BackColor = Color.BurlyWood;
             buttonHerbs.BackColor = Color.AntiqueWhite;
