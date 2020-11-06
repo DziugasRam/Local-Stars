@@ -22,7 +22,6 @@ namespace Forms
             InitializeComponent();
         }
 
-
         private Color GetBackColor()
         {
             var reader = new StreamReader(SystemColorsFileName);

@@ -50,9 +50,9 @@ namespace Server.Providers
                 .Where(product => fullMatch ? string.Equals(product.Category, category, comparisonType) : product.Category.Contains(category, comparisonType));
         }
 
-        public IEnumerable<ProductsForSeller> GetBySeller(IEnumerable<Seller> sellerIds)
+        public IEnumerable<ProductsForSeller> GetBySeller(IEnumerable<Seller> sellers)
         {
-            return sellerIds.GroupJoin(
+            return sellers.GroupJoin(
                 _context.Products,
                 seller => seller,
                 product => product.Seller,
