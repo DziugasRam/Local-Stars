@@ -1,12 +1,12 @@
 import React from 'react'
 import './App.css';
 
-function Seller() {
+function Buyer() {
   return (
     <div>
-      <h1>Seller Page</h1>
+      <h1>Buyer Page</h1>
     </div>
   );
 }
 
-export default Seller;
+export default Buyer;
