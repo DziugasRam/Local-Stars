@@ -7,6 +7,7 @@ import Home from "./HomePage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { SignIn } from "./pages/SignIn";
 import { Register } from "./pages/Register";
+import NavBar from './Components/NavigationBar/NavBar';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/signin" component={SignIn} />
           <Route path="/register" component={Register} />
         </Switch>
+        <NavBar />
       </div>
     </Router>
   );
