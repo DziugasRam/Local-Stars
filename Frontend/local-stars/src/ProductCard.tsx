@@ -1,11 +1,15 @@
-import React from 'react';
-import { Card, CardHeader, CardMedia, CardContent, CardActions, Avatar, IconButton, Typography, makeStyles, Theme } from '@material-ui/core';
+import React, {useState} from 'react';
+import { Card, CardHeader, CardMedia, CardContent, CardActions, Avatar, IconButton, Typography, makeStyles, Theme, Paper, Grid} from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
-import {Link} from 'react-router-dom'
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { AspectRatio } from '@material-ui/icons';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import DescriptionTable from './DescriptionTable';
+import AspectRatio from '@material-ui/icons/AspectRatio';
+import Modal from 'react-modal';
+
+
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -17,50 +21,100 @@ const useStyles = makeStyles((theme: Theme) => ({
     avatar: {
         backgroundColor: green[500],
     },
+    paper: {
+        padding: theme.spacing(2),
+        margin: 'auto',
+        maxWidth: 1000,
+    },
+    img: {
+        width: 400,
+        height: 400,
+    },
+    modal: {
+        padding: theme.spacing(2),
+        margin: 'auto',
+        marginTop: 200,
+        maxWidth: 1000,
+        backgroundColor: "papayawhip",
+    },
 }));
 
 function ProductCard(props: { phonenumber: string; seller: string; price: string; imageUrl: string; title: string; subtitle: string; description: string;}) {
     const classes = useStyles();
 
+    const [modalIsOpne, setModalIsOpen] = useState(false)
+
+    const handleClose = () => setModalIsOpen(false)
+
+    const handleOpen = () => setModalIsOpen(true)
+
     return (
-        <Card className={classes.root}>
-            <CardHeader
-            avatar={
-                <Avatar aria-label="product" className={classes.avatar}>
-                S
-                </Avatar>
-            }
-            action={
-                <IconButton aria-label="settings">
-                <MoreVertIcon />
-                </IconButton>
-            }
-            title={props.title}
-            subheader={props.subtitle}
-            />
-            <CardMedia
-            className={classes.media}
-            image={props.imageUrl}
-            />
-            <CardContent>
-                <Typography>
-                    {props.description}
-                </Typography>
-            </CardContent>
-            <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
-                    <FavoriteIcon />
-                </IconButton>
-                <IconButton aria-label="share">
-                    <ShareIcon />
-                </IconButton>
-                <Link to="/productpage">
-                    <IconButton aria-label="expand">
+        <div>
+            <Card className={classes.root}>
+                <CardHeader
+                avatar={
+                    <Avatar aria-label="product" className={classes.avatar}>
+                    S
+                    </Avatar>
+                }
+                action={
+                    <IconButton aria-label="settings">
+                    <MoreVertIcon />
+                    </IconButton>
+                }
+                title={props.title}
+                subheader={props.subtitle}
+                />
+                <CardMedia
+                className={classes.media}
+                image={props.imageUrl}
+                />
+                <CardContent>
+                    <Typography>
+                        {props.description}
+                    </Typography>
+                </CardContent>
+                <CardActions disableSpacing>
+                    <IconButton aria-label="add to favorites">
+                        <FavoriteIcon />
+                    </IconButton>
+                    <IconButton aria-label="share">
+                        <ShareIcon />
+                    </IconButton>
+                    <IconButton aria-label="expand" onClick={handleOpen}>
                         <AspectRatio />
                     </IconButton>
-                </Link>
-            </CardActions>
-        </Card>
+                </CardActions>
+            </Card>
+            
+            <Modal isOpen={modalIsOpne} onRequestClose={handleClose} className={classes.modal}>
+                <Paper className={classes.paper}>
+                    <Grid container spacing={2}>
+                    <Grid item>
+                        <img className={classes.img} alt="product" src={props.imageUrl} />
+                    </Grid>
+                    <Grid item xs={12} sm container>
+                        <Grid item xs container direction="column">
+                            <Grid item xs>
+                                <Typography variant="h3">
+                                    {props.title}, 1kg
+                                </Typography>
+                                <Typography variant="h4">
+                                    € {props.price}/kg
+                                </Typography>
+                                <IconButton aria-label="favorites">
+                                    <FavoriteBorderIcon fontSize="large"/>
+                                </IconButton>
+                            </Grid>
+                            <Grid item xs>
+                                <DescriptionTable description={props.description} seller={props.seller} phonenumber={props.phonenumber}/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    </Grid>
+                </Paper>
+            </Modal>
+        </div>
     );
 }
 
