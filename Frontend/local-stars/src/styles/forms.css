@@ -1,0 +1,25 @@
+.form-label {
+	text-align: left;
+	padding-bottom: 5px;
+}
+
+.form-label-input {
+	background: #fbb03b;
+	border-color: #1d225f;
+	border-radius: 4px;
+	border-width: 1px;
+	margin-bottom: 5px;
+	line-height: 30px;
+	font-size: 15px;
+	font-weight: 500;
+}
+
+.form-button {
+	background: #fbb03b;
+	border-color: #1d225f;
+	border-width: 1px;
+	line-height: 30px;
+	font-weight: 500;
+	margin-bottom: 5px;
+	font-size: 15px;
+}

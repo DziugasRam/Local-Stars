@@ -1,0 +1,31 @@
+.sign-in-background {
+	bottom: 0;
+	position: fixed;
+	left: 0;
+	min-width: 100vw;
+	min-height: 100vh;
+}
+
+.sign-in-form-container {
+	position: fixed;
+	right: 0;
+	top: 0;
+	padding: 50px;
+    margin-right: 100px;
+    
+    transform: scale(1.1);
+}
+
+.sign-in-form {
+	background-color: #fdc772;
+	padding: 10px;
+	border-width: 2px;
+	border-color: #fbb03b;
+	border-style: solid;
+	border-radius: 15px;
+}
+
+.sign-in-form-content {
+	display: flex;
+	flex-direction: column;
+}
