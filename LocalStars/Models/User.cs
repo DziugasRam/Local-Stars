@@ -10,6 +10,7 @@ namespace Models
         {
         }
 
+        // TODO: add email
         public User(string userName, string password, Guid id, Buyer associatedBuyer, Seller associatedSeller)
         {
             UserName = userName;
