@@ -13,12 +13,12 @@ namespace Server.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly BuyerProvider _buyerProvider;
-        private readonly ProductProvider _productProvider;
-        private readonly SellerProvider _sellerProvider;
+        private readonly Lazy <BuyerProvider> _buyerProvider;
+        private readonly Lazy <ProductProvider> _productProvider;
+        private readonly Lazy <SellerProvider> _sellerProvider;
         private readonly DataContext _context;
 
-        public ProductController(BuyerProvider buyerProvider, ProductProvider productProvider, SellerProvider sellerProvider, DataContext context)
+        public ProductController(Lazy <BuyerProvider> buyerProvider,Lazy< ProductProvider> productProvider,Lazy <SellerProvider> sellerProvider, DataContext context)
         {
             _buyerProvider = buyerProvider;
             _productProvider = productProvider;
@@ -30,35 +30,36 @@ namespace Server.Controllers
         [Route("title")]
         public IEnumerable<Product> GetProducts([FromQuery] string searchVal, [FromQuery] bool fullMatch = false)
         {
-            return _productProvider.GetByTitle(searchVal, fullMatch, StringComparison.OrdinalIgnoreCase);
+            return _productProvider.Value.GetByTitle(searchVal, fullMatch, StringComparison.OrdinalIgnoreCase);
         }
 
         [HttpPost]
         [Route("ids")]
         public IEnumerable<Product> GetProducts([FromBody] Guid[] ids)
         {
-            return _productProvider.GetById(ids);
+            return _productProvider.Value.GetById(ids);
         }
 
         [HttpPost]
         [Route("sellerId")]
         public IEnumerable<ProductsForSeller> GetBySeller([FromBody] IEnumerable<Guid> ids)
         {
-            var sellers = _sellerProvider.GetById(ids).ToList();
-            return _productProvider.GetBySeller(sellers);
+            var sellers = _sellerProvider.Value.GetById(ids).ToList();
+            return _productProvider.Value.GetBySeller(sellers);
         }
 
         [HttpGet]
-        public Product Get([FromQuery] Guid id)
+        [Route("{id}")]
+        public Product Get([FromRoute] Guid id)
         {
-            return _productProvider.GetById(new[] { id }).Single();
+            return _productProvider.Value.GetById(new[] { id }).Single();
         }
 
         // Needs to be replaced with location based search
         [HttpGet]
         public IEnumerable<Product> Get()
         {
-            return _productProvider
+            return _productProvider.Value
                 .Get()
                 .ToArray();
         }
@@ -67,19 +68,19 @@ namespace Server.Controllers
         [HttpDelete]
         public void RemoveById([FromBody] IEnumerable<Guid> ids)
         {
-            _productProvider.RemoveById(ids);
+            _productProvider.Value.RemoveById(ids);
         }
 
         [HttpPost]
         public void Insert([FromBody] IEnumerable<Product> products)
         {
-            _productProvider.Insert(products);
+            _productProvider.Value.Insert(products);
         }
 
         [HttpPut]
         public void Update([FromBody] Product product)
         {
-            _productProvider.Update(product);
+            _productProvider.Value.Update(product);
         }
     }
 }

@@ -5,8 +5,9 @@ import Bar from './AppBar';
 import Seller from './Seller';
 import Buyer from './Buyer';
 import Home from './HomePage';
+import NewProduct from './NewListingForm'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import NavBar from './Components/NavigationBar/NavBar';
+import $ from "jquery";
 
 function App() {
   return (
@@ -17,8 +18,8 @@ function App() {
           <Route path="/" exact component={Home}/>
           <Route path="/seller" component={Seller}/>
           <Route path="/buyer" component={Buyer}/>
+          <Route path="/NewListingForm" component={NewProduct}/>
         </Switch>
-        <NavBar />
       </div>
     </Router>
   );

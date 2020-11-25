@@ -13,11 +13,11 @@ namespace Server.Controllers
     [ApiController]
     public class SellerController : ControllerBase
     {
-        private readonly BuyerProvider _buyerProvider;
-        private readonly ProductProvider _productProvider;
-        private readonly SellerProvider _sellerProvider;
+        private readonly Lazy<BuyerProvider> _buyerProvider;
+        private readonly Lazy<ProductProvider> _productProvider;
+        private readonly Lazy<SellerProvider> _sellerProvider;
 
-        public SellerController(BuyerProvider buyerProvider, ProductProvider productProvider, SellerProvider sellerProvider)
+        public SellerController(Lazy<BuyerProvider> buyerProvider, Lazy<ProductProvider> productProvider, Lazy<SellerProvider> sellerProvider)
         {
             _buyerProvider = buyerProvider;
             _productProvider = productProvider;
@@ -28,8 +28,8 @@ namespace Server.Controllers
         [Route("byProductTitle")]
         public IEnumerable<Seller> GetSellersForProduct(string productTitle, bool fullMatch = true)
         {
-            var productSellerIds = _productProvider.GetByTitle(productTitle, fullMatch).Select(p => p.Seller.Id);
-            return _sellerProvider.GetById(productSellerIds);
+            var productSellerIds = _productProvider.Value.GetByTitle(productTitle, fullMatch).Select(p => p.Seller.Id);
+            return _sellerProvider.Value.GetById(productSellerIds);
         }
 
         [HttpGet]
@@ -44,25 +44,25 @@ namespace Server.Controllers
         [HttpGet]
         public Seller GetById(Guid id)
         {
-            return _sellerProvider.GetById(new[] { id }).Single();
+            return _sellerProvider.Value.GetById(new[] { id }).Single();
         }
 
         [HttpPost]
         public void Insert(Seller seller)
         {
-            _sellerProvider.Insert(seller);
+            _sellerProvider.Value.Insert(seller);
         }
 
         [HttpDelete]
         public void Remove(Guid id)
         {
-            _sellerProvider.Remove(id);
+            _sellerProvider.Value.Remove(id);
         }
 
         [HttpPut]
         public void Update(Seller seller)
         {
-            _sellerProvider.Insert(seller);
+            _sellerProvider.Value.Insert(seller);
         }
     }
 }
