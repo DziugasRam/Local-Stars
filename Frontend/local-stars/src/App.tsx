@@ -8,6 +8,9 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { SignIn } from "./pages/SignIn";
 import { Register } from "./pages/Register";
 import NavBar from './Components/NavigationBar/NavBar';
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root')
 
 function App() {
   return (
