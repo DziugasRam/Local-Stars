@@ -8,13 +8,13 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { SignIn } from "./pages/SignIn";
 import { Register } from "./pages/Register";
 import NavBar from './Components/NavigationBar/NavBar';
-import NewProduct from './NewListingForm'
+import NewProduct from './pages/NewListingForm'
 
 function App() {
   return (
     <Router>
       <div className="App">
-        {/* <Bar /> */}
+      <Bar />
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/seller" component={Seller} />
