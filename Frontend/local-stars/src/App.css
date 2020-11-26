@@ -2,15 +2,7 @@
   text-align: center;
 }
 
-nav{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  min-height: 10vh;
-  background-color: rgb(104, 104, 195);
-}
-
-.nav-links{
+.nav-links {
   width: 40%;
   display: flex;
   justify-content: space-around;

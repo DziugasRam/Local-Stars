@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,9 +31,17 @@ namespace Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddCors();
+            services.AddControllers(o => o.Filters.Add(new AuthorizeFilter()));
 
             Startup.ConfigureServicesStatic(services, Configuration.GetConnectionString("DefaultConnection"), false);
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(o =>
+                {
+                    //TODO: check with non localhost domains
+                    o.Cookie.Domain = "localhost";
+                    o.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None;
+                });//TODO: login path
         }
 
         public static void ConfigureServicesStatic(IServiceCollection services, string connectionString, bool addControllers)
@@ -40,11 +50,13 @@ namespace Server
             services.AddTransient<BuyerProvider>();
             services.AddTransient<ProductProvider>();
             services.AddTransient<SellerProvider>();
+            services.AddTransient<UserProvider>();
             if (addControllers)
             {
                 services.AddTransient<BuyerController>();
                 services.AddTransient<ProductController>();
                 services.AddTransient<SellerController>();
+                services.AddTransient<UserController>();
             }
         }
 
@@ -58,8 +70,19 @@ namespace Server
 
             app.UseHttpsRedirection();
 
+            app.UseCors(builder =>
+            {
+                builder
+                .AllowCredentials()
+                // TODO: add to configuration file, move db connection to secrets
+                .WithOrigins("http://localhost:3000")
+                .AllowAnyMethod()
+                .WithHeaders("Content-Type");
+            });
+
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -1,0 +1,29 @@
+.NavBarItems {
+  background: white;
+  height: 43px;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid;
+  border-top: 1px solid;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  height: 10px;
+}
+
+.nav-menu {
+  display: grid;
+  grid-template-columns: repeat(6, auto);
+  grid-gap: 60px;
+  list-style: none;
+  text-align: left;
+  justify-content: end;
+}
+
+.nav-links {
+  color: rgb(131, 131, 131);
+  text-decoration: none;
+  white-space: nowrap;
+}
