@@ -7,140 +7,170 @@ import { Divider } from "@material-ui/core";
 interface FormData {
 	title: string;
 	description: string;
-	price: number;
-	category: string;
-	image: any;
+	price: string;
+	category: "pears";
 }
 
-// export const Insert = () => {
-// 	const getFormData = () => {
-// 		return {
-// 			title: (document.getElementById("title") as HTMLInputElement).value,
-// 			description: (document.getElementById("description") as HTMLInputElement).value,
-// 			price: (document.getElementById("price") as HTMLInputElement).value
-//         } as FormData;
-//     }
-
-//     const validateInputs = (formData: FormData) => {
-// 		//TODO: validate inputs
-// 		return true;
-//     }
-
-// 	const onSubmit = () => {
-// 		const formData = getFormData();
-
-// 		if(!validateInputs(formData))
-// 			return;
-
-// 		const requestOptions: RequestInit = {
-// 			method: "POST",
-// 			headers: {
-// 				'Content-Type': 'application/json'
-// 			},
-// 			body: JSON.stringify({
-// 				title: formData.title,
-// 				description: formData.description
-// 			})
-// 		}
-// 		authFetch(`${serverUrl}/api/product/Insert`, requestOptions)
-// 			.then(resp => {
-// 				if (resp?.status == 200){
-// 					const params = new URLSearchParams(document.location.search);
-// 					const returnUrl = params.get("returnUrl") ?? document.location.origin;
-// 					document.location.href = returnUrl
-// 				}
-// 			});
-// 	}
-
-const formReducer = (state: any, event: { name: any; value: any }) => {
-	"!==";
-	return {
-		...state,
-		[event.name]: event.value,
-	};
-};
-
-function NewListingForm() {
-	const [formData, setFormData] = useReducer(formReducer, {});
-	const [submitting, setSubmitting] = useState(false);
-	const [open, setOpen] = useState(false);
-	const handleSubmit = (event: { preventDefault: () => void }) => {
-		event.preventDefault();
-		setSubmitting(true);
-
-		//         $.ajax({
-		//             type: "POST",
-		//             url: "https://localhost:44346/api/product",
-		//             data: JSON.stringify( [{
-		//                 "title": "Seller1_Product1", "category": "Pears", "price": 2, "seller": {"id": "931fbb66-b782-4d7c-8cfe-98fa4f459218" }, "description": "new", "id": "4095bc5c-2886-4c4c-b66a-a9b6ac6621d1"
-		//             }]),
-		//             dataType: "json",
-		//             contentType:"application/json; charset=utf-8"
-
-		//           }).then (() => {
-		//             setSubmitting(false);
-		//           });
+export const NewListingForm = () => {
+	const getFormData = () => {
+		return {
+			title: (document.getElementById("title") as HTMLInputElement).value,
+			price: (document.getElementById("price") as HTMLInputElement).value,
+			description: (document.getElementById("description") as HTMLInputElement).value,
+			//  category: (document.getElementById("category") as HTMLInputElement).value
+		} as FormData;
 	};
 
-	const handleChange = (event: { target: { name: String; value: any } }) => {
-		setFormData({
-			name: event.target.name,
-			value: event.target.value,
-		});
+	const validateInputs = (formData: FormData) => {
+		//TODO: validate inputs
+		return true;
 	};
 
+	const onSubmit = () => {
+		const formData = getFormData();
+
+		// if(!validateInputs(formData))
+		//     return;
+
+		const requestOptions: RequestInit = {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				title: formData.title,
+				category: "cucumbers",
+				price: Number(formData.price),
+				description: formData.description,
+			}),
+		};
+        authFetch(`${serverUrl}/api/product/insert`, requestOptions)
+        .then(resp => {
+            if (resp?.status == 200){
+                const params = new URLSearchParams(document.location.search);
+                const returnUrl = params.get("returnUrl") ?? document.location.origin;
+                document.location.href = returnUrl
+                      }
+        });
+	};
 	return (
 		<div>
 			<h1
 				style={{
 					textAlign: "left",
-					fontSize: 48,
+					fontSize: 38,
 					fontWeight: 400,
-					marginBottom: 20,
+					marginBottom: "1%",
+					marginLeft: "4%",
 				}}
 			>
 				New Product:
 			</h1>
-			<div className="new-listing-container">
-				<div className="product-title-container">
-					<label className="label" htmlFor="title">
-						<h2>Title:</h2>
-					</label>
-					<input className="label-input" type="text" id="title" />
-				</div>
+			<div className="new-listing-container" style={{ marginLeft: "4%" }}>
+				<div style={{ display: "flex" }}>
+					<div className="product-title-container">
+						<h2
+							style={{
+								textAlign: "left",
+								marginLeft: "8%",
+							}}
+						>
+							Title:
+						</h2>
+						<input
+							className="label-input"
+							type="text"
+							id="title"
+							style={{
+								marginRight: "22%",
+							}}
+						/>
+					</div>
 
-				<div className="product-price-container">
-					<label className="label" htmlFor="price">
-						<h2>Price:</h2>
-					</label>
-					<input
-						className="label-input"
-						type="text"
-						id="price"
+					<div
+						className="product-title-container"
+						style={{ marginLeft: "2%" }}
+					>
+						<h2
+							style={{
+								textAlign: "left",
+								marginLeft: "8%",
+							}}
+						>
+							Price:
+						</h2>
+
+						<input
+							className="label-input"
+							type="text"
+							id="price"
+							style={{
+								marginRight: "22%",
+							}}
+						/>
+					</div>
+				</div>
+				<div
+					className="product-description-container"
+					style={{ marginTop: "2%" }}
+				>
+					<h2
 						style={{
-							width: 150,
-							height: 67,
+							textAlign: "left",
+							marginLeft: "4%",
 						}}
-					/>
-				</div>
+					>
+						Description:
+					</h2>
 
-				<div className="product-description-container">
-					<label className="label" htmlFor="price">
-						<h2>Description:</h2>
-					</label>
 					<input
 						className="label-input"
 						type="text"
 						id="description"
 						style={{
-							width: 600,
-							height: 100,
+							marginRight: "2%",
+							width: 900,
+							height: 80,
 						}}
 					/>
+				</div>
+				<div
+					className="product-description-container"
+					style={{ marginTop: "1%" }}
+				>
+					<h2
+						style={{
+							textAlign: "left",
+							marginLeft: "4%",
+						}}
+					>
+						Image:
+					</h2>
+
+					<input
+						className="label-input"
+						type="image"
+						id="image"
+						style={{
+							marginRight: "2%",
+							width: 900,
+							height: 90,
+						}}
+					/>
+				</div>
+				<div>
+					<button
+						className="add-button"
+						type="button"
+						onClick={onSubmit}
+						style={{}}
+					>
+						Add product
+					</button>
 				</div>
 			</div>
 		</div>
 	);
-}
+};
 
 export default NewListingForm;

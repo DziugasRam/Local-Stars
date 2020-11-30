@@ -6,6 +6,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Server.Providers;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Server.Controllers.Models;
+using System.Threading;
 
 namespace Server.Controllers
 {
@@ -13,16 +19,18 @@ namespace Server.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly Lazy <BuyerProvider> _buyerProvider;
-        private readonly Lazy <ProductProvider> _productProvider;
-        private readonly Lazy <SellerProvider> _sellerProvider;
+        private readonly BuyerProvider _buyerProvider;
+        private readonly ProductProvider _productProvider;
+        private readonly SellerProvider _sellerProvider;
         private readonly DataContext _context;
+        private readonly UserProvider _userProvider;
 
-        public ProductController(Lazy <BuyerProvider> buyerProvider,Lazy< ProductProvider> productProvider,Lazy <SellerProvider> sellerProvider, DataContext context)
+        public ProductController(BuyerProvider buyerProvider,ProductProvider productProvider, SellerProvider sellerProvider, DataContext context, UserProvider userProvider)
         {
             _buyerProvider = buyerProvider;
             _productProvider = productProvider;
             _sellerProvider = sellerProvider;
+            _userProvider = userProvider;
             _context = context;
         }
 
@@ -30,36 +38,36 @@ namespace Server.Controllers
         [Route("title")]
         public IEnumerable<Product> GetProducts([FromQuery] string searchVal, [FromQuery] bool fullMatch = false)
         {
-            return _productProvider.Value.GetByTitle(searchVal, fullMatch, StringComparison.OrdinalIgnoreCase);
+            return _productProvider.GetByTitle(searchVal, fullMatch, StringComparison.OrdinalIgnoreCase);
         }
 
         [HttpPost]
         [Route("ids")]
         public IEnumerable<Product> GetProducts([FromBody] Guid[] ids)
         {
-            return _productProvider.Value.GetById(ids);
+            return _productProvider.GetById(ids);
         }
 
         [HttpPost]
         [Route("sellerId")]
         public IEnumerable<ProductsForSeller> GetBySeller([FromBody] IEnumerable<Guid> ids)
         {
-            var sellers = _sellerProvider.Value.GetById(ids).ToList();
-            return _productProvider.Value.GetBySeller(sellers);
+            var sellers = _sellerProvider.GetById(ids).ToList();
+            return _productProvider.GetBySeller(sellers);
         }
 
         [HttpGet]
         [Route("{id}")]
         public Product Get([FromRoute] Guid id)
         {
-            return _productProvider.Value.GetById(new[] { id }).Single();
+            return _productProvider.GetById(new[] { id }).Single();
         }
 
         // Needs to be replaced with location based search
         [HttpGet]
         public IEnumerable<Product> Get()
         {
-            return _productProvider.Value
+            return _productProvider
                 .Get()
                 .ToArray();
         }
@@ -68,19 +76,25 @@ namespace Server.Controllers
         [HttpDelete]
         public void RemoveById([FromBody] IEnumerable<Guid> ids)
         {
-            _productProvider.Value.RemoveById(ids);
+            _productProvider.RemoveById(ids);
         }
 
         [HttpPost]
-        public void Insert([FromBody] IEnumerable<Product> products)
+        [Route("insert")]
+        [AllowAnonymous]
+        public void Insert([FromBody] ProductData productdata)
         {
-            _productProvider.Value.Insert(products);
+
+            Seller sellerId = _userProvider.GetUserById(Guid.Parse(Request.HttpContext.User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value)).AssociatedSeller;
+            Product product = new Product(productdata.Title, productdata.Category, productdata.Price, sellerId ,productdata.Description, Guid.NewGuid());
+            _productProvider.Insert(product);
+
         }
 
         [HttpPut]
         public void Update([FromBody] Product product)
         {
-            _productProvider.Value.Update(product);
+            _productProvider.Update(product);
         }
     }
 }

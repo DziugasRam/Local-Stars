@@ -13,11 +13,11 @@ namespace Server.Controllers
     [ApiController]
     public class BuyerController : ControllerBase
     {
-        private readonly Lazy<BuyerProvider> _buyerProvider;
-        private readonly Lazy<ProductProvider> _productProvider;
-        private readonly Lazy<SellerProvider> _sellerProvider;
+        private readonly BuyerProvider _buyerProvider;
+        private readonly ProductProvider _productProvider;
+        private readonly SellerProvider _sellerProvider;
 
-        public BuyerController(Lazy<BuyerProvider> buyerProvider, Lazy<ProductProvider> productProvider, Lazy<SellerProvider> sellerProvider)
+        public BuyerController(BuyerProvider buyerProvider, ProductProvider productProvider, SellerProvider sellerProvider)
         {
             _buyerProvider = buyerProvider;
             _productProvider = productProvider;
@@ -28,41 +28,41 @@ namespace Server.Controllers
         [HttpGet]
         public Buyer GetById(Guid id)
         {
-            return _buyerProvider.Value.GetById(id);
+            return _buyerProvider.GetById(id);
         }
 
         [HttpPost]
         public void Insert(Buyer buyer)
         {
-            _buyerProvider.Value.Insert(buyer);
+            _buyerProvider.Insert(buyer);
         }
 
         [HttpDelete]
         public void Remove(Guid id)
         {
-            _buyerProvider.Value.Remove(id);
+            _buyerProvider.Remove(id);
         }
 
         [HttpPut]
         public void Update(Buyer buyer)
         {
-            _buyerProvider.Value.Insert(buyer);
+            _buyerProvider.Insert(buyer);
         }
 
         [HttpPut]
         public void AddLikedProduct(Guid id, Product product)
         {
-            _buyerProvider.Value.AddLikedProduct(id, product);
+            _buyerProvider.AddLikedProduct(id, product);
         }
 
         public void RemoveLikedProduct(Guid id,Product product)
         {
-            _buyerProvider.Value.RemoveLikedProduct(id, product);
+            _buyerProvider.RemoveLikedProduct(id, product);
         }
 
         public bool IsLikedProduct(Guid id, Product product)
         {
-            return _buyerProvider.Value.IsLikedProduct(id, product);
+            return _buyerProvider.IsLikedProduct(id, product);
         }
     }
 }

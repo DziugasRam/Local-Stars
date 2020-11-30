@@ -47,9 +47,9 @@ namespace Server
         public static void ConfigureServicesStatic(IServiceCollection services, string connectionString, bool addControllers)
         {
             services.AddDbContext<DataContext>(options => options.UseLazyLoadingProxies().UseMySql(connectionString));
-            services.AddTransient(services => new Lazy<BuyerProvider>(services.GetService<BuyerProvider>()));
-            services.AddTransient(services => new Lazy<ProductProvider>(services.GetService<ProductProvider>()));
-            services.AddTransient(services => new Lazy<SellerProvider>(services.GetService<SellerProvider>()));
+            services.AddTransient<BuyerProvider>();
+            services.AddTransient<ProductProvider>();
+            services.AddTransient<SellerProvider>();
             services.AddTransient<UserProvider>();
             if (addControllers)
             {
