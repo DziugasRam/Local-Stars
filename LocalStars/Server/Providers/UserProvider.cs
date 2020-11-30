@@ -58,7 +58,7 @@ namespace Server.Providers
             }
             return addedUser;
         }
-        public User GetUserById(Guid id)
+        public User GetUser(Guid id)
         {
             return _context.Users.Single(u => u.Id == id);
         }

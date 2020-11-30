@@ -81,11 +81,10 @@ namespace Server.Controllers
 
         [HttpPost]
         [Route("insert")]
-        [AllowAnonymous]
         public void Insert([FromBody] ProductData productdata)
         {
 
-            Seller sellerId = _userProvider.GetUserById(Guid.Parse(Request.HttpContext.User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value)).AssociatedSeller;
+            Seller sellerId = _userProvider.GetUser(Guid.Parse(Request.HttpContext.User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value)).AssociatedSeller;
             Product product = new Product(productdata.Title, productdata.Category, productdata.Price, sellerId ,productdata.Description, Guid.NewGuid());
             _productProvider.Insert(product);
 
