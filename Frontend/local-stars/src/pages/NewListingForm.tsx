@@ -2,6 +2,7 @@ import React, { useReducer, useState } from "react";
 import "../styles/NewListingForm.css";
 import { authFetch } from "../utils/auth";
 import { serverUrl } from "../configuration";
+
 import { Divider } from "@material-ui/core";
 
 interface FormData {
