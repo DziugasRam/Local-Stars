@@ -23,7 +23,7 @@ function App() {
           <Route path="/register" component={Register} />
           <Route path="/NewListingForm" component={NewProduct}/>
         </Switch>
-        
+        <NavBar/>
       </div>
     </Router>
   );
