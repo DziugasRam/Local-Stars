@@ -1,16 +1,24 @@
 import React from 'react'
-import {Grid} from '@material-ui/core'
 import ProductCard from './ProductCard'
+import { Grid } from '@material-ui/core';
+import productList from './MockData';
 
 function Buyer() {
+
+  const getProductCard = (product: { phonenumber: string; seller: string; price: string; imageUrl: string; title: string; subtitle: string; description: string;}) => (
+    <Grid item xs={12} sm={6} md={4} lg={3}>
+      <ProductCard {...product}/>
+    </Grid>
+  )
+
   return (
-    <div>
-      <ProductCard
-      title="Cucumbers from my garden"
-      subtitle="Vegetables"
-      imgSrc="https://www.shethepeople.tv/wp-content/uploads/2019/05/cucumber-e1558166231577.jpg"
-      description="I picked these myself. They're grown with love and without any chemicals"/>
-    </div>
+    <Grid container>
+      <Grid item xs={1} sm={2}/>
+      <Grid item container xs={10} sm={8} spacing={5}>
+          {productList.map(product => getProductCard(product))}
+      </Grid>
+      <Grid item xs={1} sm={2}/> 
+    </Grid>
   );
 }
 

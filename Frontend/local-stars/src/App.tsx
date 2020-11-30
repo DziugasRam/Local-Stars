@@ -9,6 +9,8 @@ import { SignIn } from "./pages/SignIn";
 import { Register } from "./pages/Register";
 import NavBar from './Components/NavigationBar/NavBar';
 import NewProduct from './pages/NewListingForm'
+import Modal from 'react-modal';
+Modal.setAppElement('#root')
 
 function App() {
   return (
@@ -23,7 +25,6 @@ function App() {
           <Route path="/register" component={Register} />
           <Route path="/NewListingForm" component={NewProduct}/>
         </Switch>
-        <NavBar/>
       </div>
     </Router>
   );
