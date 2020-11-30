@@ -14,7 +14,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-      
+        {/* <Bar /> */}
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/seller" component={Seller} />
