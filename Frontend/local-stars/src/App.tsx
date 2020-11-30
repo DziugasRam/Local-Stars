@@ -14,6 +14,7 @@ function App() {
   return (
     <Router>
       <div className="App">
+        {/* <Bar /> */}
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/seller" component={Seller} />
@@ -22,6 +23,7 @@ function App() {
           <Route path="/register" component={Register} />
           <Route path="/NewListingForm" component={NewProduct}/>
         </Switch>
+        <NavBar/>
       </div>
     </Router>
   );
