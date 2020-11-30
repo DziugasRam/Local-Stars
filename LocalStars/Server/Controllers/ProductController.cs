@@ -6,6 +6,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Server.Providers;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Server.Controllers.Models;
+using System.Threading;
 
 namespace Server.Controllers
 {
@@ -17,12 +23,14 @@ namespace Server.Controllers
         private readonly ProductProvider _productProvider;
         private readonly SellerProvider _sellerProvider;
         private readonly DataContext _context;
+        private readonly UserProvider _userProvider;
 
-        public ProductController(BuyerProvider buyerProvider, ProductProvider productProvider, SellerProvider sellerProvider, DataContext context)
+        public ProductController(BuyerProvider buyerProvider,ProductProvider productProvider, SellerProvider sellerProvider, DataContext context, UserProvider userProvider)
         {
             _buyerProvider = buyerProvider;
             _productProvider = productProvider;
             _sellerProvider = sellerProvider;
+            _userProvider = userProvider;
             _context = context;
         }
 
@@ -49,7 +57,8 @@ namespace Server.Controllers
         }
 
         [HttpGet]
-        public Product Get([FromQuery] Guid id)
+        [Route("{id}")]
+        public Product Get([FromRoute] Guid id)
         {
             return _productProvider.GetById(new[] { id }).Single();
         }
@@ -71,9 +80,14 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        public void Insert([FromBody] IEnumerable<Product> products)
+        [Route("insert")]
+        public void Insert([FromBody] ProductData productdata)
         {
-            _productProvider.Insert(products);
+
+            Seller sellerId = _userProvider.GetUser(Guid.Parse(Request.HttpContext.User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value)).AssociatedSeller;
+            Product product = new Product(productdata.Title, productdata.Category, productdata.Price, sellerId ,productdata.Description, Guid.NewGuid());
+            _productProvider.Insert(product);
+
         }
 
         [HttpPut]

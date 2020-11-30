@@ -22,6 +22,7 @@ namespace Server.Controllers
             _buyerProvider = buyerProvider;
             _productProvider = productProvider;
             _sellerProvider = sellerProvider;
+
         }
 
         [HttpGet]

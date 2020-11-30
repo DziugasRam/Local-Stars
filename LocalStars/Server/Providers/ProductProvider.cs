@@ -67,16 +67,16 @@ namespace Server.Providers
             _context.SaveChanges();
         }
 
-        public void Insert(IEnumerable<Product> products)
+        public void Insert(Product product)
         {
-            _context.Products.AddRange(products);
+            _context.Products.AddRange(product);
             _context.SaveChanges();
         }
 
         public void Update(Product product)
         {
             RemoveById(new[] { product.Id });
-            Insert(new[] { product });
+            Insert( product );
         }
     }
 }
