@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Server.Controllers.Models;
 using Server.Providers;
 
 namespace Server.Controllers
@@ -18,7 +20,7 @@ namespace Server.Controllers
         private readonly SellerProvider _sellerProvider;
         private readonly UserProvider _userProvider;
 
-        public SellerController(BuyerProvider buyerProvider, ProductProvider productProvider, SellerProvider sellerProvider,UserProvider userProvider)
+        public SellerController(BuyerProvider buyerProvider, ProductProvider productProvider, SellerProvider sellerProvider, UserProvider userProvider)
         {
             _buyerProvider = buyerProvider;
             _productProvider = productProvider;
@@ -50,9 +52,12 @@ namespace Server.Controllers
         }
 
         [HttpPost]
-        public void Insert(Seller seller)
+        [Route("register")]
+        public void Register([FromBody]SellerData sellerData)
         {
-            _sellerProvider.Insert(seller);
+            var seller = _sellerProvider.Insert(sellerData.FirstName, sellerData.LastName, sellerData.PhoneNumber, sellerData.Address, sellerData.Longitude, sellerData.Latitude);
+            string userId = Request.HttpContext.User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            _userProvider.LinkToSeller(Guid.Parse(userId), seller.Id);
         }
 
         [HttpDelete]
@@ -61,10 +66,10 @@ namespace Server.Controllers
             _sellerProvider.Remove(id);
         }
 
-        [HttpPut]
-        public void Update(Seller seller)
-        {
-            _sellerProvider.Insert(seller);
-        }
+        //[HttpPut]
+        //public void Update(Seller seller)
+        //{
+        //    _sellerProvider.Insert(seller);
+        //}
     }
 }

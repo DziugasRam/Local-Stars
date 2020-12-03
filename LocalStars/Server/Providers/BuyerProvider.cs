@@ -21,13 +21,17 @@ namespace Server.Providers
             return _context.Buyers.Single(b => b.Id == id);
         }
 
-        public void Insert(Buyer buyer)
+        public Buyer Insert(string firstName, string lastName)
         {
-            if (_context.Buyers.Contains(buyer, new IdentifiableComparer<Guid>()))
+            var buyer = new Buyer(firstName, lastName, Guid.NewGuid(), new List<BuyerProduct>());
+
+            if (_context.Buyers.Where(b => b.Id == buyer.Id).Count() > 0)
             {
                 throw new ConflictException("Buyer id already exists");
             }
             _context.Buyers.Add(buyer);
+            _context.SaveChanges();
+            return buyer;
         }
 
         public void Remove(Guid id)
@@ -35,11 +39,11 @@ namespace Server.Providers
             _context.Buyers.RemoveRange(_context.Buyers.Where(b => b.Id == id));
         }
 
-        public void Update(Buyer buyer)
-        {
-            Remove(buyer.Id);
-            Insert(buyer);
-        }
+        //public void Update(Buyer buyer)
+        //{
+        //    Remove(buyer.Id);
+        //    Insert(buyer);
+        //}
 
         public void AddLikedProduct(Guid id, Product product)
         {

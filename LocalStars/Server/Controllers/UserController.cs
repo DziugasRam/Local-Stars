@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -19,10 +20,12 @@ namespace Server.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserProvider _userProvider;
+        private readonly BuyerProvider _buyerProvider;
 
-        public UserController(UserProvider userProvider)
+        public UserController(UserProvider userProvider, BuyerProvider buyerProvider)
         {
             _userProvider = userProvider;
+            _buyerProvider = buyerProvider;
         }
 
         [HttpPost]
@@ -43,6 +46,7 @@ namespace Server.Controllers
             var principal = new ClaimsPrincipal(identity);
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties { IsPersistent = true });
+
             return new StatusCodeResult(StatusCodes.Status200OK);
         }
 
@@ -60,7 +64,9 @@ namespace Server.Controllers
         [AllowAnonymous]
         public async Task<StatusCodeResult> Register(RegisterModel model)
         {
-            _userProvider.AddUser(model.Username, Hash.Sha256(model.Password));
+            var user = _userProvider.AddUser(model.Username, Hash.Sha256(model.Password));
+            var buyer = _buyerProvider.Insert(string.Empty, string.Empty);
+            _userProvider.LinkToBuyer(user.Id, buyer.Id);
             return await SignIn(new LoginModel { Username = model.Username, Password = model.Password });
         }
 
