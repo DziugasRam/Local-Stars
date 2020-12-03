@@ -9,8 +9,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Server.Controllers.Models;
+using Server.Exceptions;
 using Server.Providers;
 using Utils;
+
 
 namespace Server.Controllers
 {
@@ -60,7 +62,14 @@ namespace Server.Controllers
         [AllowAnonymous]
         public async Task<StatusCodeResult> Register(RegisterModel model)
         {
-            _userProvider.AddUser(model.Username, Hash.Sha256(model.Password));
+            try
+            {
+                _userProvider.AddUser(model.Username, Hash.Sha256(model.Password));
+            }
+            catch (ConflictException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
             return await SignIn(new LoginModel { Username = model.Username, Password = model.Password });
         }
 
