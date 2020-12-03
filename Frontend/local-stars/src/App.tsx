@@ -24,7 +24,6 @@ function App() {
           <Route path="/signin" component={SignIn} />
           <Route path="/register" component={Register} />
         </Switch>
-        <NavBar />
       </div>
     </Router>
   );
