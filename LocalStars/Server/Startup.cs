@@ -42,6 +42,13 @@ namespace Server
                     o.Cookie.Domain = "localhost";
                     o.Cookie.SameSite = Microsoft.AspNetCore.Http.SameSiteMode.None;
                 });//TODO: login path
+
+       
+        }
+
+        private void OutputSensitiveDataDeletion(Guid id, string name)
+        {
+            Console.WriteLine(name + " was deleted");
         }
 
         public static void ConfigureServicesStatic(IServiceCollection services, string connectionString, bool addControllers)
@@ -61,8 +68,23 @@ namespace Server
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DataContext dataContext)
         {
+            DataContext.SensitiveDataDeleted += OutputSensitiveDataDeletion;
+            // TODO resolve DataContext in middleware and subsribe / unsubsribe 
+            //var serviceProvider = services.BuildServiceProvider();
+            //var dataContext = serviceProvider.GetService<DataContext>();
+            DataContext.SensitiveDataDeleted += (id, name) => {
+                dataContext.DeletedSensitiveData.Add(new SensitiveData
+                {
+                    Id = id,
+                    Message = name,
+                    Date = DateTime.Now
+                });
+
+                dataContext.SaveChanges();
+            };
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -84,7 +106,7 @@ namespace Server
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+  
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

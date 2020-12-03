@@ -5,6 +5,7 @@ namespace Models
 {
     public class Product : IIdentifiable<Guid>, IEquatable<Product>
     {
+              
         public Product()
         {
         }

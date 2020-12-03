@@ -20,6 +20,7 @@ namespace Server.Controllers
     {
         private readonly UserProvider _userProvider;
 
+
         public UserController(UserProvider userProvider)
         {
             _userProvider = userProvider;

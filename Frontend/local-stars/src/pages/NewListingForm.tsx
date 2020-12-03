@@ -2,8 +2,8 @@ import React, { useReducer, useState } from "react";
 import "../styles/NewListingForm.css";
 import { authFetch } from "../utils/auth";
 import { serverUrl } from "../configuration";
-
-import { Divider } from "@material-ui/core";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 
 interface FormData {
 	title: string;
@@ -17,7 +17,9 @@ export const NewListingForm = () => {
 		return {
 			title: (document.getElementById("title") as HTMLInputElement).value,
 			price: (document.getElementById("price") as HTMLInputElement).value,
-			description: (document.getElementById("description") as HTMLInputElement).value,
+			description: (document.getElementById(
+				"description"
+			) as HTMLInputElement).value,
 			//  category: (document.getElementById("category") as HTMLInputElement).value
 		} as FormData;
 	};
@@ -28,11 +30,27 @@ export const NewListingForm = () => {
 	};
 
 	const onSubmit = () => {
+        const formData = getFormData();
+		 if(!validateInputs(formData))
+		     return;
+
+		confirmAlert({
+			title: "Confirm to submit",
+			message: "Do you really want to add this product?",
+			childrenElement: () => <div>Custom UI</div>,
+			button1: {
+				label: "Confirm",
+				onClick: () => onSubmit1,
+			},
+			button2: {
+				label: "Cancel",
+				onClick: () => alert("Action after Confirm"),
+			},
+		});
+	};
+
+	const onSubmit1 = () => {
 		const formData = getFormData();
-
-		// if(!validateInputs(formData))
-		//     return;
-
 		const requestOptions: RequestInit = {
 			method: "POST",
 			headers: {
@@ -45,14 +63,18 @@ export const NewListingForm = () => {
 				description: formData.description,
 			}),
 		};
-        authFetch(`${serverUrl}/api/product/insert`, requestOptions)
-        .then(resp => {
-            if (resp?.status == 200){
-                const params = new URLSearchParams(document.location.search);
-                const returnUrl = params.get("returnUrl") ?? document.location.origin;
-                document.location.href = returnUrl
-                      }
-        });
+		authFetch(`${serverUrl}/api/product/insert`, requestOptions).then(
+			(resp) => {
+				if (resp?.status == 200) {
+					const params = new URLSearchParams(
+						document.location.search
+					);
+					const returnUrl =
+						params.get("returnUrl") ?? document.location.origin;
+					document.location.href = returnUrl;
+				}
+			}
+		);
 	};
 	return (
 		<div>
@@ -164,10 +186,16 @@ export const NewListingForm = () => {
 						className="add-button"
 						type="button"
 						onClick={onSubmit}
-						style={{}}
+						id="add"
 					>
 						Add product
 					</button>
+				</div>
+			</div>
+			<div className="modal">
+				<div className="modal_content">
+					<span className="close">&times;</span>
+					<p>I'm A Pop Up!!!</p>
 				</div>
 			</div>
 		</div>

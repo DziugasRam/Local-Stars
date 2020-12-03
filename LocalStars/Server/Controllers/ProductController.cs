@@ -65,6 +65,8 @@ namespace Server.Controllers
 
         // Needs to be replaced with location based search
         [HttpGet]
+        [AllowAnonymous]
+
         public IEnumerable<Product> Get()
         {
             return _productProvider
@@ -74,6 +76,8 @@ namespace Server.Controllers
 
 
         [HttpDelete]
+        [AllowAnonymous]
+
         public void RemoveById([FromBody] IEnumerable<Guid> ids)
         {
             _productProvider.RemoveById(ids);
@@ -83,12 +87,15 @@ namespace Server.Controllers
         [Route("insert")]
         public void Insert([FromBody] ProductData productdata)
         {
-
             Seller sellerId = _userProvider.GetUser(Guid.Parse(Request.HttpContext.User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value)).AssociatedSeller;
             Product product = new Product(productdata.Title, productdata.Category, productdata.Price, sellerId ,productdata.Description, Guid.NewGuid());
+            var products = _productProvider.Get().ToArray();
+            if (!products.Contains(product)) 
+            { }
             _productProvider.Insert(product);
 
         }
+
 
         [HttpPut]
         public void Update([FromBody] Product product)

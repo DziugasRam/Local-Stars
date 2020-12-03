@@ -8,6 +8,7 @@ namespace Server.Providers
 {
     public class ProductProvider
     {
+
         private readonly DataContext _context;
 
         public ProductProvider(DataContext context)
@@ -65,6 +66,7 @@ namespace Server.Providers
             var idsHashSet = ids.ToHashSet();
             _context.Products.RemoveRange(_context.Products.Where(p => idsHashSet.Contains(p.Id)));
             _context.SaveChanges();
+            ;
         }
 
         public void Insert(Product product)
