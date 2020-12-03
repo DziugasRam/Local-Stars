@@ -25,14 +25,16 @@ namespace Server.Providers
                 (id, s) => s);
         }
 
-        public void Insert(Seller seller)
+        public Seller Insert(string firstName, string lastName, string phoneNumber, string address, double longitude, double latitude)
         {
+            var seller = new Seller(firstName, lastName, phoneNumber, longitude, latitude, address, Guid.NewGuid());
             if (_context.Sellers.Any(b => b.Id == seller.Id))
             {
                 throw new ConflictException("Buyer id already exists");
             }
             _context.Sellers.Add(seller);
             _context.SaveChanges();
+            return seller;
         }
 
         public void Remove(Guid id)
@@ -40,10 +42,10 @@ namespace Server.Providers
             _context.Sellers.RemoveRange(_context.Sellers.Where(b => b.Id == id));
         }
 
-        public void Update(Seller seller)
-        {
-            Remove(seller.Id);
-            Insert(seller);
-        }
+        //public void Update(Seller seller)
+        //{
+        //    Remove(seller.Id);
+        //    Insert(seller);
+        //}
     }
 }

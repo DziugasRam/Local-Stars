@@ -31,11 +31,11 @@ namespace Server.Controllers
             return _buyerProvider.GetById(id);
         }
 
-        [HttpPost]
-        public void Insert(Buyer buyer)
-        {
-            _buyerProvider.Insert(buyer);
-        }
+        //[HttpPost]
+        //public void Insert(Buyer buyer)
+        //{
+        //    _buyerProvider.Insert(buyer);
+        //}
 
         [HttpDelete]
         public void Remove(Guid id)
@@ -43,11 +43,11 @@ namespace Server.Controllers
             _buyerProvider.Remove(id);
         }
 
-        [HttpPut]
-        public void Update(Buyer buyer)
-        {
-            _buyerProvider.Insert(buyer);
-        }
+        //[HttpPut]
+        //public void Update(Buyer buyer)
+        //{
+        //    _buyerProvider.Insert(buyer);
+        //}
 
         [HttpPut]
         public void AddLikedProduct(Guid id, Product product)

@@ -1,10 +1,9 @@
-import "../styles/forms.css";
+import "../../styles/forms.css";
 
 import React from "react";
-import backgroundImage from "../assets/register-background.svg";
-import { serverUrl } from "../configuration";
-import { authFetch } from "../utils/auth";
-
+import backgroundImage from "../../assets/register-background.svg";
+import { serverUrl } from "../../configuration";
+import { authFetch } from "../../utils/auth";
 
 interface FormData {
 	username: string;
@@ -12,37 +11,40 @@ interface FormData {
 	confirmPassword: string;
 }
 
-export const Register = () => {
+export const RegisterUser = () => {
 	const getFormData = () => {
 		return {
 			username: (document.getElementById("username") as HTMLInputElement).value,
 			password: (document.getElementById("password") as HTMLInputElement).value,
-			confirmPassword: (document.getElementById("confirmPassword") as HTMLInputElement).value
+			confirmPassword: (document.getElementById("confirmPassword") as HTMLInputElement).value,
 		} as FormData;
-	}
+	};
 	const validateInputs = (formData: FormData) => {
 		//TODO: validate inputs with regex and check username in db
 		return true;
-	}
+	};
 
 	const onSubmit = () => {
 		const formData = getFormData();
 
-		if(!validateInputs(formData))
-			return;
-		
+		if (!validateInputs(formData)) return;
+
 		const requestOptions: RequestInit = {
 			method: "POST",
 			headers: {
-				'Content-Type': 'application/json'
+				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({
 				username: formData.username,
-				password: formData.password
-			})
-		}
-		authFetch(`${serverUrl}/api/user/register`, requestOptions);
-	}
+				password: formData.password,
+			}),
+		};
+		authFetch(`${serverUrl}/api/user/register`, requestOptions).then((resp) => {
+			if (resp?.status == 200) {
+				document.location.href = `${document.location.origin}/register/seller`;
+			}
+		});
+	};
 
 	return (
 		<div>
@@ -68,33 +70,16 @@ export const Register = () => {
 						<label className="form-label" htmlFor="username">
 							Username:
 						</label>
-						<input
-							className="form-label-input"
-							type="text"
-							id="username"
-						/>
+						<input className="form-label-input" type="text" id="username" />
 						<label className="form-label" htmlFor="password">
 							Password:
 						</label>
-						<input
-							className="form-label-input"
-							type="password"
-							id="password"
-						/>
+						<input className="form-label-input" type="password" id="password" />
 						<label className="form-label" htmlFor="confirmPassword">
 							Confirm Password:
 						</label>
-						<input
-							className="form-label-input"
-							type="password"
-							id="confirmPassword"
-						/>
-						<button
-							className="form-button"
-							type="button"
-							onClick={onSubmit}
-							style={{ marginTop: 30 }}
-						>
+						<input className="form-label-input" type="password" id="confirmPassword" />
+						<button className="form-button" type="button" onClick={onSubmit} style={{ marginTop: 30 }}>
 							Register
 						</button>
 					</div>

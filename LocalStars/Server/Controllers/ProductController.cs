@@ -85,9 +85,8 @@ namespace Server.Controllers
         {
 
             Seller sellerId = _userProvider.GetUser(Guid.Parse(Request.HttpContext.User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value)).AssociatedSeller;
-            Product product = new Product(productdata.Title, productdata.Category, productdata.Price, sellerId ,productdata.Description, Guid.NewGuid());
+            Product product = new Product(productdata.Title, productdata.Category, productdata.Price, sellerId, productdata.Description, Guid.NewGuid());
             _productProvider.Insert(product);
-
         }
 
         [HttpPut]

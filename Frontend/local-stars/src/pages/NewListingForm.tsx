@@ -51,7 +51,7 @@ export const NewListingForm = () => {
                 const params = new URLSearchParams(document.location.search);
                 const returnUrl = params.get("returnUrl") ?? document.location.origin;
                 document.location.href = returnUrl
-                      }
+            }
         });
 	};
 	return (
