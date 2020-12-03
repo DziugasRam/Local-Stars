@@ -63,18 +63,16 @@ export const NewListingForm = () => {
 				description: formData.description,
 			}),
 		};
-		authFetch(`${serverUrl}/api/product/insert`, requestOptions).then(
-			(resp) => {
-				if (resp?.status == 200) {
-					const params = new URLSearchParams(
-						document.location.search
-					);
-					const returnUrl =
-						params.get("returnUrl") ?? document.location.origin;
-					document.location.href = returnUrl;
-				}
-			}
-		);
+
+        authFetch(`${serverUrl}/api/product/insert`, requestOptions)
+        .then(resp => {
+            if (resp?.status == 200){
+                const params = new URLSearchParams(document.location.search);
+                const returnUrl = params.get("returnUrl") ?? document.location.origin;
+                document.location.href = returnUrl
+            }
+        });
+
 	};
 	return (
 		<div>

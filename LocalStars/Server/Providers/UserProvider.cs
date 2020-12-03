@@ -42,6 +42,11 @@ namespace Server.Providers
             };
         }
 
+        public User GetUser(Guid id)
+        {
+            return _context.Users.Single(u => u.Id == id);
+        }
+
         public User AddUser(string username, string password)
         {
             User addedUser;
@@ -58,9 +63,17 @@ namespace Server.Providers
             }
             return addedUser;
         }
-        public User GetUser(Guid id)
+
+        public void LinkToBuyer(Guid userId, Guid buyerId)
         {
-            return _context.Users.Single(u => u.Id == id);
+            GetUser(userId).AssociatedBuyer = _context.Buyers.Single(b => b.Id == buyerId);
+            _context.SaveChanges();
+        }
+
+        public void LinkToSeller(Guid userId, Guid sellerId)
+        {
+            GetUser(userId).AssociatedSeller = _context.Sellers.Single(s => s.Id == sellerId);
+            _context.SaveChanges();
         }
     }
 }
