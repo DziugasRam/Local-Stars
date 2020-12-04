@@ -17,6 +17,12 @@ namespace Server.Controllers
         private readonly ProductProvider _productProvider;
         private readonly SellerProvider _sellerProvider;
 
+        LikedProductHandler add = new LikedProductHandler(_buyerProvider.AddLikedProduct);
+        LikedProductHandler remove = new LikedProductHandler(_buyerProvider.RemoveLikedProduct);
+        LikedProductHandler display = delegate(Guid id, Product product) {
+            Console.WriteLine("Liked product id: " + id + ", liked product name and category: " + product.Title + ", " + product.Category)
+        }
+
         public BuyerController(BuyerProvider buyerProvider, ProductProvider productProvider, SellerProvider sellerProvider)
         {
             _buyerProvider = buyerProvider;
@@ -52,12 +58,12 @@ namespace Server.Controllers
         [HttpPut]
         public void AddLikedProduct(Guid id, Product product)
         {
-            _buyerProvider.AddLikedProduct(id, product);
+            add(id, product);
         }
 
         public void RemoveLikedProduct(Guid id,Product product)
         {
-            _buyerProvider.RemoveLikedProduct(id, product);
+            remove(id, product);
         }
 
         public bool IsLikedProduct(Guid id, Product product)

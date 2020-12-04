@@ -35,7 +35,14 @@ namespace Server.Controllers
         [AllowAnonymous]
         public async Task<StatusCodeResult> SignIn(LoginModel model)
         {
-            var user = _userProvider.GetUser(model.Username, Hash.Sha256(model.Password));
+            try {
+                var user = _userProvider.GetUser(model.Username, Hash.Sha256(model.Password));
+            }
+            catch (ConflictException ex)
+            {
+                Console.log(ex.Message);
+            }
+            
             if (user == null)
                 return new StatusCodeResult(StatusCodes.Status401Unauthorized);
 
@@ -66,16 +73,16 @@ namespace Server.Controllers
         [AllowAnonymous]
         public async Task<StatusCodeResult> Register(RegisterModel model)
         {
-            var user = _userProvider.AddUser(model.Username, Hash.Sha256(model.Password));
-            var buyer = _buyerProvider.Insert(string.Empty, string.Empty);
-            _userProvider.LinkToBuyer(user.Id, buyer.Id);
-            try
+            try 
             {
+                var user = _userProvider.AddUser(model.Username, Hash.Sha256(model.Password));
+                var buyer = _buyerProvider.Insert(string.Empty, string.Empty);
             }
             catch (ConflictException ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.log(ex.Message);
             }
+            _userProvider.LinkToBuyer(user.Id, buyer.Id);
             return await SignIn(new LoginModel { Username = model.Username, Password = model.Password });
         }
 

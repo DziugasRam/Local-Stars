@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+delegate void LikedProductHandler(Guid id, Product product);
+
 namespace Server.Providers
 {
     public class BuyerProvider
