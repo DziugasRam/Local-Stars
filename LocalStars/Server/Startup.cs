@@ -51,6 +51,11 @@ namespace Server
             Console.WriteLine(name + " was deleted");
         }
 
+        private void OutputSignInInformation(object o , string message)
+        {
+            Console.WriteLine(DateTime.Now + message);
+        }
+
         public static void ConfigureServicesStatic(IServiceCollection services, string connectionString, bool addControllers)
         {
             services.AddDbContext<DataContext>(options => options.UseLazyLoadingProxies().UseMySql(connectionString));
@@ -71,9 +76,9 @@ namespace Server
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DataContext dataContext)
         {
             DataContext.SensitiveDataDeleted += OutputSensitiveDataDeletion;
+            UserController.SignInInformation += OutputSignInInformation;
             // TODO resolve DataContext in middleware and subsribe / unsubsribe 
-            //var serviceProvider = services.BuildServiceProvider();
-            //var dataContext = serviceProvider.GetService<DataContext>();
+
             DataContext.SensitiveDataDeleted += (id, name) => {
                 dataContext.DeletedSensitiveData.Add(new SensitiveData
                 {
@@ -83,7 +88,18 @@ namespace Server
                 });
 
                 dataContext.SaveChanges();
+
             };
+
+            //UserController.SignInInformation += (o, args) => {
+            //    dataContext.SignInInformation.Add(new SignInInfo
+            //    { 
+            //        Message = args,
+            //        Date = DateTime.Now
+            //   });
+
+            //    dataContext.SaveChanges();
+            //};
 
             if (env.IsDevelopment())
             {

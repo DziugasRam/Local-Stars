@@ -2,7 +2,7 @@ import React, { Component} from 'react'
 import {Link} from 'react-router-dom'
 import './App.css';
 import { AppBar, IconButton, makeStyles, Toolbar, Typography } from '@material-ui/core';
-import Map from './Components/Map'
+//import Map from './Components/Map'
 import NavBar from './Components/NavigationBar/NavBar'
 
 
@@ -36,7 +36,7 @@ function Seller() {
 
             <NavBar />
       <div style={{position:'relative', left:'1168px', display:'flex', marginTop: '10px'}}>
-        <Map />
+        {/* <Map /> */}
       </ div>
     <div>
     </div>

@@ -24,21 +24,15 @@ namespace Models
                 {
                     var id = args.Entry.CurrentValues.GetValue<Guid>("Id");
 
-                    DateTime localDate = DateTime.Now;
-                    DateTime utcDate = DateTime.UtcNow;
-
                     var entityNAme = args.Entry.CurrentValues.EntityType.DisplayName();
 
-                    //SensitiveDataDeleted.Invoke(o, $"{localDate}  {localDate.Kind}  {entityNAme} {id.ToString()}");
                     SensitiveDataDeleted.Invoke(id, entityNAme);
                 }
             };
         }
 
-        public delegate void SensisitveDataDeletedHandler(Guid id, string entityName);
-        public static event SensisitveDataDeletedHandler SensitiveDataDeleted;
-
-        //public static event EventHandler<string> SensitiveDataDeleted;
+        public delegate void SensitiveDataDeletedHandler(Guid id, string entityName);
+        public static event SensitiveDataDeletedHandler SensitiveDataDeleted;
 
         public DbSet<User> Users { get; set; }
         public DbSet<Buyer> Buyers { get; set; }
@@ -46,6 +40,7 @@ namespace Models
         public DbSet<Product> Products { get; set; }
         public DbSet<BuyerProduct> BuyerProducts { get; set; }
         public DbSet<SensitiveData> DeletedSensitiveData { get; set; }
+        public DbSet<SignInInfo> SignInInformation { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -56,7 +51,7 @@ namespace Models
             modelBuilder.Entity<User>().HasKey(u => u.Id);
             modelBuilder.Entity<BuyerProduct>()
                 .HasKey(bp => new { bp.BuyerId, bp.ProductId });
-           // modelBuilder.Entity<SensitiveData>().HasKey(sd )
+            modelBuilder.Entity<SignInInfo>().HasNoKey();
         }
 
 

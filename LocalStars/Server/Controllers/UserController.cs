@@ -21,13 +21,9 @@ namespace Server.Controllers
     {
         private readonly UserProvider _userProvider;
         private readonly BuyerProvider _buyerProvider;
+        public static event EventHandler<string> SignInInformation;
 
-<<<<<<< HEAD
-
-        public UserController(UserProvider userProvider)
-=======
         public UserController(UserProvider userProvider, BuyerProvider buyerProvider)
->>>>>>> db63d2a719b99649cb796fcea8825a94f0bc78f8
         {
             _userProvider = userProvider;
             _buyerProvider = buyerProvider;
@@ -38,6 +34,7 @@ namespace Server.Controllers
         [AllowAnonymous]
         public async Task<StatusCodeResult> SignIn(LoginModel model)
         {
+            
             var user = _userProvider.GetUser(model.Username, Hash.Sha256(model.Password));
             if (user == null)
                 return new StatusCodeResult(StatusCodes.Status401Unauthorized);
@@ -52,6 +49,9 @@ namespace Server.Controllers
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties { IsPersistent = true });
 
+            string ip = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+
+            SignInInformation.Invoke(this, $"{model.Username} {ip}");
             return new StatusCodeResult(StatusCodes.Status200OK);
         }
 

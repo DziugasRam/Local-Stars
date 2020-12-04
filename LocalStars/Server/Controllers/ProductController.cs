@@ -88,14 +88,8 @@ namespace Server.Controllers
         public void Insert([FromBody] ProductData productdata)
         {
             Seller sellerId = _userProvider.GetUser(Guid.Parse(Request.HttpContext.User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value)).AssociatedSeller;
-<<<<<<< HEAD
             Product product = new Product(productdata.Title, productdata.Category, productdata.Price, sellerId ,productdata.Description, Guid.NewGuid());
-            var products = _productProvider.Get().ToArray();
-            if (!products.Contains(product)) 
-            { }
-=======
-            Product product = new Product(productdata.Title, productdata.Category, productdata.Price, sellerId, productdata.Description, Guid.NewGuid());
->>>>>>> db63d2a719b99649cb796fcea8825a94f0bc78f8
+
             _productProvider.Insert(product);
         }
 
