@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-function ProductCard(props: { phonenumber: string; title: string; subtitle: string; price: string; seller: string; description: string;}) {
+function ProductCard(props: { phoneNumber: string; title: string; category: string; price: string; firstName: string; description: string;}) {
     const classes = useStyles();
 
     const [modalIsOpne, setModalIsOpen] = useState(false)
@@ -61,7 +61,7 @@ function ProductCard(props: { phonenumber: string; title: string; subtitle: stri
                     </IconButton>
                 }
                 title={props.title}
-                subheader={props.subtitle}
+                subheader={props.category}
                 className={classes.header}
                 />
                 <CardMedia
@@ -106,7 +106,7 @@ function ProductCard(props: { phonenumber: string; title: string; subtitle: stri
                                 </IconButton>
                             </Grid>
                             <Grid item xs>
-                                <DescriptionTable description={props.description} seller={props.seller} phonenumber={props.phonenumber}/>
+                                <DescriptionTable description={props.description} seller={props.firstName} phonenumber={props.phoneNumber}/>
                             </Grid>
                         </Grid>
                     </Grid>
