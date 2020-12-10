@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -11,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Models;
@@ -48,7 +50,7 @@ namespace Server
 
         private void OutputSensitiveDataDeletion(Guid id, string name)
         {
-            Console.WriteLine(name + " was deleted");
+            Console.WriteLine(DateTime.Now + name + " was deleted");
         }
 
         private void OutputSignInInformation(object o , string message)
@@ -73,30 +75,34 @@ namespace Server
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, DataContext dataContext)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider, DataContext dataContext)
         {
+           
+
             DataContext.SensitiveDataDeleted += OutputSensitiveDataDeletion;
             UserController.SignInInformation += OutputSignInInformation;
-            // TODO resolve DataContext in middleware and subsribe / unsubsribe 
+           
 
-            DataContext.SensitiveDataDeleted += (id, name) => {
-                dataContext.DeletedSensitiveData.Add(new SensitiveData
-                {
-                    Id = id,
-                    Message = name,
-                    Date = DateTime.Now
-                });
+            //DataContext.SensitiveDataDeleted += (id, name) => {
+            //    dataContext.DeletedSensitiveData.Add(new SensitiveData
+            //    {
+            //        Id = id,
+            //        Message = name,
+            //        Date = DateTime.Now
+            //    });
 
-                dataContext.SaveChanges();
+            //    dataContext.SaveChanges();
 
-            };
+            //};
 
-            //UserController.SignInInformation += (o, args) => {
+            //UserController.SignInInformation += (o, args) =>
+            //{
+            //    var dataContext = app.ApplicationServices.GetService<DataContext>();
             //    dataContext.SignInInformation.Add(new SignInInfo
-            //    { 
+            //    {
             //        Message = args,
             //        Date = DateTime.Now
-            //   });
+            //    });
 
             //    dataContext.SaveChanges();
             //};
@@ -119,7 +125,7 @@ namespace Server
             });
 
             app.UseRouting();
-
+            
             app.UseAuthentication();
             app.UseAuthorization();
   

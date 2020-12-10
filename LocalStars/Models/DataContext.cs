@@ -31,8 +31,8 @@ namespace Models
             };
         }
 
-        public delegate void SensitiveDataDeletedHandler(Guid id, string entityName);
-        public static event SensitiveDataDeletedHandler SensitiveDataDeleted;
+        public delegate void SensitiveDataDeletedHandler (Guid id, string entityName);
+        public static event SensitiveDataDeletedHandler  SensitiveDataDeleted;
 
         public DbSet<User> Users { get; set; }
         public DbSet<Buyer> Buyers { get; set; }

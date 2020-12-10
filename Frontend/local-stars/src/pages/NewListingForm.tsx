@@ -1,9 +1,10 @@
-import React, { useReducer, useState } from "react";
+import React, { constructor, useReducer, useState } from "react";
 import "../styles/NewListingForm.css";
 import { authFetch } from "../utils/auth";
 import { serverUrl } from "../configuration";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+
 
 interface FormData {
 	title: string;
@@ -12,16 +13,22 @@ interface FormData {
 	category: "pears";
 }
 
+ 
 export const NewListingForm = () => {
+
+
+
 	const getFormData = () => {
+
+		var input=document.getElementById("image") as HTMLInputElement;
 		return {
 			title: (document.getElementById("title") as HTMLInputElement).value,
 			price: (document.getElementById("price") as HTMLInputElement).value,
-			description: (document.getElementById(
-				"description"
-			) as HTMLInputElement).value,
-			//  category: (document.getElementById("category") as HTMLInputElement).value
+			description: (document.getElementById("description") as HTMLInputElement).value,
+			// category: (document.getElementById("category") as HTMLInputElement).value
 		} as FormData;
+
+
 	};
 
 	const validateInputs = (formData: FormData) => {
@@ -33,14 +40,14 @@ export const NewListingForm = () => {
         const formData = getFormData();
 		 if(!validateInputs(formData))
 		     return;
-
+ 
 		confirmAlert({
 			title: "Confirm to submit",
 			message: "Do you really want to add this product?",
 			childrenElement: () => <div>Custom UI</div>,
 			button1: {
 				label: "Confirm",
-				onClick: () => onSubmit1,
+				onClick: () =>  onSubmit1,
 			},
 			button2: {
 				label: "Cancel",
@@ -49,21 +56,26 @@ export const NewListingForm = () => {
 		});
 	};
 
+
 	const onSubmit1 = () => {
-		const formData = getFormData();
+		const data = getFormData();
+		var input=document.getElementById("image") as HTMLInputElement;
+		if(input.files && input.files[0])
+		{
+		let formData= new FormData();
+		formData.append("imageFile",input.files[0]);
+		formData.append("title", data.title);
+		formData.append("category", data.category);
+		formData.append("price", data.price);
+		formData.append("description", data.description);
+
+
 		const requestOptions: RequestInit = {
 			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				title: formData.title,
-				category: "cucumbers",
-				price: Number(formData.price),
-				description: formData.description,
-			}),
-		};
+			body: formData
 
+		};
+		
         authFetch(`${serverUrl}/api/product/insert`, requestOptions)
         .then(resp => {
             if (resp?.status == 200){
@@ -71,9 +83,12 @@ export const NewListingForm = () => {
                 const returnUrl = params.get("returnUrl") ?? document.location.origin;
                 document.location.href = returnUrl
             }
-        });
-
+		})
+		}else
+		console.log("you have to upload a picture");
 	};
+
+	
 	return (
 		<div>
 			<h1
@@ -100,6 +115,8 @@ export const NewListingForm = () => {
 						</h2>
 						<input
 							className="label-input"
+							placeholder="Title"
+							name="productTitle"
 							type="text"
 							id="title"
 							style={{
@@ -125,6 +142,7 @@ export const NewListingForm = () => {
 							className="label-input"
 							type="text"
 							id="price"
+							placeholder="Price"
 							style={{
 								marginRight: "22%",
 							}}
@@ -148,6 +166,7 @@ export const NewListingForm = () => {
 						className="label-input"
 						type="text"
 						id="description"
+						placeholder="Description"
 						style={{
 							marginRight: "2%",
 							width: 900,
@@ -170,7 +189,7 @@ export const NewListingForm = () => {
 
 					<input
 						className="label-input"
-						type="image"
+						type="file"
 						id="image"
 						style={{
 							marginRight: "2%",
@@ -178,12 +197,14 @@ export const NewListingForm = () => {
 							height: 90,
 						}}
 					/>
+					
 				</div>
+				
 				<div>
 					<button
 						className="add-button"
 						type="button"
-						onClick={onSubmit}
+						onClick={onSubmit1}
 						id="add"
 					>
 						Add product
@@ -199,5 +220,6 @@ export const NewListingForm = () => {
 		</div>
 	);
 };
+
 
 export default NewListingForm;

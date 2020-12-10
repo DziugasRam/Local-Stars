@@ -12,6 +12,8 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Server.Controllers.Models;
 using System.Threading;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Server.Controllers
 {
@@ -24,14 +26,16 @@ namespace Server.Controllers
         private readonly SellerProvider _sellerProvider;
         private readonly DataContext _context;
         private readonly UserProvider _userProvider;
+        private readonly IWebHostEnvironment _hostEnviroment;
 
-        public ProductController(BuyerProvider buyerProvider,ProductProvider productProvider, SellerProvider sellerProvider, DataContext context, UserProvider userProvider)
+        public ProductController(BuyerProvider buyerProvider,ProductProvider productProvider, SellerProvider sellerProvider, DataContext context, UserProvider userProvider, IWebHostEnvironment hostEnviroment)
         {
             _buyerProvider = buyerProvider;
             _productProvider = productProvider;
             _sellerProvider = sellerProvider;
             _userProvider = userProvider;
             _context = context;
+            this._hostEnviroment = hostEnviroment;
         }
 
         [HttpGet]
@@ -85,10 +89,18 @@ namespace Server.Controllers
 
         [HttpPost]
         [Route("insert")]
-        public void Insert([FromBody] ProductData productdata)
+        public void Insert([FromForm] ProductData productdata)
         {
-            Seller sellerId = _userProvider.GetUser(Guid.Parse(Request.HttpContext.User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value)).AssociatedSeller;
-            Product product = new Product(productdata.Title, productdata.Category, productdata.Price, sellerId ,productdata.Description, Guid.NewGuid());
+
+            byte[] file;
+            using(var stream = new MemoryStream())
+            {
+                productdata.ImageFile.CopyTo(stream);
+                file = stream.ToArray();
+            }
+
+            Seller sellerId = _userProvider.GetUser(Guid.Parse(Request.HttpContext.User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value)).AssociatedSeller; 
+            Product product = new Product(productdata.Title, productdata.Category, productdata.Price, sellerId ,productdata.Description, Guid.NewGuid(), file);
 
             _productProvider.Insert(product);
         }
@@ -99,5 +111,7 @@ namespace Server.Controllers
         {
             _productProvider.Update(product);
         }
+
+
     }
 }
