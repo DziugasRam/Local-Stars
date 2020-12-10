@@ -3,7 +3,6 @@ import { Card, CardHeader, CardMedia, CardContent, CardActions, IconButton, Typo
 import { green } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import DescriptionTable from './DescriptionTable';
 import AspectRatio from '@material-ui/icons/AspectRatio';
@@ -47,19 +46,30 @@ function ProductCard(props: { phoneNumber: string; title: string; category: stri
 
     const [modalIsOpne, setModalIsOpen] = useState(false)
 
+    const [isLiked, setIsLiked] = useState(false)
+
     const handleClose = () => setModalIsOpen(false)
 
     const handleOpen = () => setModalIsOpen(true)
+
+    const handleLike = () => {
+        if (isLiked === true) {
+            setIsLiked(false)
+            return
+        }
+        setIsLiked(true)
+    }
+
+    const Like = (props: {isLiked:boolean;}) => {
+        const isLiked = props.isLiked;
+        if (isLiked) return <FavoriteIcon />;
+        return <FavoriteBorderIcon />;
+    }
 
     return (
         <div>
             <Card className={classes.root}>
                 <CardHeader
-                action={
-                    <IconButton aria-label="settings">
-                    <MoreVertIcon />
-                    </IconButton>
-                }
                 title={props.title}
                 subheader={props.category}
                 className={classes.header}
@@ -74,8 +84,8 @@ function ProductCard(props: { phoneNumber: string; title: string; category: stri
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
-                        <FavoriteIcon />
+                    <IconButton aria-label="add to favorites" onClick={handleLike}>
+                        <Like isLiked = {isLiked}/>
                     </IconButton>
                     <IconButton aria-label="share">
                         <ShareIcon />
@@ -101,8 +111,8 @@ function ProductCard(props: { phoneNumber: string; title: string; category: stri
                                 <Typography variant="h4">
                                     € {props.price}/kg
                                 </Typography>
-                                <IconButton aria-label="favorites">
-                                    <FavoriteBorderIcon fontSize="large"/>
+                                <IconButton aria-label="favorites" onClick={handleLike}>
+                                    <Like isLiked = {isLiked}/>
                                 </IconButton>
                             </Grid>
                             <Grid item xs>

@@ -49,17 +49,22 @@ namespace Server.Controllers
         //    _buyerProvider.Insert(buyer);
         //}
 
-        [HttpPut]
+        [HttpPost]
+        [Route("like")]
         public void AddLikedProduct(Guid id, Product product)
         {
             _buyerProvider.AddLikedProduct(id, product);
         }
 
+        [HttpDelete]
+        [Route("unlike")]
         public void RemoveLikedProduct(Guid id,Product product)
         {
             _buyerProvider.RemoveLikedProduct(id, product);
         }
 
+        [HttpGet]
+        [Route("isliked")]
         public bool IsLikedProduct(Guid id, Product product)
         {
             return _buyerProvider.IsLikedProduct(id, product);
