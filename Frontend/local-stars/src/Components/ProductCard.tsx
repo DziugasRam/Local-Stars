@@ -52,17 +52,10 @@ function ProductCard(props: { phoneNumber: string; title: string; category: stri
 
     const handleOpen = () => setModalIsOpen(true)
 
-    const handleLike = () => {
-        if (isLiked === true) {
-            setIsLiked(false)
-            return
-        }
-        setIsLiked(true)
-    }
+    const handleLike = () => setIsLiked(!isLiked)
 
     const Like = (props: {isLiked:boolean;}) => {
-        const isLiked = props.isLiked;
-        if (isLiked) return <FavoriteIcon />;
+        if (props.isLiked) return <FavoriteIcon />;
         return <FavoriteBorderIcon />;
     }
 

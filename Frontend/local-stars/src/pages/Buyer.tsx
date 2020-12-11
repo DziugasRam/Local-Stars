@@ -9,30 +9,17 @@ const Buyer = () => {
 
   const [products, setProducts] = useState([]);
 
-  const getPhoneNumber = (seller: {phoneNumber: string;}) => seller.phoneNumber
-
-  const getFirstName = (seller: {firstName: string;}) => seller.firstName
-
-  const getProductCard = (product: { category: string; description: string; price: string; seller: any; title: string; }) => {
-    
-    const phoneNumber = getPhoneNumber(product.seller);
-    
-    const firstName = getFirstName(product.seller);
-
-    return (
+  const getProductCard = (product: { category: string; description: string; price: string; seller: any; title: string; }) => (
     <Grid item xs={12} sm={6} md={4} lg={3}>
-      <ProductCard title={product.title} category={product.category} price={product.price} description={product.description} firstName={firstName} phoneNumber={phoneNumber}/>
+      <ProductCard title={product.title} category={product.category} price={product.price} description={product.description} firstName={product.seller.firstName} phoneNumber={product.seller.phoneNumber}/>
     </Grid>
-    )
-  }
+  )
 
   useEffect(() => {
     authFetch(`${serverUrl}/api/product/get`)
       .then(resp => resp?.json())
       .then(data => setProducts(data))
   }, []);
-
-  console.log(products);
 
   return (
       <Grid container>
