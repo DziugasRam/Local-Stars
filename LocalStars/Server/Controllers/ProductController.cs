@@ -26,16 +26,14 @@ namespace Server.Controllers
         private readonly SellerProvider _sellerProvider;
         private readonly DataContext _context;
         private readonly UserProvider _userProvider;
-        private readonly IWebHostEnvironment _hostEnviroment;
 
-        public ProductController(BuyerProvider buyerProvider,ProductProvider productProvider, SellerProvider sellerProvider, DataContext context, UserProvider userProvider, IWebHostEnvironment hostEnviroment)
+        public ProductController(BuyerProvider buyerProvider,ProductProvider productProvider, SellerProvider sellerProvider, DataContext context, UserProvider userProvider)
         {
             _buyerProvider = buyerProvider;
             _productProvider = productProvider;
             _sellerProvider = sellerProvider;
             _userProvider = userProvider;
             _context = context;
-            this._hostEnviroment = hostEnviroment;
         }
 
         [HttpGet]

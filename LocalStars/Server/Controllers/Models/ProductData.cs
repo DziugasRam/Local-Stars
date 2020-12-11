@@ -11,8 +11,6 @@ namespace Server.Controllers.Models
     {
 
         public IFormFile ImageFile { get;  set; }
-        //public string ImageSrc { get; set; }
-        //public string ImageName { get; set; }
         public string Title { get; set; }
         public string Category { get; set; }
         public int Price { get; set; }
