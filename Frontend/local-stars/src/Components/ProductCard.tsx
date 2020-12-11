@@ -3,7 +3,6 @@ import { Card, CardHeader, CardMedia, CardContent, CardActions, IconButton, Typo
 import { green } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import DescriptionTable from './DescriptionTable';
 import AspectRatio from '@material-ui/icons/AspectRatio';
@@ -42,31 +41,35 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-function ProductCard(props: { phonenumber: string; seller: string; price: string; imageUrl: string; title: string; subtitle: string; description: string;}) {
+function ProductCard(props: { phoneNumber: string; title: string; category: string; price: string; firstName: string; description: string;}) {
     const classes = useStyles();
 
     const [modalIsOpne, setModalIsOpen] = useState(false)
+
+    const [isLiked, setIsLiked] = useState(false)
 
     const handleClose = () => setModalIsOpen(false)
 
     const handleOpen = () => setModalIsOpen(true)
 
+    const handleLike = () => setIsLiked(!isLiked)
+
+    const Like = (props: {isLiked:boolean;}) => {
+        if (props.isLiked) return <FavoriteIcon />;
+        return <FavoriteBorderIcon />;
+    }
+
     return (
         <div>
             <Card className={classes.root}>
                 <CardHeader
-                action={
-                    <IconButton aria-label="settings">
-                    <MoreVertIcon />
-                    </IconButton>
-                }
                 title={props.title}
-                subheader={props.subtitle}
+                subheader={props.category}
                 className={classes.header}
                 />
                 <CardMedia
                 className={classes.media}
-                image={props.imageUrl}
+                image="https://www.shethepeople.tv/wp-content/uploads/2019/05/cucumber-e1558166231577.jpg"
                 />
                 <CardContent>
                     <Typography noWrap={true}>
@@ -74,8 +77,8 @@ function ProductCard(props: { phonenumber: string; seller: string; price: string
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites">
-                        <FavoriteIcon />
+                    <IconButton aria-label="add to favorites" onClick={handleLike}>
+                        <Like isLiked = {isLiked}/>
                     </IconButton>
                     <IconButton aria-label="share">
                         <ShareIcon />
@@ -90,7 +93,7 @@ function ProductCard(props: { phonenumber: string; seller: string; price: string
                 <Paper className={classes.paper}>
                     <Grid container spacing={2}>
                     <Grid item>
-                        <img className={classes.img} alt="product" src={props.imageUrl} />
+                        <img className={classes.img} alt="product" src="https://www.shethepeople.tv/wp-content/uploads/2019/05/cucumber-e1558166231577.jpg" />
                     </Grid>
                     <Grid item xs={12} sm container>
                         <Grid item xs container direction="column">
@@ -101,12 +104,12 @@ function ProductCard(props: { phonenumber: string; seller: string; price: string
                                 <Typography variant="h4">
                                     € {props.price}/kg
                                 </Typography>
-                                <IconButton aria-label="favorites">
-                                    <FavoriteBorderIcon fontSize="large"/>
+                                <IconButton aria-label="favorites" onClick={handleLike}>
+                                    <Like isLiked = {isLiked}/>
                                 </IconButton>
                             </Grid>
                             <Grid item xs>
-                                <DescriptionTable description={props.description} seller={props.seller} phonenumber={props.phonenumber}/>
+                                <DescriptionTable description={props.description} seller={props.firstName} phonenumber={props.phoneNumber}/>
                             </Grid>
                         </Grid>
                     </Grid>
