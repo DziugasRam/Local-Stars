@@ -22,7 +22,7 @@ function Buyer() {
       <Grid item xs={1} sm={2}/> 
     </Grid>
     <div style={{position:'relative', left:'1168px', display:'flex', marginTop: '10px'}}>
-        {/* <Map /> */}
+         <Map /> 
     </div>
     </div>
     
