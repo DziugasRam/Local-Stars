@@ -5,7 +5,6 @@ import { serverUrl } from "../configuration";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
-
 interface FormData {
 	title: string;
 	description: string;
@@ -13,22 +12,15 @@ interface FormData {
 	category: "pears";
 }
 
- 
 export const NewListingForm = () => {
-
-
-
 	const getFormData = () => {
-
-		var input=document.getElementById("image") as HTMLInputElement;
+		var input = document.getElementById("image") as HTMLInputElement;
 		return {
 			title: (document.getElementById("title") as HTMLInputElement).value,
 			price: (document.getElementById("price") as HTMLInputElement).value,
 			description: (document.getElementById("description") as HTMLInputElement).value,
 			// category: (document.getElementById("category") as HTMLInputElement).value
 		} as FormData;
-
-
 	};
 
 	const validateInputs = (formData: FormData) => {
@@ -37,17 +29,16 @@ export const NewListingForm = () => {
 	};
 
 	const onSubmit = () => {
-        const formData = getFormData();
-		 if(!validateInputs(formData))
-		     return;
- 
+		const formData = getFormData();
+		if (!validateInputs(formData)) return;
+
 		confirmAlert({
 			title: "Confirm to submit",
 			message: "Do you really want to add this product?",
 			childrenElement: () => <div>Custom UI</div>,
 			button1: {
 				label: "Confirm",
-				onClick: () =>  onSubmit1,
+				onClick: () => onSubmit1,
 			},
 			button2: {
 				label: "Cancel",
@@ -56,39 +47,32 @@ export const NewListingForm = () => {
 		});
 	};
 
-
 	const onSubmit1 = () => {
 		const data = getFormData();
-		var input=document.getElementById("image") as HTMLInputElement;
-		if(input.files && input.files[0])
-		{
-		let formData= new FormData();
-		formData.append("imageFile",input.files[0]);
-		formData.append("title", data.title);
-		formData.append("category", data.category);
-		formData.append("price", data.price);
-		formData.append("description", data.description);
+		var input = document.getElementById("image") as HTMLInputElement;
+		if (input.files && input.files[0]) {
+			let formData = new FormData();
+			formData.append("imageFile", input.files[0]);
+			formData.append("title", data.title);
+			formData.append("category", data.category);
+			formData.append("price", data.price);
+			formData.append("description", data.description);
 
+			const requestOptions: RequestInit = {
+				method: "POST",
+				body: formData,
+			};
 
-		const requestOptions: RequestInit = {
-			method: "POST",
-			body: formData
-
-		};
-		
-        authFetch(`${serverUrl}/api/product/insert`, requestOptions)
-        .then(resp => {
-            if (resp?.status == 200){
-                const params = new URLSearchParams(document.location.search);
-                const returnUrl = params.get("returnUrl") ?? document.location.origin;
-                document.location.href = returnUrl
-            }
-		})
-		}else
-		console.log("you have to upload a picture");
+			authFetch(`${serverUrl}/api/product/insert`, requestOptions).then((resp) => {
+				if (resp?.status == 200) {
+					const params = new URLSearchParams(document.location.search);
+					const returnUrl = params.get("returnUrl") ?? document.location.origin;
+					document.location.href = returnUrl;
+				}
+			});
+		} else console.log("you have to upload a picture");
 	};
 
-	
 	return (
 		<div>
 			<h1
@@ -125,10 +109,7 @@ export const NewListingForm = () => {
 						/>
 					</div>
 
-					<div
-						className="product-title-container"
-						style={{ marginLeft: "2%" }}
-					>
+					<div className="product-title-container" style={{ marginLeft: "2%" }}>
 						<h2
 							style={{
 								textAlign: "left",
@@ -149,10 +130,7 @@ export const NewListingForm = () => {
 						/>
 					</div>
 				</div>
-				<div
-					className="product-description-container"
-					style={{ marginTop: "2%" }}
-				>
+				<div className="product-description-container" style={{ marginTop: "2%" }}>
 					<h2
 						style={{
 							textAlign: "left",
@@ -174,10 +152,7 @@ export const NewListingForm = () => {
 						}}
 					/>
 				</div>
-				<div
-					className="product-description-container"
-					style={{ marginTop: "1%" }}
-				>
+				<div className="product-description-container" style={{ marginTop: "1%" }}>
 					<h2
 						style={{
 							textAlign: "left",
@@ -197,16 +172,10 @@ export const NewListingForm = () => {
 							height: 90,
 						}}
 					/>
-					
 				</div>
-				
+
 				<div>
-					<button
-						className="add-button"
-						type="button"
-						onClick={onSubmit1}
-						id="add"
-					>
+					<button className="add-button" type="button" onClick={onSubmit1} id="add">
 						Add product
 					</button>
 				</div>
@@ -220,6 +189,5 @@ export const NewListingForm = () => {
 		</div>
 	);
 };
-
 
 export default NewListingForm;

@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Server.Controllers
 {
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
@@ -68,6 +69,7 @@ namespace Server.Controllers
         // Needs to be replaced with location based search
         [HttpGet]
         [AllowAnonymous]
+        [Route("get")]
 
         public IEnumerable<Product> Get()
         {
