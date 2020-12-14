@@ -2,7 +2,7 @@ import React from 'react'
 import ProductCard from './ProductCard'
 import { Grid } from '@material-ui/core';
 import productList from './MockData';
-//import Map from './Components/Map';
+import Map from './Components/Map';
 
 function Buyer() {
 
