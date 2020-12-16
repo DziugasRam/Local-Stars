@@ -1,8 +1,8 @@
-import React, { Component} from 'react'
+import React from 'react'
 import {Link} from 'react-router-dom'
-import { AppBar, IconButton, makeStyles, Toolbar, Typography } from '@material-ui/core';
-import Map from './Components/Map'
-import Nav from './Components/NavBarHoriz'
+import { makeStyles, Typography } from '@material-ui/core';
+import Map from '../Components/Map'
+import Nav from '../Components/NavBarHoriz'
 
 
 const useStyles = makeStyles((theme) => ({

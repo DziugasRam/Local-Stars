@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import Buyer from "./pages/Buyer";
+import Seller from "./pages/Seller";
 import Home from "./HomePage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { SignIn } from "./pages/SignIn";

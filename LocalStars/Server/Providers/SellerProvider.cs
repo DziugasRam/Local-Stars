@@ -27,12 +27,6 @@ namespace Server.Providers
 
         public Seller Insert(string firstName, string lastName, string phoneNumber, string address, double longitude, double latitude)
         {
-            
-            if (_context.Sellers.Any(b => b.Id == seller.Id))
-            {
-                throw new ConflictException("Seller id already exists");
-            }
-
             var seller = new Seller(firstName, lastName, phoneNumber, longitude, latitude, address, Guid.NewGuid());
             _context.Sellers.Add(seller);
             _context.SaveChanges();
