@@ -4,6 +4,7 @@ import { Grid } from '@material-ui/core';
 import Map from '../Components/Map';
 import { serverUrl } from "../configuration";
 import { authFetch } from "../utils/auth";
+import NavBarHoriz from '../Components/NavBarHoriz';
 
 const Buyer = () => {
 
@@ -22,6 +23,8 @@ const Buyer = () => {
   }, []);
 
   return (
+    <div>
+      <NavBarHoriz/>
       <Grid container>
       <Grid item xs={1} sm={2}/>
       <Grid item container xs={10} sm={8} spacing={5}>
@@ -31,6 +34,7 @@ const Buyer = () => {
         <Map/>
       </Grid>
     </Grid>
+    </div>
   );
 }
 
