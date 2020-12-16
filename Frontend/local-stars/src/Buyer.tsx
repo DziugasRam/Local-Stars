@@ -1,47 +1,37 @@
-import React, { Component} from 'react'
-import {Link} from 'react-router-dom'
-import { AppBar, IconButton, makeStyles, Toolbar, Typography } from '@material-ui/core';
-import Map from '../Components/Map'
-import NavBar from '../Components/NavigationBar/NavBar'
+import React, { useState, useEffect } from 'react'
+import ProductCard from '../Components/ProductCard'
+import { Grid } from '@material-ui/core';
+import Map from '../Components/Map';
+import { serverUrl } from "../configuration";
+import { authFetch } from "../utils/auth";
 
+const Buyer = () => {
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  links: {
-    flexGrow: 1,
-  },
-}));
+  const [products, setProducts] = useState([]);
 
-function Seller() {
+  const getProductCard = (product: { category: string; description: string; price: string; seller: any; title: string; }) => (
+    <Grid item xs={12} sm={6} md={4} lg={3}>
+      <ProductCard title={product.title} category={product.category} price={product.price} description={product.description} firstName={product.seller.firstName} phoneNumber={product.seller.phoneNumber}/>
+    </Grid>
+  )
 
-  const classes = useStyles();
-  const navStyle = {
-    color : 'white'
-  }
+  useEffect(() => {
+    authFetch(`${serverUrl}/api/product/get`)
+      .then(resp => resp?.json())
+      .then(data => setProducts(data))
+  }, []);
+
   return (
-    
-    <div className={classes.root}>
-      <h1>Seller</h1>
-                <Typography variant="h6" className={classes.links}>
-                    <Link style={navStyle} to='/NewListingForm'>
-                    <button >Add new listing</button>                     
-                    </Link>
-                </Typography>
-
-            <NavBar />
-      <div style={{position:'relative', left:'1168px', display:'flex', marginTop: '10px'}}>
-        <Map />
-      </ div>
-    <div>
-    </div>
-    </div>
-    
+      <Grid container>
+      <Grid item xs={1} sm={2}/>
+      <Grid item container xs={10} sm={8} spacing={5}>
+          {products.map(product => getProductCard(product))}
+      </Grid>
+      <Grid item xs={1} sm={2}>
+        <Map/>
+      </Grid>
+    </Grid>
   );
 }
 
-export default Seller;
+export default Buyer;
