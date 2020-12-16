@@ -1,6 +1,5 @@
 import React, { Component} from 'react'
 import {Link} from 'react-router-dom'
-import './App.css';
 import { AppBar, IconButton, makeStyles, Toolbar, Typography } from '@material-ui/core';
 import Map from './Components/Map'
 import Nav from './Components/NavBarHoriz'

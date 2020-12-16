@@ -1,8 +1,6 @@
 import React from "react";
 import "./App.css";
-import Bar from "./AppBar";
-import Seller from "./Seller";
-import Buyer from "./Buyer";
+import Buyer from "./pages/Buyer";
 import Home from "./HomePage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { SignIn } from "./pages/SignIn";
@@ -16,7 +14,6 @@ function App() {
   return (
     <Router>
       <div className="App">
-        {/* <Bar /> */}
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/seller" component={Seller} />
