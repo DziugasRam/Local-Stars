@@ -2,6 +2,7 @@ import React, { useReducer, useState } from "react";
 import "../styles/NewListingForm.css";
 import { authFetch } from "../utils/auth";
 import { serverUrl } from "../configuration";
+import NavBarVert from "../Components/NavBarVert"
 
 import { Divider } from "@material-ui/core";
 
@@ -88,6 +89,8 @@ export const NewListingForm = () => {
 						/>
 					</div>
 
+					
+
 					<div
 						className="product-title-container"
 						style={{ marginLeft: "2%" }}
@@ -110,7 +113,9 @@ export const NewListingForm = () => {
 							}}
 						/>
 					</div>
+					
 				</div>
+
 				<div
 					className="product-description-container"
 					style={{ marginTop: "2%" }}
@@ -170,6 +175,9 @@ export const NewListingForm = () => {
 					</button>
 				</div>
 			</div>
+			<div className= "navbar-container" style={{marginRight: "-70%"}}>
+						<NavBarVert />
+					</div>
 		</div>
 	);
 };

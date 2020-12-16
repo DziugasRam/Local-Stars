@@ -3,6 +3,7 @@ import ProductCard from './ProductCard'
 import { Grid } from '@material-ui/core';
 import productList from './MockData';
 import Map from './Components/Map';
+import NavBarHoriz from './Components/NavBarHoriz';
 
 function Buyer() {
 
@@ -14,18 +15,15 @@ function Buyer() {
 
   return (
     <div>
-      <Grid container>
+      <NavBarHoriz/>
+      <Grid container spacing={2} alignItems="center">
       <Grid item xs={1} sm={2}/>
       <Grid item container xs={10} sm={8} spacing={5}>
           {productList.map(product => getProductCard(product))}
       </Grid>
-      <Grid item xs={1} sm={2}/> 
+      <Map />
     </Grid>
-    <div style={{position:'relative', left:'1168px', display:'flex', marginTop: '10px'}}>
-        <Map />
     </div>
-    </div>
-    
   );
 }
 
