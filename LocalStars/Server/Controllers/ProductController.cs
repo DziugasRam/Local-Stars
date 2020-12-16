@@ -12,6 +12,8 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Server.Controllers.Models;
 using System.Threading;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Server.Controllers
 {
@@ -26,7 +28,7 @@ namespace Server.Controllers
         private readonly DataContext _context;
         private readonly UserProvider _userProvider;
 
-        public ProductController(BuyerProvider buyerProvider,ProductProvider productProvider, SellerProvider sellerProvider, DataContext context, UserProvider userProvider)
+        public ProductController(BuyerProvider buyerProvider, ProductProvider productProvider, SellerProvider sellerProvider, DataContext context, UserProvider userProvider)
         {
             _buyerProvider = buyerProvider;
             _productProvider = productProvider;
@@ -67,6 +69,7 @@ namespace Server.Controllers
         // Needs to be replaced with location based search
         [HttpGet]
         [Route("get")]
+
         public IEnumerable<Product> Get()
         {
             return _productProvider
@@ -76,6 +79,8 @@ namespace Server.Controllers
 
 
         [HttpDelete]
+        [AllowAnonymous]
+
         public void RemoveById([FromBody] IEnumerable<Guid> ids)
         {
             _productProvider.RemoveById(ids);
@@ -83,18 +88,29 @@ namespace Server.Controllers
 
         [HttpPost]
         [Route("insert")]
-        public void Insert([FromBody] ProductData productdata)
+        public void Insert([FromForm] ProductData productdata)
         {
 
+            byte[] file;
+            using (var stream = new MemoryStream())
+            {
+                productdata.ImageFile.CopyTo(stream);
+                file = stream.ToArray();
+            }
+
             Seller sellerId = _userProvider.GetUser(Guid.Parse(Request.HttpContext.User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value)).AssociatedSeller;
-            Product product = new Product(productdata.Title, productdata.Category, productdata.Price, sellerId, productdata.Description, Guid.NewGuid());
+            Product product = new Product(productdata.Title, productdata.Category, productdata.Price, sellerId, productdata.Description, Guid.NewGuid(), file);
+
             _productProvider.Insert(product);
         }
+
 
         [HttpPut]
         public void Update([FromBody] Product product)
         {
             _productProvider.Update(product);
         }
+
+
     }
 }
