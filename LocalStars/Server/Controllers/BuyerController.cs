@@ -26,10 +26,6 @@ namespace Server.Controllers
 
         }
 
-        LikedProductHandler add = new LikedProductHandler(_buyerProvider.AddLikedProduct);
-        LikedProductHandler remove = new LikedProductHandler(_buyerProvider.RemoveLikedProduct);
-        LikedProductHandler display = delegate (Guid id, Product product) {
-            Console.WriteLine("Liked product id: " + id + ", liked product name and category: " + product.Title + ", " + product.Category);
         }
 
         [HttpGet]
@@ -60,14 +56,14 @@ namespace Server.Controllers
         [Route("like")]
         public void AddLikedProduct(Guid id, Product product)
         {
-            add(id, product);
+            _buyerProvider.AddLikedProduct(id, product);
         }
 
         [HttpDelete]
         [Route("unlike")]
         public void RemoveLikedProduct(Guid id,Product product)
         {
-            remove(id, product);
+            _buyerProvider.RemoveLikedProduct(id, product);
         }
 
         [HttpGet]
