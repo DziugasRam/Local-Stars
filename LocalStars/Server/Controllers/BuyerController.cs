@@ -26,8 +26,6 @@ namespace Server.Controllers
 
         }
 
-        }
-
         [HttpGet]
         public Buyer GetById(Guid id)
         {
