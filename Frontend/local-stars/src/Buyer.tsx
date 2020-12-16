@@ -1,32 +1,47 @@
-import React from 'react'
-import ProductCard from './ProductCard'
-import { Grid } from '@material-ui/core';
-import productList from './MockData';
-import Map from './Components/Map';
+import React, { Component} from 'react'
+import {Link} from 'react-router-dom'
+import { AppBar, IconButton, makeStyles, Toolbar, Typography } from '@material-ui/core';
+import Map from '../Components/Map'
+import NavBar from '../Components/NavigationBar/NavBar'
 
-function Buyer() {
 
-  const getProductCard = (product: { phonenumber: string; seller: string; price: string; imageUrl: string; title: string; subtitle: string; description: string;}) => (
-    <Grid item xs={12} sm={6} md={4} lg={3}>
-      <ProductCard {...product}/>
-    </Grid>
-  )
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  links: {
+    flexGrow: 1,
+  },
+}));
 
+function Seller() {
+
+  const classes = useStyles();
+  const navStyle = {
+    color : 'white'
+  }
   return (
+    
+    <div className={classes.root}>
+      <h1>Seller</h1>
+                <Typography variant="h6" className={classes.links}>
+                    <Link style={navStyle} to='/NewListingForm'>
+                    <button >Add new listing</button>                     
+                    </Link>
+                </Typography>
+
+            <NavBar />
+      <div style={{position:'relative', left:'1168px', display:'flex', marginTop: '10px'}}>
+        <Map />
+      </ div>
     <div>
-      <Grid container>
-      <Grid item xs={1} sm={2}/>
-      <Grid item container xs={10} sm={8} spacing={5}>
-          {productList.map(product => getProductCard(product))}
-      </Grid>
-      <Grid item xs={1} sm={2}/> 
-    </Grid>
-    <div style={{position:'relative', left:'1168px', display:'flex', marginTop: '10px'}}>
-         <Map /> 
     </div>
     </div>
     
   );
 }
 
-export default Buyer;
+export default Seller;

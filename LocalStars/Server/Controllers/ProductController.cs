@@ -68,7 +68,6 @@ namespace Server.Controllers
 
         // Needs to be replaced with location based search
         [HttpGet]
-        [AllowAnonymous]
         [Route("get")]
 
         public IEnumerable<Product> Get()
