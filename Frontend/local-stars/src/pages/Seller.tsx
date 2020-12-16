@@ -1,8 +1,8 @@
 import React, { Component} from 'react'
 import {Link} from 'react-router-dom'
 import { AppBar, IconButton, makeStyles, Toolbar, Typography } from '@material-ui/core';
-import Map from '../Components/Map'
-import NavBar from '../Components/NavigationBar/NavBar'
+import Map from './Components/Map'
+import Nav from './Components/NavBarHoriz'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -32,8 +32,10 @@ function Seller() {
                     <button >Add new listing</button>                     
                     </Link>
                 </Typography>
-
-            <NavBar />
+<div>
+<Nav />
+</div>
+            
       <div style={{position:'relative', left:'1168px', display:'flex', marginTop: '10px'}}>
         <Map />
       </ div>

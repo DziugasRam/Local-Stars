@@ -17,12 +17,19 @@ namespace Server.Controllers
         private readonly ProductProvider _productProvider;
         private readonly SellerProvider _sellerProvider;
 
+       
         public BuyerController(BuyerProvider buyerProvider, ProductProvider productProvider, SellerProvider sellerProvider)
         {
             _buyerProvider = buyerProvider;
             _productProvider = productProvider;
             _sellerProvider = sellerProvider;
 
+        }
+
+        LikedProductHandler add = new LikedProductHandler(_buyerProvider.AddLikedProduct);
+        LikedProductHandler remove = new LikedProductHandler(_buyerProvider.RemoveLikedProduct);
+        LikedProductHandler display = delegate (Guid id, Product product) {
+            Console.WriteLine("Liked product id: " + id + ", liked product name and category: " + product.Title + ", " + product.Category);
         }
 
         [HttpGet]
@@ -53,14 +60,14 @@ namespace Server.Controllers
         [Route("like")]
         public void AddLikedProduct(Guid id, Product product)
         {
-            _buyerProvider.AddLikedProduct(id, product);
+            add(id, product);
         }
 
         [HttpDelete]
         [Route("unlike")]
         public void RemoveLikedProduct(Guid id,Product product)
         {
-            _buyerProvider.RemoveLikedProduct(id, product);
+            remove(id, product);
         }
 
         [HttpGet]

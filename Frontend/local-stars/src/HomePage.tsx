@@ -1,19 +1,24 @@
 import React from 'react'
-import NavBar from './Components/NavigationBar/NavBar'
+import NavBarHoriz from './Components/NavBarHoriz'
 import Map from './Components/Map'
+import ProductCard from './Components/ProductCard'
+import { Grid } from '@material-ui/core';
+import productList from './MockData';
 
 
 function Home() {
   return (
     <div>
       <h1>Home Page</h1>
-      <NavBar/>
-      <div style={{position:'relative', left:'1168px', display:'flex', marginTop: '10px'}}>
-        <Map />
+    <div>
+      <NavBarHoriz/>
+      <Map />
+    </div>
+  
     </div>
 
-    </div>
-  );
+  )
+
 }
 
 export default Home;

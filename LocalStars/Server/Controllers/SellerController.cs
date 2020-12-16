@@ -55,7 +55,14 @@ namespace Server.Controllers
         [Route("register")]
         public void Register([FromBody]SellerData sellerData)
         {
-            var seller = _sellerProvider.Insert(sellerData.FirstName, sellerData.LastName, sellerData.PhoneNumber, sellerData.Address, sellerData.Longitude, sellerData.Latitude);
+            try {
+                var seller = _sellerProvider.Insert(sellerData.FirstName, sellerData.LastName, sellerData.PhoneNumber, sellerData.Address, sellerData.Longitude, sellerData.Latitude);
+            }
+            catch (ConflictException ex)
+            {
+                Console.log(ex.Message);
+            }
+            
             string userId = Request.HttpContext.User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value;
             _userProvider.LinkToSeller(Guid.Parse(userId), seller.Id);
         }
