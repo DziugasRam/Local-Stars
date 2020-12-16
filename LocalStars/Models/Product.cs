@@ -5,11 +5,12 @@ namespace Models
 {
     public class Product : IIdentifiable<Guid>, IEquatable<Product>
     {
+
         public Product()
         {
         }
 
-        public Product(string title, string category, int price, Seller seller, string description, Guid id)
+        public Product(string title, string category, int price, Seller seller, string description, Guid id, byte[] image = default)
         {
             Title = title;
             Category = category;
@@ -17,8 +18,10 @@ namespace Models
             Seller = seller;
             Description = description;
             Id = id;
+            Image = image;
         }
 
+        public byte[] Image { get; set; }
         public string Title { get; set; }
         public string Category { get; set; }
         public int Price { get; set; }
