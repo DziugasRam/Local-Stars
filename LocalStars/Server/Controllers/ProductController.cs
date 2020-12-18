@@ -76,7 +76,6 @@ namespace Server.Controllers
         // Needs to be replaced with location based search
         [HttpGet]
         [Route("get")]
-
         public IEnumerable<Product> Get()
         {
             return _productProvider

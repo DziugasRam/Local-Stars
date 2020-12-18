@@ -27,7 +27,8 @@ namespace Server.Controllers
         }
 
         [HttpGet]
-        public Buyer GetById(Guid id)
+        [Route("get")]
+        public Buyer GetById([FromQuery]Guid id)
         {
             return _buyerProvider.GetById(id);
         }
@@ -52,21 +53,21 @@ namespace Server.Controllers
 
         [HttpPost]
         [Route("like")]
-        public void AddLikedProduct(Guid id, Product product)
+        public void AddLikedProduct([FromQuery]Guid id, [FromBody]Product product)
         {
             _buyerProvider.AddLikedProduct(id, product);
         }
 
         [HttpDelete]
         [Route("unlike")]
-        public void RemoveLikedProduct(Guid id,Product product)
+        public void RemoveLikedProduct([FromQuery]Guid id,[FromBody]Product product)
         {
             _buyerProvider.RemoveLikedProduct(id, product);
         }
 
         [HttpGet]
-        [Route("isliked")]
-        public bool IsLikedProduct(Guid id, Product product)
+        [Route("getLiked")]
+        public bool IsLikedProduct([FromQuery]Guid id, [FromQuery]Product product)
         {
             return _buyerProvider.IsLikedProduct(id, product);
         }
