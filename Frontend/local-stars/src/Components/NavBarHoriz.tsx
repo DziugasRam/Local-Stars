@@ -12,8 +12,6 @@ function NavBarHoriz(props: {onCategoryChange: any}) {
     props.onCategoryChange(e)
     }
 
-    debugger;
-
     return (
         <>
         {Categories.map(
