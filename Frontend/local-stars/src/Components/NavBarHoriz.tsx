@@ -36,6 +36,4 @@ function NavBarHoriz(props: {onCategoryChange: any}) {
     )
 }
 
-var catValue = '';
-
-export { NavBarHoriz, catValue };
+export default NavBarHoriz;
