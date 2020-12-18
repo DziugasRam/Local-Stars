@@ -4,11 +4,12 @@ import Categories from '../CategoryData'
 import "./NavigationBar/Dropdown.css"
 
 
-function NavBarHoriz() {
+function NavBarHoriz(props: {onCategoryChange: any}) {
 
     const [value,setValue]=React.useState('');
     const handleSelect=(e:any)=>{
     setValue(e)
+    props.onCategoryChange(e)
     }
 
     return (

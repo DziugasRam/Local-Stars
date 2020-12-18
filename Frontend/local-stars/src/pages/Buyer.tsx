@@ -8,6 +8,7 @@ import BuyerBar from '../Components/BuyerBar';
 
 const Buyer = () => {
 
+
   const [products, setProducts] = useState([]);
 
   const getProductCard = (product: { category: string; description: string; price: string; seller: any; title: string;}) => (
@@ -16,11 +17,17 @@ const Buyer = () => {
     </Grid>
   )
 
-  useEffect(() => {
+  useEffect (() => {
     authFetch(`${serverUrl}/api/product/get`)
       .then(resp => resp?.json())
       .then(data => setProducts(data))
-  }, []);
+  }, [])
+
+  const onCategoryChange = (category: string) => {
+    authFetch(`${serverUrl}/api/product/catego?searchVal=${category}`)
+      .then(resp => resp?.json())
+      .then(data => setProducts(data))
+  }
 
   const onSearch = (searchResult: string) => {
     authFetch(`${serverUrl}/api/product/title?searchVal=${searchResult}`)
@@ -31,15 +38,15 @@ const Buyer = () => {
   return (
     <div>
       <BuyerBar onSearch={onSearch}/>
-      <NavBarHoriz/>
-      <Grid container>
+      <NavBarHoriz onCategoryChange={onCategoryChange}/>
+      <Grid container spacing={2}>
       <Grid item xs={1} sm={2}/>
       <Grid item container xs={10} sm={8} spacing={5}>
           {products.map(product => getProductCard(product))}
       </Grid>
       <Grid item xs={1} sm={2}/>
-    </Grid>
-    </div>
+      </Grid>
+   </div>
   );
 }
 

@@ -2,7 +2,7 @@ import React, { useReducer, useState } from "react";
 import "../styles/NewListingForm.css";
 import { authFetch } from "../utils/auth";
 import { serverUrl } from "../configuration";
-import NavBarVert from "../Components/NavBarVert"
+import {NavBarVert, catValue} from "../Components/NavBarVert"
 
 import { Divider } from "@material-ui/core";
 
@@ -11,17 +11,18 @@ interface FormData {
 	title: string;
 	description: string;
 	price: string;
-	category: "pears";
+	category: string;
 }
 
 export const NewListingForm = () => {
 	const getFormData = () => {
 		var input = document.getElementById("image") as HTMLInputElement;
+
 		return {
 			title: (document.getElementById("title") as HTMLInputElement).value,
 			price: (document.getElementById("price") as HTMLInputElement).value,
 			description: (document.getElementById("description") as HTMLInputElement).value,
-			// category: (document.getElementById("category") as HTMLInputElement).value
+			category: catValue
 		} as FormData;
 	};
 
