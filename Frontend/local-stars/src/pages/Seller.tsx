@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import { makeStyles, Typography } from '@material-ui/core';
 import Map from '../Components/Map'
-import Nav from '../Components/NavBarHoriz'
+import {NavBarHoriz} from '../Components/NavBarHoriz'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -33,7 +33,7 @@ function Seller() {
                     </Link>
                 </Typography>
 <div>
-<Nav />
+
 </div>
             
       <div style={{position:'relative', left:'1168px', display:'flex', marginTop: '10px'}}>

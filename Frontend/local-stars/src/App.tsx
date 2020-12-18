@@ -6,7 +6,6 @@ import Home from "./HomePage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { SignIn } from "./pages/SignIn";
 import { Register } from "./pages/Register/Register";
-import NavBar from './Components/NavBarHoriz';
 import NewProduct from './pages/NewListingForm'
 import Modal from 'react-modal';
 Modal.setAppElement('#root')

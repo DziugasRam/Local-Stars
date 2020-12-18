@@ -33,7 +33,7 @@ namespace Server.Providers
         {
             if (string.IsNullOrEmpty(title))
             {
-                return new List<Product>();
+                return _context.Products.AsEnumerable();
             }
             return _context.Products
                 .Where(p => fullMatch ? string.Equals(p.Title, title, comparisonType) : p.Title.Contains(title, comparisonType));
@@ -43,7 +43,7 @@ namespace Server.Providers
         {
             if (string.IsNullOrEmpty(category))
             {
-                return new List<Product>();
+                return _context.Products.AsEnumerable();
             }
 
             return _context.Products

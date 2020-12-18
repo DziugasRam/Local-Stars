@@ -1,13 +1,15 @@
 import React, {Component} from 'react'
 import {DropdownButton, Dropdown, ButtonGroup, Navbar} from 'react-bootstrap'
+import { getConstantValue } from 'typescript'
 import Categories from '../CategoryData'
 import "./NavigationBar/Dropdown.css"
 
 function NavBarVert() {
- 
+
     const [value,setValue]=React.useState('');
     const handleSelect=(e:any)=>{
     setValue(e)
+    catValue = e
     }
 
     return (
@@ -34,7 +36,10 @@ function NavBarVert() {
         <div style={{height: "50px"}}> </div>
         <h6> Chosen product subcategory: {value}</h6>
       </>
+
     )
 }
 
-export default NavBarVert;
+var catValue:string;
+
+export {NavBarVert, catValue};

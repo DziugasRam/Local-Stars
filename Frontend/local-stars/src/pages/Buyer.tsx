@@ -4,9 +4,12 @@ import { Grid } from '@material-ui/core';
 import Map from '../Components/Map';
 import { serverUrl } from "../configuration";
 import { authFetch } from "../utils/auth";
-import NavBarHoriz from '../Components/NavBarHoriz';
+import {NavBarHoriz, catValue} from '../Components/NavBarHoriz';
+import data from '../MockData';
+import { Filter } from '@material-ui/icons';
 
 const Buyer = () => {
+
 
   const [products, setProducts] = useState([]);
 
@@ -16,26 +19,30 @@ const Buyer = () => {
     </Grid>
   )
 
-  useEffect(() => {
-    authFetch(`${serverUrl}/api/product/get`)
+  useEffect (() => {
+    authFetch(`${serverUrl}/api/product/catego?searchVal=`)
       .then(resp => resp?.json())
       .then(data => setProducts(data))
-  }, []);
+  }, [])
+
+  const onCategoryChange = (category: string) => {
+    authFetch(`${serverUrl}/api/product/catego?searchVal=${category}`)
+      .then(resp => resp?.json())
+      .then(data => setProducts(data))
+  }
 
   return (
     <div>
-      <NavBarHoriz/>
-      <Grid container>
+      <NavBarHoriz onCategoryChange={onCategoryChange}/>
+      <Grid container spacing={2} alignItems="center">
       <Grid item xs={1} sm={2}/>
       <Grid item container xs={10} sm={8} spacing={5}>
           {products.map(product => getProductCard(product))}
       </Grid>
-      <Grid item xs={1} sm={2}>
         <Map/>
       </Grid>
-    </Grid>
     </div>
   );
-}
+  }
 
 export default Buyer;

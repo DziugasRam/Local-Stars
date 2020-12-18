@@ -20,6 +20,7 @@ const Vegetables = [
     "Peppers",
     "Tomatoes",
     "Potatoes",
+    "Cucumbers",
     "Other Vegetables"
 ]
 
