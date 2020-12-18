@@ -44,6 +44,13 @@ namespace Server.Controllers
             return _productProvider.GetByTitle(searchVal, fullMatch, StringComparison.OrdinalIgnoreCase);
         }
 
+        [HttpGet]
+        [Route("catego")]
+        public IEnumerable<Product> GetProductsByCategory([FromQuery] string searchVal, [FromQuery] bool fullMatch = false)
+        {
+            return _productProvider.GetByType(searchVal, fullMatch, StringComparison.OrdinalIgnoreCase);
+        }
+
         [HttpPost]
         [Route("ids")]
         public IEnumerable<Product> GetProducts([FromBody] Guid[] ids)
