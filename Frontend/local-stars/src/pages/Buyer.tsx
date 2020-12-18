@@ -34,7 +34,7 @@ const Buyer = () => {
   return (
     <div>
       <NavBarHoriz onCategoryChange={onCategoryChange}/>
-      <Grid container spacing={2} alignItems="center">
+      <Grid container spacing={2}>
       <Grid item xs={1} sm={2}/>
       <Grid item container xs={10} sm={8} spacing={5}>
           {products.map(product => getProductCard(product))}
