@@ -20,7 +20,7 @@ const Buyer = () => {
   )
 
   useEffect (() => {
-    authFetch(`${serverUrl}/api/product/catego?searchVal=`)
+    authFetch(`${serverUrl}/api/product/get`)
       .then(resp => resp?.json())
       .then(data => setProducts(data))
   }, [])
