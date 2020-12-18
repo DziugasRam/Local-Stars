@@ -12,8 +12,6 @@ function NavBarHoriz(props: {onCategoryChange: any}) {
     props.onCategoryChange(e)
     }
 
-    debugger;
-
     return (
         <>
         {Categories.map(
@@ -38,6 +36,5 @@ function NavBarHoriz(props: {onCategoryChange: any}) {
     )
 }
 
-var catValue = '';
 
-export { NavBarHoriz, catValue };
+export default NavBarHoriz;
