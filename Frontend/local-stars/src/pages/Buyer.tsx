@@ -4,7 +4,7 @@ import { Grid } from '@material-ui/core';
 import Map from '../Components/Map';
 import { serverUrl } from "../configuration";
 import { authFetch } from "../utils/auth";
-import NavBarHoriz from '../Components/NavBarHoriz';
+import {NavBarHoriz, catValue} from '../Components/NavBarHoriz';
 import data from '../MockData';
 import { Filter } from '@material-ui/icons';
 

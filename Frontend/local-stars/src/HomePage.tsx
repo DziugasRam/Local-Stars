@@ -1,5 +1,5 @@
 import React from 'react'
-import NavBarHoriz from './Components/NavBarHoriz'
+import {NavBarHoriz} from './Components/NavBarHoriz'
 import Map from './Components/Map'
 import ProductCard from './Components/ProductCard'
 import { Grid } from '@material-ui/core';

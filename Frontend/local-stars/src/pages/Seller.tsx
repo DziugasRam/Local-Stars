@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import { makeStyles, Typography } from '@material-ui/core';
 import Map from '../Components/Map'
-import NavBarHoriz from '../Components/NavBarHoriz'
+import {NavBarHoriz} from '../Components/NavBarHoriz'
 
 
 const useStyles = makeStyles((theme) => ({
