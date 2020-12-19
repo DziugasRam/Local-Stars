@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function BuyerBar (props: {onSearch: any}) {
+function BuyerBar (props: {onSearch: any; onSortSelect: any;}) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null);
@@ -104,7 +104,31 @@ function BuyerBar (props: {onSearch: any}) {
         const searchResult = event.target.value;
 
         props.onSearch(searchResult);
-    }
+    };
+
+    const handleAZ = () => {
+        handleMenuClose();
+
+        props.onSortSelect("A-Z");
+    };
+
+    const handleZA = () => {
+        handleMenuClose();
+
+        props.onSortSelect("Z-A");
+    };
+
+    const handleLowPrice = () => {
+        handleMenuClose();
+
+        props.onSortSelect("Price: Lowest First");
+    };
+
+    const handleHighPrice = () => {
+        handleMenuClose();
+
+        props.onSortSelect("Price: Highest First");
+    };
 
     const menuId = 'primary-sort-menu';
     const renderMenu = (
@@ -117,10 +141,10 @@ function BuyerBar (props: {onSearch: any}) {
         open={isMenuOpen}
         onClose={handleMenuClose}
     >
-        <MenuItem onClick={handleMenuClose}>A-Z</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Z-A</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Price: Lowest First</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Price: Highest First</MenuItem>
+        <MenuItem onClick={handleAZ}>A-Z</MenuItem>
+        <MenuItem onClick={handleZA}>Z-A</MenuItem>
+        <MenuItem onClick={handleLowPrice}>Price: Lowest First</MenuItem>
+        <MenuItem onClick={handleHighPrice}>Price: Highest First</MenuItem>
     </Menu>
     );
 

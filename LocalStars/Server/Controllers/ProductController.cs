@@ -83,6 +83,13 @@ namespace Server.Controllers
                 .ToArray();
         }
 
+        [HttpGet]
+        [Route("sorted")]
+        public IEnumerable<Product> GetSorted([FromQuery] string variant)
+        {
+            return _productProvider.GetSorted(variant);
+        }
+
 
         [HttpDelete]
         [AllowAnonymous]

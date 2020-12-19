@@ -5,6 +5,7 @@ import { serverUrl } from "../configuration";
 import { authFetch } from "../utils/auth";
 import NavBarHoriz from '../Components/NavBarHoriz';
 import BuyerBar from '../Components/BuyerBar';
+import { stringify } from 'querystring';
 
 const Buyer = () => {
 
@@ -35,9 +36,19 @@ const Buyer = () => {
         .then(data => setProducts(data))
   }
 
+  const onSortSelect = (variant: string) => {
+    authFetch(`${serverUrl}/api/product/sorted?variant=${variant}`)
+        .then(resp => resp?.json())
+        .then(data => setProducts(data))
+  }
+
+  const sortedProducts = [].concat(products).sort((a:{title:string;},b:{title:string;}) => a.title.toLowerCase > b.title.toLowerCase ? 1: -1);
+
+  console.log(sortedProducts);
+
   return (
     <div>
-      <BuyerBar onSearch={onSearch}/>
+      <BuyerBar onSearch={onSearch} onSortSelect={onSortSelect}/>
       <NavBarHoriz onCategoryChange={onCategoryChange}/>
       <Grid container spacing={2}>
       <Grid item xs={1} sm={2}/>
