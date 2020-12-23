@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function BuyerBar (props: {onSearch: any; onSortSelect: any;}) {
+function BuyerBar (props: {onSearch: any; onSortSelect: any; onLiked: any;}) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null);
@@ -130,6 +130,10 @@ function BuyerBar (props: {onSearch: any; onSortSelect: any;}) {
         props.onSortSelect("Price: Highest First");
     };
 
+    const handleLiked = () => {
+        props.onLiked();
+    };
+
     const menuId = 'primary-sort-menu';
     const renderMenu = (
     <Menu
@@ -170,13 +174,13 @@ function BuyerBar (props: {onSearch: any; onSortSelect: any;}) {
             </IconButton>
             <p>Sort</p>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleLiked}>
             <IconButton aria-label="liked products" color="inherit">
                     <FavoriteIcon />
             </IconButton>
             <p>Liked Products</p>
         </MenuItem>
-        <Link to ="/NewListingForm">
+        <Link to ="/NewListingForm" style={{ color: '#000' }}>
             <MenuItem>
                 <IconButton aria-label="add new product" color="inherit">
                         <AddIcon />
@@ -219,12 +223,12 @@ function BuyerBar (props: {onSearch: any; onSortSelect: any;}) {
             </IconButton>
             </Tooltip>
             <Tooltip title="Liked Products">
-            <IconButton aria-label="liked products" color="inherit">
+            <IconButton aria-label="liked products" color="inherit" onClick={handleLiked}>
                 <FavoriteIcon />
             </IconButton>
             </Tooltip>
             <Tooltip title="Add Product">
-            <Link to ="/NewListingForm">
+            <Link to ="/NewListingForm" style={{ color: '#FFF' }}>
             <IconButton aria-label="add new product" color="inherit">
                 <AddIcon />
             </IconButton>

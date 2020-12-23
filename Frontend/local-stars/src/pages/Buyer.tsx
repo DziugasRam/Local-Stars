@@ -5,24 +5,36 @@ import { serverUrl } from "../configuration";
 import { authFetch } from "../utils/auth";
 import NavBarHoriz from '../Components/NavBarHoriz';
 import BuyerBar from '../Components/BuyerBar';
-import { stringify } from 'querystring';
 
 const Buyer = () => {
 
-
   const [products, setProducts] = useState([]);
+  const [showLikedProducts, setShowLikedProducts] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
 
-  const getProductCard = (product: { category: string; description: string; price: string; seller: any; title: string;}) => (
+  useEffect (() => {
+    showAllProducts()
+  }, [])
+
+  const getProductCard = (product: { category: string; description: string; price: string; seller: any; title: string; id: string; image: string;}) => (
     <Grid item xs={12} sm={6} md={4} lg={3}>
-      <ProductCard title={product.title} category={product.category} price={product.price} description={product.description} firstName={product.seller.firstName} phoneNumber={product.seller.phoneNumber}/>
+      <ProductCard title={product.title} category={product.category} price={product.price} description={product.description} id={product.id} seller={product.seller} image={product.image}/>
     </Grid>
   )
 
-  useEffect (() => {
+  const filterProducts = (product: {id: string;}) => {
+    authFetch(`${serverUrl}/api/buyer/isLiked?buyerId=b1987872-fde7-4214-8e84-33b8d8983d3b&productId=${product.id}`)
+      .then(resp => resp?.json())
+      .then(data => setIsLiked(data))
+
+    return(isLiked)
+  }
+
+  const showAllProducts = () => {
     authFetch(`${serverUrl}/api/product/get`)
       .then(resp => resp?.json())
       .then(data => setProducts(data))
-  }, [])
+  }
 
   const onCategoryChange = (category: string) => {
     authFetch(`${serverUrl}/api/product/catego?searchVal=${category}`)
@@ -42,13 +54,17 @@ const Buyer = () => {
         .then(data => setProducts(data))
   }
 
-  const sortedProducts = [].concat(products).sort((a:{title:string;},b:{title:string;}) => a.title.toLowerCase > b.title.toLowerCase ? 1: -1);
+  const onLiked = () => {
+    showLikedProducts
+    ? showAllProducts()
+    : setProducts(products.filter((product: {id: string;}) => filterProducts(product)))
 
-  console.log(sortedProducts);
+    setShowLikedProducts(!showLikedProducts)
+  }
 
   return (
     <div>
-      <BuyerBar onSearch={onSearch} onSortSelect={onSortSelect}/>
+      <BuyerBar onSearch={onSearch} onSortSelect={onSortSelect} onLiked={onLiked}/>
       <NavBarHoriz onCategoryChange={onCategoryChange}/>
       <Grid container spacing={2}>
       <Grid item xs={1} sm={2}/>
