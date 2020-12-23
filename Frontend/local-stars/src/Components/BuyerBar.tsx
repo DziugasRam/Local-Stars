@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function BuyerBar (props: {onSearch: any}) {
+function BuyerBar (props: {onSearch: any; onSortSelect: any; onLiked: any;}) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null);
@@ -104,7 +104,35 @@ function BuyerBar (props: {onSearch: any}) {
         const searchResult = event.target.value;
 
         props.onSearch(searchResult);
-    }
+    };
+
+    const handleAZ = () => {
+        handleMenuClose();
+
+        props.onSortSelect("A-Z");
+    };
+
+    const handleZA = () => {
+        handleMenuClose();
+
+        props.onSortSelect("Z-A");
+    };
+
+    const handleLowPrice = () => {
+        handleMenuClose();
+
+        props.onSortSelect("Price: Lowest First");
+    };
+
+    const handleHighPrice = () => {
+        handleMenuClose();
+
+        props.onSortSelect("Price: Highest First");
+    };
+
+    const handleLiked = () => {
+        props.onLiked();
+    };
 
     const menuId = 'primary-sort-menu';
     const renderMenu = (
@@ -117,10 +145,10 @@ function BuyerBar (props: {onSearch: any}) {
         open={isMenuOpen}
         onClose={handleMenuClose}
     >
-        <MenuItem onClick={handleMenuClose}>A-Z</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Z-A</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Price: Lowest First</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Price: Highest First</MenuItem>
+        <MenuItem onClick={handleAZ}>A-Z</MenuItem>
+        <MenuItem onClick={handleZA}>Z-A</MenuItem>
+        <MenuItem onClick={handleLowPrice}>Price: Lowest First</MenuItem>
+        <MenuItem onClick={handleHighPrice}>Price: Highest First</MenuItem>
     </Menu>
     );
 
@@ -146,13 +174,13 @@ function BuyerBar (props: {onSearch: any}) {
             </IconButton>
             <p>Sort</p>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleLiked}>
             <IconButton aria-label="liked products" color="inherit">
                     <FavoriteIcon />
             </IconButton>
             <p>Liked Products</p>
         </MenuItem>
-        <Link to ="/NewListingForm">
+        <Link to ="/NewListingForm" style={{ color: '#000' }}>
             <MenuItem>
                 <IconButton aria-label="add new product" color="inherit">
                         <AddIcon />
@@ -195,12 +223,12 @@ function BuyerBar (props: {onSearch: any}) {
             </IconButton>
             </Tooltip>
             <Tooltip title="Liked Products">
-            <IconButton aria-label="liked products" color="inherit">
+            <IconButton aria-label="liked products" color="inherit" onClick={handleLiked}>
                 <FavoriteIcon />
             </IconButton>
             </Tooltip>
             <Tooltip title="Add Product">
-            <Link to ="/NewListingForm">
+            <Link to ="/NewListingForm" style={{ color: '#FFF' }}>
             <IconButton aria-label="add new product" color="inherit">
                 <AddIcon />
             </IconButton>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -9,6 +10,7 @@ using Server.Providers;
 
 namespace Server.Controllers
 {
+    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class BuyerController : ControllerBase
@@ -52,24 +54,24 @@ namespace Server.Controllers
         //}
 
         [HttpPost]
-        [Route("like")]
-        public void AddLikedProduct([FromQuery]Guid id, [FromBody]Product product)
+        [Route("like/{id}")]
+        public void AddLikedProduct([FromRoute]Guid id, [FromBody]Product product)
         {
             _buyerProvider.AddLikedProduct(id, product);
         }
 
         [HttpDelete]
-        [Route("unlike")]
-        public void RemoveLikedProduct([FromQuery]Guid id,[FromBody]Product product)
+        [Route("unlike/{id}")]
+        public void RemoveLikedProduct([FromRoute]Guid id,[FromBody]Product product)
         {
             _buyerProvider.RemoveLikedProduct(id, product);
         }
 
         [HttpGet]
-        [Route("getLiked")]
-        public bool IsLikedProduct([FromQuery]Guid id, [FromQuery]Product product)
+        [Route("isLiked")]
+        public bool IsLikedProduct([FromQuery]Guid buyerId, [FromQuery]Guid productId)
         {
-            return _buyerProvider.IsLikedProduct(id, product);
+            return _buyerProvider.IsLikedProduct(buyerId, productId);
         }
     }
 }
