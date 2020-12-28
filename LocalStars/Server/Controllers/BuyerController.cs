@@ -73,5 +73,12 @@ namespace Server.Controllers
         {
             return _buyerProvider.IsLikedProduct(buyerId, productId);
         }
+
+        [HttpGet]
+        [Route("likedProducts/{id}")]
+        public IEnumerable<Product> GetLikedProducts([FromRoute] Guid id)
+        {
+            return _buyerProvider.GetLikedProducts(id);
+        }
     }
 }

@@ -13,8 +13,6 @@ import AddIcon from '@material-ui/icons/Add';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { Link } from 'react-router-dom';
 import { Tooltip } from '@material-ui/core';
-import { authFetch } from "../utils/auth";
-import { serverUrl } from "../configuration";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -78,7 +76,6 @@ function BuyerBar (props: {onSearch: any; onSortSelect: any; onLiked: any;}) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null);
-    const [products, setProducts] = useState([]);
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
