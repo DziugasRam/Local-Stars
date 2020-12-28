@@ -70,11 +70,10 @@ namespace Server.Controllers
         [HttpGet]
         [Route("get")]
 
-        public IEnumerable<Product> Get()
+        public IEnumerable<ProductModel> Get()
         {
             return _productProvider
-                .Get()
-                .ToArray();
+                .Get();
         }
 
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import NavBarHoriz from './Components/NavBarHoriz'
-import Map from './Components/Map'
+//import Map from './Components/Map'
 import ProductCard from './Components/ProductCard'
 import { Grid } from '@material-ui/core';
 import productList from './MockData';
@@ -12,7 +12,7 @@ function Home() {
       <h1>Home Page</h1>
     <div>
       <NavBarHoriz/>
-      <Map />
+      {/* <Map /> */}
     </div>
   
     </div>

@@ -1,4 +1,5 @@
 ﻿using Models;
+using Server.Controllers.Models;
 using Server.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -24,9 +25,18 @@ namespace Server.Providers
                 (id, p) => p);
         }
 
-        public IEnumerable<Product> Get()
+        public IEnumerable<ProductModel> Get()
         {
-            return _context.Products.AsEnumerable();
+            return _context.Products.Select(x => new ProductModel()
+            {
+                Title = x.Title,
+                Price = x.Price,
+                Seller = x.Seller,
+                Category = x.Category,
+                Description = x.Description,
+                Id = x.Id,
+                Image = Convert.ToBase64String(x.Image, 0, x.Image.Length)
+            }).ToList();
         }
 
         public IEnumerable<Product> GetByTitle(string title, bool fullMatch = true, StringComparison comparisonType = StringComparison.Ordinal)

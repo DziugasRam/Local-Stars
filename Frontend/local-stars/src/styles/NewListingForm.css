@@ -20,7 +20,7 @@
 }
 .product-description-container {
 	width: 1002px;
-	height: 150px;
+	height: 200px;
 
 	background: rgba(251, 176, 59, 0.47);
 	border-radius: 20px;
@@ -36,10 +36,11 @@
 	border-radius: 15px;
 }
 .add-button {
-	margin-right: 650px;
+	
 	margin-top: 20px;
 	background: #fbb03b;
 	border-color: #1d225f;
 	padding: 10px 100px;
 	font-size: 25px;
+	
 }

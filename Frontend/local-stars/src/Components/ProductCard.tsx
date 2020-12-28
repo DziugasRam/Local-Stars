@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-function ProductCard(props: { phoneNumber: string; title: string; category: string; price: string; firstName: string; description: string;}) {
+function ProductCard(props: { phoneNumber: string; title: string; category: string; price: string; firstName: string; description: string; image: string;}) {
     const classes = useStyles();
 
     const [modalIsOpne, setModalIsOpen] = useState(false)
@@ -67,10 +67,9 @@ function ProductCard(props: { phoneNumber: string; title: string; category: stri
                 subheader={props.category}
                 className={classes.header}
                 />
-                <CardMedia
-                className={classes.media}
-                image="https://www.shethepeople.tv/wp-content/uploads/2019/05/cucumber-e1558166231577.jpg"
-                />
+                <CardMedia className={classes.media}>
+                <img className={classes.media} alt="product" src={`data:image/jpg;base64,${props.image}`} />
+                </CardMedia>
                 <CardContent>
                     <Typography noWrap={true}>
                         {props.description}
@@ -93,7 +92,7 @@ function ProductCard(props: { phoneNumber: string; title: string; category: stri
                 <Paper className={classes.paper}>
                     <Grid container spacing={2}>
                     <Grid item>
-                        <img className={classes.img} alt="product" src="https://www.shethepeople.tv/wp-content/uploads/2019/05/cucumber-e1558166231577.jpg" />
+                        <img className={classes.img} alt="product" src={`data:image/jpg;base64,${props.image}`} />
                     </Grid>
                     <Grid item xs={12} sm container>
                         <Grid item xs container direction="column">
