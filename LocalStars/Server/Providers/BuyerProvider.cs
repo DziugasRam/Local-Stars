@@ -66,5 +66,11 @@ namespace Server.Providers
             var buyer = GetById(buyerId);
             return buyer.BuyerProducts.Any(bp => bp.Type == BuyerProduct.RelationType.Favorite && bp.ProductId == productId);
         }
+
+        public IEnumerable<Product> GetLikedProducts(Guid buyerId)
+        {
+            var buyer = GetById(buyerId);
+            return buyer.BuyerProducts.Select(buyerProduct => buyerProduct.Product).AsEnumerable();
+        }
     }
 }

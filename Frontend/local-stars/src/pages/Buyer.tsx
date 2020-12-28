@@ -10,8 +10,6 @@ const Buyer = () => {
 
   const [products, setProducts] = useState([]);
   const [showLikedProducts, setShowLikedProducts] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
-
 
   useEffect (() => {
     showAllProducts()
@@ -23,16 +21,14 @@ const Buyer = () => {
     </Grid>
   )
 
-  const filterProducts = (product: {id: string;}) => {
-    authFetch(`${serverUrl}/api/buyer/isLiked?buyerId=b1987872-fde7-4214-8e84-33b8d8983d3b&productId=${product.id}`)
-      .then(resp => resp?.json())
-      .then(data => setIsLiked(data))
-
-    return(isLiked)
-  }
-
   const showAllProducts = () => {
     authFetch(`${serverUrl}/api/product/get`)
+      .then(resp => resp?.json())
+      .then(data => setProducts(data))
+  }
+
+  const showAllLikedProducts = () => {
+    authFetch(`${serverUrl}/api/buyer/likedProducts/b1987872-fde7-4214-8e84-33b8d8983d3b`)
       .then(resp => resp?.json())
       .then(data => setProducts(data))
   }
@@ -56,10 +52,10 @@ const Buyer = () => {
   }
 
   const onLiked = () => {
-    showLikedProducts
-    ? showAllProducts()
-    : setProducts(products.filter((product: {id: string;}) => filterProducts(product)))
-
+     showLikedProducts
+     ? showAllProducts()
+     : showAllLikedProducts()
+    
     setShowLikedProducts(!showLikedProducts)
   }
 
