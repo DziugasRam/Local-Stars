@@ -44,6 +44,13 @@ namespace Server.Controllers
             return _productProvider.GetByTitle(searchVal, fullMatch, StringComparison.OrdinalIgnoreCase);
         }
 
+        [HttpGet]
+        [Route("catego")]
+        public IEnumerable<Product> GetProductsByCategory([FromQuery] string searchVal, [FromQuery] bool fullMatch = false)
+        {
+            return _productProvider.GetByType(searchVal, fullMatch, StringComparison.OrdinalIgnoreCase);
+        }
+
         [HttpPost]
         [Route("ids")]
         public IEnumerable<Product> GetProducts([FromBody] Guid[] ids)
@@ -74,6 +81,13 @@ namespace Server.Controllers
         {
             return _productProvider
                 .Get();
+        }
+
+        [HttpGet]
+        [Route("sorted")]
+        public IEnumerable<Product> GetSorted([FromQuery] string variant)
+        {
+            return _productProvider.GetSorted(variant);
         }
 
 

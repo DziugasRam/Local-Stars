@@ -1,9 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import { makeStyles, Typography } from '@material-ui/core';
-//import Map from '../Components/Map'
-import Nav from '../Components/NavBarHoriz'
-
+import Map from '../Components/Map'
+import NavBarHoriz from '../Components/NavBarHoriz'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,7 +32,7 @@ function Seller() {
                     </Link>
                 </Typography>
 <div>
-<Nav />
+
 </div>
             
       <div style={{position:'relative', left:'1168px', display:'flex', marginTop: '10px'}}>

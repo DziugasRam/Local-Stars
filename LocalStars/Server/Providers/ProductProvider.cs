@@ -43,17 +43,31 @@ namespace Server.Providers
         {
             if (string.IsNullOrEmpty(title))
             {
-                return new List<Product>();
+                return _context.Products.AsEnumerable();
             }
             return _context.Products
                 .Where(p => fullMatch ? string.Equals(p.Title, title, comparisonType) : p.Title.Contains(title, comparisonType));
+        }
+
+        public IEnumerable<Product> GetSorted(string variant)
+        {
+            var sortedProducts = variant switch
+            {
+                "Price: Lowest First" => _context.Products.AsEnumerable().OrderBy(o => o.Price),
+                "Price: Highest First" => _context.Products.AsEnumerable().OrderByDescending(o => o.Price),
+                "A-Z" => _context.Products.AsEnumerable().OrderBy(o => o.Title),
+                "Z-A" => _context.Products.AsEnumerable().OrderByDescending(o => o.Title),
+                _ => _context.Products.AsEnumerable()
+            };
+
+            return sortedProducts;
         }
 
         public IEnumerable<Product> GetByType(string category, bool fullMatch = true, StringComparison comparisonType = StringComparison.Ordinal)
         {
             if (string.IsNullOrEmpty(category))
             {
-                return new List<Product>();
+                return _context.Products.AsEnumerable();
             }
 
             return _context.Products

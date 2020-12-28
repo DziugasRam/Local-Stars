@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Card, CardHeader, CardMedia, CardContent, CardActions, IconButton, Typography, makeStyles, Theme, Paper, Grid} from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
+import { serverUrl } from "../configuration";
+import { authFetch } from "../utils/auth";
 import FavoriteIcon from '@material-ui/icons/Favorite';
-import ShareIcon from '@material-ui/icons/Share';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import DescriptionTable from './DescriptionTable';
 import AspectRatio from '@material-ui/icons/AspectRatio';
@@ -12,6 +13,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     root: {
         maxWidth: 375,
         maxHeight: 600,
+        backgroundColor: '#ffdba1',
     },
     media: {
         height: 250,
@@ -41,7 +43,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
 }));
 
-function ProductCard(props: { phoneNumber: string; title: string; category: string; price: string; firstName: string; description: string; image: string;}) {
+
+function ProductCard(props: { title: string; category: string; price: string; description: string; id: string; seller: any; image: string;}) {
+
     const classes = useStyles();
 
     const [modalIsOpne, setModalIsOpen] = useState(false)
@@ -52,10 +56,48 @@ function ProductCard(props: { phoneNumber: string; title: string; category: stri
 
     const handleOpen = () => setModalIsOpen(true)
 
-    const handleLike = () => setIsLiked(!isLiked)
+    useEffect (() => {
+        authFetch(`${serverUrl}/api/buyer/isLiked?buyerId=b1987872-fde7-4214-8e84-33b8d8983d3b&productId=${props.id}`)
+            .then(resp => resp?.json())
+            .then(data => setIsLiked(data))
+    }, [])
 
-    const Like = (props: {isLiked:boolean;}) => {
-        if (props.isLiked) return <FavoriteIcon />;
+    const handleLike = () => {
+        const product = {
+            id: props.id,
+            description: props.description,
+            seller: props.seller,
+            price: props.price,
+            category: props.category,
+            title: props.title,
+            image: props.image,
+        }
+
+        const requestOptionsPost: RequestInit = {
+            method: "POST",
+            headers: {
+				"Content-Type": "application/json",
+			},
+            body: JSON.stringify(product),
+        };
+
+        const requestOptionsDelete: RequestInit = {
+            method: "DELETE",
+            headers: {
+				"Content-Type": "application/json",
+			},
+            body: JSON.stringify(product),
+        };
+
+        isLiked
+        ? authFetch(`${serverUrl}/api/buyer/unlike/b1987872-fde7-4214-8e84-33b8d8983d3b`, requestOptionsDelete)
+        : authFetch(`${serverUrl}/api/buyer/like/b1987872-fde7-4214-8e84-33b8d8983d3b`, requestOptionsPost)
+
+        setIsLiked(!isLiked)
+    }
+
+    const Like = () => {
+        if (isLiked) return <FavoriteIcon />;
         return <FavoriteBorderIcon />;
     }
 
@@ -77,10 +119,7 @@ function ProductCard(props: { phoneNumber: string; title: string; category: stri
                 </CardContent>
                 <CardActions disableSpacing>
                     <IconButton aria-label="add to favorites" onClick={handleLike}>
-                        <Like isLiked = {isLiked}/>
-                    </IconButton>
-                    <IconButton aria-label="share">
-                        <ShareIcon />
+                        <Like/>
                     </IconButton>
                     <IconButton aria-label="expand" onClick={handleOpen}>
                         <AspectRatio />
@@ -104,11 +143,11 @@ function ProductCard(props: { phoneNumber: string; title: string; category: stri
                                     € {props.price}/kg
                                 </Typography>
                                 <IconButton aria-label="favorites" onClick={handleLike}>
-                                    <Like isLiked = {isLiked}/>
+                                    <Like/>
                                 </IconButton>
                             </Grid>
                             <Grid item xs>
-                                <DescriptionTable description={props.description} seller={props.firstName} phonenumber={props.phoneNumber}/>
+                                <DescriptionTable description={props.description} seller={props.seller.firstName} phonenumber={props.seller.phoneNumber}/>
                             </Grid>
                         </Grid>
                     </Grid>

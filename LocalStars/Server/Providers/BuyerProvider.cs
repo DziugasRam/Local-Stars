@@ -61,10 +61,10 @@ namespace Server.Providers
             _context.SaveChanges();
         }
 
-        public bool IsLikedProduct(Guid id, Product product)
+        public bool IsLikedProduct(Guid buyerId, Guid productId)
         {
-            var buyer = GetById(id);
-            return buyer.BuyerProducts.Any(bp => bp.Type == BuyerProduct.RelationType.Favorite && bp.ProductId == product.Id);
+            var buyer = GetById(buyerId);
+            return buyer.BuyerProducts.Any(bp => bp.Type == BuyerProduct.RelationType.Favorite && bp.ProductId == productId);
         }
     }
 }
