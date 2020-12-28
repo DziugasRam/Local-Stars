@@ -14,10 +14,11 @@ function NavBarVert() {
 
     return (
         <>
-        <ButtonGroup vertical className="dropdown-button" >
+        <ButtonGroup vertical className="dropdown-button" style={{width: 290}} >
         {Categories.map(
           (variant) => (
             <DropdownButton className="dropdown-element"
+              
               as={ButtonGroup}
               key={variant[variant.length-1].substring(6)}
               variant={variant[variant.length-1].substring(6).toLowerCase()}
@@ -27,7 +28,7 @@ function NavBarVert() {
               onSelect={handleSelect}
             >
              {variant.map((item) => (
-        <Dropdown.Item size="md" eventKey={item}>{item}</Dropdown.Item>
+        <Dropdown.Item style={{width:290}}size="md" eventKey={item}>{item}</Dropdown.Item>
        ))} 
             </DropdownButton>
           ),

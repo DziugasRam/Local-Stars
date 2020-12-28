@@ -2,8 +2,8 @@ import React, { useReducer, useState } from "react";
 import "../styles/NewListingForm.css";
 import { authFetch } from "../utils/auth";
 import { serverUrl } from "../configuration";
+import { Grid } from '@material-ui/core';
 import {NavBarVert, catValue} from "../Components/NavBarVert"
-
 import { Divider } from "@material-ui/core";
 
 
@@ -59,7 +59,9 @@ export const NewListingForm = () => {
 	};
 
 	return (
-		<div>
+		
+		<div>		
+			
 			<h1
 				style={{
 					textAlign: "left",
@@ -71,9 +73,11 @@ export const NewListingForm = () => {
 			>
 				New Product:
 			</h1>
-			<div className="new-listing-container" style={{ marginLeft: "4%" }}>
-				<div style={{ display: "flex" }}>
-					<div className="product-title-container">
+			<Grid container spacing={5}>
+			<Grid item container xs={12} md={8} spacing={5}>
+			
+				<Grid className="product-title-container" item xs={12} sm={6} style={{ marginTop: "2%" }}>
+				
 						<h2
 							style={{
 								textAlign: "left",
@@ -89,12 +93,13 @@ export const NewListingForm = () => {
 							type="text"
 							id="title"
 							style={{
-								marginRight: "22%",
+								marginRight: "2%",
 							}}
 						/>
-					</div>
-
-					<div className="product-title-container" style={{ marginLeft: "2%" }}>
+					
+					</Grid>
+					<Grid className="product-title-container" item xs={12} sm={6} style={{ marginTop: "2%" }}>
+					
 						<h2
 							style={{
 								textAlign: "left",
@@ -110,17 +115,20 @@ export const NewListingForm = () => {
 							id="price"
 							placeholder="Price"
 							style={{
-								marginRight: "22%",
+								marginRight: "2%",
 							}}
 						/>
-					</div>
 					
-				</div>
-				<div className="product-description-container" style={{ marginTop: "2%" }}>
+					</Grid>
+					
+				
+				<Grid item xs={12} className="product-description-container" style={{ marginTop: "2%" }}>
+				
 					<h2
 						style={{
 							textAlign: "left",
-							marginLeft: "4%",
+							marginLeft: "8%",
+							
 						}}
 					>
 						Description:
@@ -132,17 +140,18 @@ export const NewListingForm = () => {
 						id="description"
 						placeholder="Description"
 						style={{
-							marginRight: "2%",
-							width: 900,
-							height: 80,
+							marginLeft: "8%",
+							width: "90%",
+							height: "80%",
+							
 						}}
 					/>
-				</div>
-				<div className="product-description-container" style={{ marginTop: "1%" }}>
+				</Grid>
+				<Grid item xs={12} className="product-description-container" style={{ marginTop: "2%" }}>
 					<h2
 						style={{
 							textAlign: "left",
-							marginLeft: "4%",
+							marginLeft: "8%",
 						}}
 					>
 						Image:
@@ -153,23 +162,29 @@ export const NewListingForm = () => {
 						type="file"
 						id="image"
 						style={{
-							marginRight: "2%",
-							width: 900,
-							height: 90,
+							marginLeft: "8%",
+							width: "90%",
+							height: "80%",
 						}}
 					/>
-				</div>
+				</Grid>
 
-				<div>
-					<button className="add-button" type="button" onClick={onSubmit1} id="add">
-						Add product
-					</button>
-				</div>
-			</div>
-			<div className= "navbar-container" style={{marginRight: "-70%"}}>
-						<NavBarVert />
-					</div>
+			</Grid>
+			<Grid  className= "navbar-container" item container xs={12} md={3}  >
+			
+						<NavBarVert  />
+					
+			
+			<Grid xs={12} sm={6} item   alignItems="center" justify="center">
+				
+				<button className="add-button" type="button" onClick={onSubmit1} id="add" >
+					Add product
+				</button>
+			
+			</Grid></Grid>
+		</Grid>
 		</div>
+		
 	);
 };
 

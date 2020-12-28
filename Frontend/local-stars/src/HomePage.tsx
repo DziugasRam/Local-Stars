@@ -13,6 +13,7 @@ function Home() {
     <div>
       
       <Map />
+
     </div>
   
     </div>

@@ -76,11 +76,11 @@ namespace Server.Controllers
         // Needs to be replaced with location based search
         [HttpGet]
         [Route("get")]
-        public IEnumerable<Product> Get()
+
+        public IEnumerable<ProductModel> Get()
         {
             return _productProvider
-                .Get()
-                .ToArray();
+                .Get();
         }
 
         [HttpGet]

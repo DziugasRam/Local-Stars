@@ -36,7 +36,7 @@ function Seller() {
 </div>
             
       <div style={{position:'relative', left:'1168px', display:'flex', marginTop: '10px'}}>
-        <Map />
+         <Map /> 
       </ div>
     <div>
     </div>

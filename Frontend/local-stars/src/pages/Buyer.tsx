@@ -12,6 +12,7 @@ const Buyer = () => {
   const [showLikedProducts, setShowLikedProducts] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
 
+
   useEffect (() => {
     showAllProducts()
   }, [])
@@ -71,7 +72,9 @@ const Buyer = () => {
       <Grid item container xs={10} sm={8} spacing={5}>
           {products.map(product => getProductCard(product))}
       </Grid>
+
       <Grid item xs={1} sm={2}/>
+
       </Grid>
    </div>
   );
