@@ -101,18 +101,18 @@ namespace Server.Controllers
 
         [HttpPost]
         [Route("insert")]
-        public void Insert([FromForm] ProductData productdata)
+        public void Insert([FromForm] ProductData productData)
         {
 
             byte[] file;
             using (var stream = new MemoryStream())
             {
-                productdata.ImageFile.CopyTo(stream);
+                productData.ImageFile.CopyTo(stream);
                 file = stream.ToArray();
             }
 
-            Seller sellerId = _userProvider.GetUser(Guid.Parse(Request.HttpContext.User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value)).AssociatedSeller;
-            Product product = new Product(productdata.Title, productdata.Category, productdata.Price, sellerId, productdata.Description, Guid.NewGuid(), file);
+            var sellerId = _userProvider.GetUser(Guid.Parse(Request.HttpContext.User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value)).AssociatedSeller;
+            var product = new Product(productData.Title, productData.Category, productData.Price, sellerId, productData.Description, Guid.NewGuid(), file);
 
             _productProvider.Insert(product);
         }
