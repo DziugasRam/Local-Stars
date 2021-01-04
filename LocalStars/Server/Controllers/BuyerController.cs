@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -18,14 +19,15 @@ namespace Server.Controllers
         private readonly BuyerProvider _buyerProvider;
         private readonly ProductProvider _productProvider;
         private readonly SellerProvider _sellerProvider;
+        private readonly UserProvider _userProvider;
 
        
-        public BuyerController(BuyerProvider buyerProvider, ProductProvider productProvider, SellerProvider sellerProvider)
+        public BuyerController(BuyerProvider buyerProvider, ProductProvider productProvider, SellerProvider sellerProvider, UserProvider userProvider)
         {
             _buyerProvider = buyerProvider;
             _productProvider = productProvider;
             _sellerProvider = sellerProvider;
-
+            _userProvider = userProvider;
         }
 
         [HttpGet]
@@ -79,6 +81,13 @@ namespace Server.Controllers
         public IEnumerable<Product> GetLikedProducts([FromRoute] Guid id)
         {
             return _buyerProvider.GetLikedProducts(id);
+        }
+
+        [HttpGet]
+        [Route("getId")]
+        public Guid GetCurrentBuyerId()
+        {
+            return _userProvider.GetUser(Guid.Parse(Request.HttpContext.User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value)).AssociatedBuyer.Id;
         }
     }
 }

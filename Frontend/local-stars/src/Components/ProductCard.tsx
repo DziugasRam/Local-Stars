@@ -44,25 +44,29 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 
-function ProductCard(props: { title: string; category: string; price: string; description: string; id: string; seller: any; image: string;}) {
+function ProductCard(props: { title: string; category: string; price: string; description: string; id: string; seller: any; image: string; buyerId: string}) {
 
     const classes = useStyles();
 
-    const [modalIsOpne, setModalIsOpen] = useState(false)
-
-    const [isLiked, setIsLiked] = useState(false)
+    const [modalIsOpne, setModalIsOpen] = useState(false);
+    const [isLiked, setIsLiked] = useState(false);
 
     const handleClose = () => setModalIsOpen(false)
 
     const handleOpen = () => setModalIsOpen(true)
 
     useEffect (() => {
-        authFetch(`${serverUrl}/api/buyer/isLiked?buyerId=b1987872-fde7-4214-8e84-33b8d8983d3b&productId=${props.id}`)
+        authFetch(`${serverUrl}/api/buyer/isLiked?buyerId=${props.buyerId}&productId=${props.id}`)
             .then(resp => resp?.json())
             .then(data => setIsLiked(data))
     }, [])
 
     const handleLike = () => {
+        if (props.buyerId === "") {
+            window.alert("You have to signin to like products")
+            return;
+        };
+
         const product = {
             id: props.id,
             description: props.description,
@@ -90,8 +94,8 @@ function ProductCard(props: { title: string; category: string; price: string; de
         };
 
         isLiked
-        ? authFetch(`${serverUrl}/api/buyer/unlike/b1987872-fde7-4214-8e84-33b8d8983d3b`, requestOptionsDelete)
-        : authFetch(`${serverUrl}/api/buyer/like/b1987872-fde7-4214-8e84-33b8d8983d3b`, requestOptionsPost)
+        ? authFetch(`${serverUrl}/api/buyer/unlike/${props.buyerId}`, requestOptionsDelete)
+        : authFetch(`${serverUrl}/api/buyer/like/${props.buyerId}`, requestOptionsPost)
 
         setIsLiked(!isLiked)
     }

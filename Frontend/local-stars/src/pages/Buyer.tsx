@@ -10,14 +10,19 @@ const Buyer = () => {
 
   const [products, setProducts] = useState([]);
   const [showLikedProducts, setShowLikedProducts] = useState(false);
+  const [buyerId, setBuyerId] = useState("");
 
   useEffect (() => {
+    authFetch(`${serverUrl}/api/buyer/getId`)
+      .then(resp => resp?.json())
+      .then(data => setBuyerId(data))
+      
     showAllProducts()
   }, [])
 
   const getProductCard = (product: { category: string; description: string; price: string; seller: any; title: string; id: string; image: string;}) => (
     <Grid item xs={12} sm={6} md={4} lg={3}>
-      <ProductCard title={product.title} category={product.category} price={product.price} description={product.description} id={product.id} seller={product.seller} image={product.image}/>
+      <ProductCard title={product.title} category={product.category} price={product.price} description={product.description} id={product.id} seller={product.seller} image={product.image} buyerId={buyerId}/>
     </Grid>
   )
 
@@ -28,7 +33,7 @@ const Buyer = () => {
   }
 
   const showAllLikedProducts = () => {
-    authFetch(`${serverUrl}/api/buyer/likedProducts/b1987872-fde7-4214-8e84-33b8d8983d3b`)
+    authFetch(`${serverUrl}/api/buyer/likedProducts/${buyerId}`)
       .then(resp => resp?.json())
       .then(data => setProducts(data))
   }
@@ -61,7 +66,7 @@ const Buyer = () => {
 
   return (
     <div>
-      <BuyerBar onSearch={onSearch} onSortSelect={onSortSelect} onLiked={onLiked}/>
+      <BuyerBar onSearch={onSearch} onSortSelect={onSortSelect} onLiked={onLiked} buyerId={buyerId}/>
       <NavBarHoriz onCategoryChange={onCategoryChange}/>
       <Grid container spacing={2}>
       <Grid item xs={1} sm={2}/>

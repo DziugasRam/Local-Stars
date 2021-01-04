@@ -11,6 +11,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import SortIcon from '@material-ui/icons/Sort';
 import AddIcon from '@material-ui/icons/Add';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import SignInIcon from '@material-ui/icons/LockOpen'
 import { Link } from 'react-router-dom';
 import { Tooltip } from '@material-ui/core';
 
@@ -72,7 +73,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function BuyerBar (props: {onSearch: any; onSortSelect: any; onLiked: any;}) {
+function BuyerBar (props: {onSearch: any; onSortSelect: any; onLiked: any; buyerId: string}) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null);
@@ -128,6 +129,10 @@ function BuyerBar (props: {onSearch: any; onSortSelect: any; onLiked: any;}) {
     };
 
     const handleLiked = () => {
+        if (props.buyerId === "") {
+            window.alert("You have to signin to see liked products")
+            return;
+        }
         props.onLiked();
     };
 
@@ -185,6 +190,14 @@ function BuyerBar (props: {onSearch: any; onSortSelect: any; onLiked: any;}) {
                 <p>Add Product</p>
             </MenuItem>
         </Link>
+        <Link to ="/signin" style={{ color: '#000' }}>
+            <MenuItem>
+                <IconButton aria-label="signin" color="inherit">
+                        <SignInIcon />
+                </IconButton>
+                <p>Signin</p>
+            </MenuItem>
+        </Link>
     </Menu>
     );
 
@@ -228,6 +241,13 @@ function BuyerBar (props: {onSearch: any; onSortSelect: any; onLiked: any;}) {
             <Link to ="/NewListingForm" style={{ color: '#FFF' }}>
             <IconButton aria-label="add new product" color="inherit">
                 <AddIcon />
+            </IconButton>
+            </Link>
+            </Tooltip>
+            <Tooltip title="Signin">
+            <Link to ="/signin" style={{ color: '#FFF' }}>
+            <IconButton aria-label="signin" color="inherit">
+                <SignInIcon/>
             </IconButton>
             </Link>
             </Tooltip>
