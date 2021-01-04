@@ -58,7 +58,7 @@ namespace Server.Controllers
         {
             var seller = _sellerProvider.Insert(sellerData.FirstName, sellerData.LastName, sellerData.PhoneNumber, sellerData.Address, sellerData.Longitude, sellerData.Latitude);
 
-            string userId = Request.HttpContext.User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value;
+            var userId = Request.HttpContext.User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value;
             _userProvider.LinkToSeller(Guid.Parse(userId), seller.Id);
         }
 

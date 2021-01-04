@@ -26,7 +26,7 @@ namespace Server.Providers
         {
             var buyer = new Buyer(firstName, lastName, Guid.NewGuid(), new List<BuyerProduct>());
 
-            if (_context.Buyers.Where(b => b.Id == buyer.Id).Count() > 0)
+            if (_context.Buyers.Any(b => b.Id == buyer.Id))
             {
                 throw new ConflictException("Buyer id already exists");
             }
