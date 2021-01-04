@@ -84,6 +84,24 @@ namespace Server.Controllers
         }
 
         [HttpGet]
+        [Route("count")]
+
+        public int CountProducts()
+        {
+            return _productProvider
+                .CountProducts();
+        }
+
+        [HttpGet]
+        [Route("getPage")]
+
+        public IEnumerable<ProductModel> GetPage([FromQuery] int page)
+        {
+            return _productProvider
+                .GetPage(page);
+        }
+
+        [HttpGet]
         [Route("sorted")]
         public IEnumerable<Product> GetSorted([FromQuery] string variant)
         {

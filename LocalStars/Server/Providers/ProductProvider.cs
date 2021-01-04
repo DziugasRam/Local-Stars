@@ -25,6 +25,11 @@ namespace Server.Providers
                 (id, p) => p);
         }
 
+        public int CountProducts()
+        {
+            return _context.Products.Count();
+        }
+
         public IEnumerable<ProductModel> Get()
         {
             return _context.Products.Select(x => new ProductModel()
@@ -37,6 +42,22 @@ namespace Server.Providers
                 Id = x.Id,
                 Image = Convert.ToBase64String(x.Image, 0, x.Image.Length)
             }).ToList();
+        }
+
+        public IEnumerable<ProductModel> GetPage(int page)
+        {
+            int pageSize = 8;
+
+           return  _context.Products.Select(x => new ProductModel()
+            {
+                Title = x.Title,
+                Price = x.Price,
+                Seller = x.Seller,
+                Category = x.Category,
+                Description = x.Description,
+                Id = x.Id,
+                Image = Convert.ToBase64String(x.Image, 0, x.Image.Length)
+            }).ToList().Skip((page - 1) * pageSize).Take(pageSize);
         }
 
         public IEnumerable<Product> GetByTitle(string title, bool fullMatch = true, StringComparison comparisonType = StringComparison.Ordinal)
