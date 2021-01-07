@@ -11,7 +11,8 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import SortIcon from '@material-ui/icons/Sort';
 import AddIcon from '@material-ui/icons/Add';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import SignInIcon from '@material-ui/icons/LockOpen'
+import SignInIcon from '@material-ui/icons/LockOpen';
+import StoreIcon from '@material-ui/icons/Store';
 import { Link } from 'react-router-dom';
 import { Tooltip } from '@material-ui/core';
 
@@ -73,7 +74,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function BuyerBar (props: {onSearch: any; onSortSelect: any; onLiked: any; buyerId: string}) {
+function BuyerBar (props: {onSearch: any; onSortSelect: any; onLiked: any; onSellersProducts: any; buyerId: string}) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null);
@@ -136,6 +137,14 @@ function BuyerBar (props: {onSearch: any; onSortSelect: any; onLiked: any; buyer
         props.onLiked();
     };
 
+    const handleSellersProducts = () => {
+        if (props.buyerId === "") {
+            window.alert("You have to signin to see your products")
+            return;
+        }
+        props.onSellersProducts();
+    };
+
     const menuId = 'primary-sort-menu';
     const renderMenu = (
     <Menu
@@ -181,6 +190,12 @@ function BuyerBar (props: {onSearch: any; onSortSelect: any; onLiked: any; buyer
                     <FavoriteIcon />
             </IconButton>
             <p>Liked Products</p>
+        </MenuItem>
+        <MenuItem onClick={handleSellersProducts}>
+            <IconButton aria-label="sellers products" color="inherit">
+                    <StoreIcon />
+            </IconButton>
+            <p>My Products</p>
         </MenuItem>
         <Link to ="/NewListingForm" style={{ color: '#000' }}>
             <MenuItem>
@@ -235,6 +250,11 @@ function BuyerBar (props: {onSearch: any; onSortSelect: any; onLiked: any; buyer
             <Tooltip title="Liked Products">
             <IconButton aria-label="liked products" color="inherit" onClick={handleLiked}>
                 <FavoriteIcon />
+            </IconButton>
+            </Tooltip>
+            <Tooltip title="My Products">
+            <IconButton aria-label="sellers products" color="inherit" onClick={handleSellersProducts}>
+                <StoreIcon />
             </IconButton>
             </Tooltip>
             <Tooltip title="Add Product">

@@ -45,7 +45,7 @@ namespace Server.Controllers
         }
 
         [HttpGet]
-        [Route("catego")]
+        [Route("category")]
         public IEnumerable<Product> GetProductsByCategory([FromQuery] string searchVal, [FromQuery] bool fullMatch = false)
         {
             return _productProvider.GetByType(searchVal, fullMatch, StringComparison.OrdinalIgnoreCase);
@@ -58,12 +58,12 @@ namespace Server.Controllers
             return _productProvider.GetById(ids);
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("sellerId")]
-        public IEnumerable<ProductsForSeller> GetBySeller([FromBody] IEnumerable<Guid> ids)
+        public ProductsForSeller GetBySeller([FromQuery] Guid id)
         {
-            var sellers = _sellerProvider.GetById(ids).ToList();
-            return _productProvider.GetBySeller(sellers);
+            var sellers = _sellerProvider.GetById(new [] {id}).ToList();
+            return _productProvider.GetBySeller(sellers).Single();
         }
 
         [HttpGet]
@@ -108,10 +108,8 @@ namespace Server.Controllers
             return _productProvider.GetSorted(variant,page);
         }
 
-
         [HttpDelete]
         [AllowAnonymous]
-
         public void RemoveById([FromBody] IEnumerable<Guid> ids)
         {
             _productProvider.RemoveById(ids);

@@ -52,6 +52,13 @@ namespace Server.Controllers
             return _sellerProvider.GetById(new[] { id }).Single();
         }
 
+        [HttpGet]
+        [Route("getId")]
+        public Guid GetCurrentSellerId()
+        {
+            return _userProvider.GetUser(Guid.Parse(Request.HttpContext.User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value)).AssociatedSeller.Id;
+        }
+
         [HttpPost]
         [Route("register")]
         public void Register([FromBody]SellerData sellerData)
