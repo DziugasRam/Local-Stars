@@ -10,10 +10,11 @@ import Pagination from "react-js-pagination";
 const Buyer = () => {
 
   const [products, setProducts] = useState([]);
-  const[productNumber,setProductNumber]= useState(0);
+  const [productNumber,setProductNumber] = useState(0);
   const [showLikedProducts, setShowLikedProducts] = useState(false);
   const [buyerId, setBuyerId] = useState("");
-  const [currentPage,setCurrentPage]= useState(1);
+  const [sellerId, setSellerId] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect (() => {
     authFetch(`${serverUrl}/api/product/count`)
@@ -24,6 +25,10 @@ const Buyer = () => {
     authFetch(`${serverUrl}/api/buyer/getId`)
       .then(resp => resp?.json())
       .then(data => setBuyerId(data))
+
+     authFetch(`${serverUrl}/api/seller/getId`)
+      .then(resp => resp?.json())
+      .then(data => setSellerId(data))
       
     showAllProducts()
   }, [])
@@ -33,7 +38,7 @@ const Buyer = () => {
       <ProductCard title={product.title} category={product.category} price={product.price} description={product.description} id={product.id} seller={product.seller} image={product.image} buyerId={buyerId}/>
     </Grid>
   )
-
+  
   const showAllProducts = () => {
     authFetch(`${serverUrl}/api/product/get`)
       .then(resp => resp?.json())
@@ -72,16 +77,22 @@ const Buyer = () => {
     setShowLikedProducts(!showLikedProducts)
   }
 
-  const handlePageChange=(pageNumber: any)=> {
+  const handlePageChange=(pageNumber: number)=> {
     setCurrentPage(pageNumber);
     authFetch(`${serverUrl}/api/product/getPage?page=${pageNumber}`)
     .then(resp => resp?.json())
     .then(data => setProducts(data))
   }
+  
+  const onSellersProducts = () => {
+    authFetch(`${serverUrl}/api/product/sellerId?id=${sellerId}`)
+    .then(resp => resp?.json())
+    .then(data => setProducts(data.products))
+  }
 
   return (
     <div>
-      <BuyerBar onSearch={onSearch} onSortSelect={onSortSelect} onLiked={onLiked} buyerId={buyerId}/>
+      <BuyerBar onSearch={onSearch} onSortSelect={onSortSelect} onLiked={onLiked} onSellersProducts={onSellersProducts} buyerId={buyerId}/>
       <NavBarHoriz onCategoryChange={onCategoryChange}/>
       <Pagination
           itemClass="page-item"
