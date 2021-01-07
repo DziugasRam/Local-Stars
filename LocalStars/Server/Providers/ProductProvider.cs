@@ -70,15 +70,16 @@ namespace Server.Providers
                 .Where(p => fullMatch ? string.Equals(p.Title, title, comparisonType) : p.Title.Contains(title, comparisonType));
         }
 
-        public IEnumerable<Product> GetSorted(string variant)
+        public IEnumerable<Product> GetSorted(string variant, int page)
         {
+            int pageSize = 8;
             var sortedProducts = variant switch
             {
-                "Price: Lowest First" => _context.Products.AsEnumerable().OrderBy(o => o.Price),
-                "Price: Highest First" => _context.Products.AsEnumerable().OrderByDescending(o => o.Price),
-                "A-Z" => _context.Products.AsEnumerable().OrderBy(o => o.Title),
-                "Z-A" => _context.Products.AsEnumerable().OrderByDescending(o => o.Title),
-                _ => _context.Products.AsEnumerable()
+                "Price: Lowest First" => _context.Products.AsEnumerable().OrderBy(o => o.Price).ToList().Skip((page - 1) * pageSize).Take(pageSize),
+                "Price: Highest First" => _context.Products.AsEnumerable().OrderByDescending(o => o.Price).ToList().Skip((page - 1) * pageSize).Take(pageSize),
+                "A-Z" => _context.Products.AsEnumerable().OrderBy(o => o.Title).ToList().Skip((page - 1) * pageSize).Take(pageSize),
+                "Z-A" => _context.Products.AsEnumerable().OrderByDescending(o => o.Title).ToList().Skip((page - 1) * pageSize).Take(pageSize),
+                _ => _context.Products.AsEnumerable().ToList().Skip((page - 1) * pageSize).Take(pageSize)
             };
 
             return sortedProducts;

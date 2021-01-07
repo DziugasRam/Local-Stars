@@ -103,9 +103,9 @@ namespace Server.Controllers
 
         [HttpGet]
         [Route("sorted")]
-        public IEnumerable<Product> GetSorted([FromQuery] string variant)
+        public IEnumerable<Product> GetSorted([FromQuery] string variant, [FromQuery] int page)
         {
-            return _productProvider.GetSorted(variant);
+            return _productProvider.GetSorted(variant,page);
         }
 
 
