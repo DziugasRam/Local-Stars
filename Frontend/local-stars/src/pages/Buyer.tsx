@@ -13,6 +13,8 @@ const Buyer = () => {
   const [productNumber,setProductNumber] = useState(0);
   const [showLikedProducts, setShowLikedProducts] = useState(false);
   const [buyerId, setBuyerId] = useState("");
+  const [currentPage,setCurrentPage] = useState(1);
+  const [variant, setVariant] = useState("");
   const [sellerId, setSellerId] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -49,10 +51,13 @@ const Buyer = () => {
     authFetch(`${serverUrl}/api/buyer/likedProducts/${buyerId}`)
       .then(resp => resp?.json())
       .then(data => setProducts(data))
+      
   }
 
   const onCategoryChange = (category: string) => {
-    authFetch(`${serverUrl}/api/product/catego?searchVal=${category}`)
+    setVariant(variant)
+    setCurrentPage(1)
+    authFetch(`${serverUrl}/api/product/catego?searchVal=${category}&page=${currentPage}`)
       .then(resp => resp?.json())
       .then(data => setProducts(data))
   }
@@ -64,7 +69,9 @@ const Buyer = () => {
   }
 
   const onSortSelect = (variant: string) => {
-    authFetch(`${serverUrl}/api/product/sorted?variant=${variant}`)
+    setVariant(variant)
+    setCurrentPage(1)
+    authFetch(`${serverUrl}/api/product/sorted?variant=${variant}&page=${currentPage}`)
         .then(resp => resp?.json())
         .then(data => setProducts(data))
   }
@@ -79,7 +86,7 @@ const Buyer = () => {
 
   const handlePageChange=(pageNumber: number)=> {
     setCurrentPage(pageNumber);
-    authFetch(`${serverUrl}/api/product/getPage?page=${pageNumber}`)
+    authFetch(`${serverUrl}/api/product/sorted?variant=${variant}&page=${pageNumber}`)
     .then(resp => resp?.json())
     .then(data => setProducts(data))
   }
