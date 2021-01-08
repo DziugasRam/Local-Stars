@@ -4,10 +4,14 @@ import { green } from '@material-ui/core/colors';
 import { serverUrl } from "../configuration";
 import { authFetch } from "../utils/auth";
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import DeleteForever from '@material-ui/icons/DeleteForever'
+import Edit from '@material-ui/icons/Edit'
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import DescriptionTable from './DescriptionTable';
 import AspectRatio from '@material-ui/icons/AspectRatio';
 import Modal from 'react-modal';
+import { UserService } from '../http-service/user-service';
+import { ProductsService } from '../http-service/products-service';
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -44,8 +48,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 
-function ProductCard(props: { title: string; category: string; price: string; description: string; id: string; seller: any; image: string; buyerId: string}) {
-
+function ProductCard(props: { title: string; category: string; price: string; description: string; id: string; seller: any; image: string; buyerId: string | null}) {
+    const isCurrentSellers = UserService.getSellerId() == props.seller?.id;
     const classes = useStyles();
 
     const [modalIsOpne, setModalIsOpen] = useState(false);
@@ -56,14 +60,16 @@ function ProductCard(props: { title: string; category: string; price: string; de
     const handleOpen = () => setModalIsOpen(true)
 
     useEffect (() => {
-        authFetch(`${serverUrl}/api/buyer/isLiked?buyerId=${props.buyerId}&productId=${props.id}`)
+        if(props.buyerId){
+            authFetch(`${serverUrl}/api/buyer/isLiked?buyerId=${props.buyerId}&productId=${props.id}`)
             .then(resp => resp?.json())
             .then(data => setIsLiked(data))
+        }
     }, [])
 
     const handleLike = () => {
-        if (props.buyerId === "") {
-            window.alert("You have to signin to like products")
+        if (props.buyerId == null) {
+            alert("You have to signin to like products")
             return;
         };
 
@@ -75,7 +81,7 @@ function ProductCard(props: { title: string; category: string; price: string; de
             category: props.category,
             title: props.title,
             image: props.image,
-        }
+        };
 
         const requestOptionsPost: RequestInit = {
             method: "POST",
@@ -94,10 +100,34 @@ function ProductCard(props: { title: string; category: string; price: string; de
         };
 
         isLiked
-        ? authFetch(`${serverUrl}/api/buyer/unlike/${props.buyerId}`, requestOptionsDelete)
-        : authFetch(`${serverUrl}/api/buyer/like/${props.buyerId}`, requestOptionsPost)
+            ? authFetch(`${serverUrl}/api/buyer/unlike/${props.buyerId}`, requestOptionsDelete)
+            : authFetch(`${serverUrl}/api/buyer/like/${props.buyerId}`, requestOptionsPost)
 
         setIsLiked(!isLiked)
+    }
+
+    const handleDelete = () => {
+        ProductsService.deleteProduct(props.id).then(success => {
+            if(success) {
+                ProductsService.removeProduct(props.id)
+                setModalIsOpen(false);
+            }
+        });
+    }
+
+    const editTitle = () => {
+        const title = prompt("Title:") || props.title;
+        ProductsService.updateProductData(props.id, {title: title});
+    }
+
+    const editPrice = () => {
+        const price = parseInt(prompt("Price:") || props.price);
+        ProductsService.updateProductData(props.id, {price: price});
+    }
+
+    const editDescription = () => {
+        const description = prompt("Description:") || props.description;
+        ProductsService.updateProductData(props.id, {description: description});
     }
 
     const Like = () => {
@@ -142,16 +172,37 @@ function ProductCard(props: { title: string; category: string; price: string; de
                             <Grid item xs>
                                 <Typography variant="h3">
                                     {props.title}, 1kg
+                                    {isCurrentSellers ? 
+                                        <IconButton aria-label="edit title" onClick={editTitle}>
+                                            <Edit/>
+                                        </IconButton>
+                                        :
+                                        null
+                                    }
                                 </Typography>
                                 <Typography variant="h4">
                                     € {props.price}/kg
+                                    {isCurrentSellers ? 
+                                        <IconButton aria-label="edit price" onClick={editPrice}>
+                                            <Edit/>
+                                        </IconButton>
+                                        :
+                                        null
+                                    }
                                 </Typography>
                                 <IconButton aria-label="favorites" onClick={handleLike}>
                                     <Like/>
                                 </IconButton>
+                                {isCurrentSellers ?
+                                    <IconButton aria-label="delete" onClick={handleDelete}>
+                                        <DeleteForever/>
+                                    </IconButton>
+                                    :
+                                    null
+                                }
                             </Grid>
                             <Grid item xs>
-                                <DescriptionTable description={props.description} seller={props.seller.firstName} phonenumber={props.seller.phoneNumber}/>
+                                <DescriptionTable description={props.description} seller={props.seller?.firstName} phonenumber={props.seller?.phoneNumber} editDescription={isCurrentSellers ? editDescription : null}/>
                             </Grid>
                         </Grid>
                     </Grid>

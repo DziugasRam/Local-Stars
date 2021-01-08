@@ -11,7 +11,6 @@ using Server.Providers;
 
 namespace Server.Controllers
 {
-    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class BuyerController : ControllerBase
@@ -81,13 +80,6 @@ namespace Server.Controllers
         public IEnumerable<Product> GetLikedProducts([FromRoute] Guid id)
         {
             return _buyerProvider.GetLikedProducts(id);
-        }
-
-        [HttpGet]
-        [Route("getId")]
-        public Guid GetCurrentBuyerId()
-        {
-            return _userProvider.GetUser(Guid.Parse(Request.HttpContext.User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value)).AssociatedBuyer.Id;
         }
     }
 }

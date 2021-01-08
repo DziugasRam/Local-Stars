@@ -48,7 +48,7 @@ namespace Server.Providers
         {
             int pageSize = 8;
 
-           return  _context.Products.Select(x => new ProductModel()
+            return  _context.Products.Select(x => new ProductModel()
             {
                 Title = x.Title,
                 Price = x.Price,
@@ -106,10 +106,9 @@ namespace Server.Providers
                 new IdentifiableComparer<Guid>());
         }
 
-        public void RemoveById(IEnumerable<Guid> ids)
+        public void RemoveById(Guid id)
         {
-            var idsHashSet = ids.ToHashSet();
-            _context.Products.RemoveRange(_context.Products.Where(p => idsHashSet.Contains(p.Id)));
+            _context.Products.RemoveRange(_context.Products.Where(p => p.Id == id));
             _context.SaveChanges();
         }
 
@@ -119,10 +118,19 @@ namespace Server.Providers
             _context.SaveChanges();
         }
 
-        public void Update(Product product)
+        public Product Update(Guid id, UpdateProductData productData)
         {
-            RemoveById(new[] { product.Id });
-            Insert( product );
+            var productEntity = _context.Products.First(p => p.Id == id);
+
+            if (productData.Description != null)
+                productEntity.Description = productData.Description;
+            if (productData.Title != null)
+                productEntity.Title = productData.Title;
+            if (productData.Price != null)
+                productEntity.Price = productData.Price.Value;
+
+            _context.SaveChanges();
+            return productEntity;
         }
     }
 }

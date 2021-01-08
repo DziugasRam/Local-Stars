@@ -6,40 +6,42 @@ import { authFetch } from "../utils/auth";
 import NavBarHoriz from '../Components/NavBarHoriz';
 import BuyerBar from '../Components/BuyerBar';
 import Pagination from "react-js-pagination";
+import { ProductsService } from '../http-service/products-service';
+import { UserService } from '../http-service/user-service';
 
 const Buyer = () => {
 
-  const [products, setProducts] = useState([]);
+  const [products, setProductsState] = useState([] as any[]);
   const [productNumber,setProductNumber] = useState(0);
   const [showLikedProducts, setShowLikedProducts] = useState(false);
-  const [buyerId, setBuyerId] = useState("");
   const [currentPage,setCurrentPage] = useState(1);
   const [variant, setVariant] = useState("");
-  const [sellerId, setSellerId] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
+
+  const buyerId = UserService.getBuyerId();
+  const sellerId = UserService.getSellerId();
+
+  const setProducts = (products: any[]) => {
+    ProductsService.setProducts(products);
+  }
+
+  useEffect(() => {
+    const listener = () => {
+      setProductsState(ProductsService.getProducts());
+    };
+
+    ProductsService.addProductsListener(listener);
+
+    return () => {
+      ProductsService.removeProductsListener(listener);
+    }
+  }, [products, setProductsState]);
 
   useEffect (() => {
     authFetch(`${serverUrl}/api/product/count`)
     .then(resp => resp?.json())
     .then(data => setProductNumber(data))
     handlePageChange(currentPage)
-          
-    authFetch(`${serverUrl}/api/buyer/getId`)
-      .then(resp => resp?.json())
-      .then(data => setBuyerId(data))
-
-     authFetch(`${serverUrl}/api/seller/getId`)
-      .then(resp => resp?.json())
-      .then(data => setSellerId(data))
-      
-    showAllProducts()
   }, [])
-
-  const getProductCard = (product: { category: string; description: string; price: string; seller: any; title: string; id: string; image: string;}) => (
-    <Grid item xs={12} sm={6} md={4} lg={3}>
-      <ProductCard title={product.title} category={product.category} price={product.price} description={product.description} id={product.id} seller={product.seller} image={product.image} buyerId={buyerId}/>
-    </Grid>
-  )
   
   const showAllProducts = () => {
     authFetch(`${serverUrl}/api/product/get`)
@@ -51,13 +53,12 @@ const Buyer = () => {
     authFetch(`${serverUrl}/api/buyer/likedProducts/${buyerId}`)
       .then(resp => resp?.json())
       .then(data => setProducts(data))
-      
   }
 
   const onCategoryChange = (category: string) => {
     setVariant(variant)
     setCurrentPage(1)
-    authFetch(`${serverUrl}/api/product/catego?searchVal=${category}&page=${currentPage}`)
+    authFetch(`${serverUrl}/api/product/category?searchVal=${category}&page=${currentPage}`)
       .then(resp => resp?.json())
       .then(data => setProducts(data))
   }
@@ -111,7 +112,11 @@ const Buyer = () => {
       <Grid container spacing={2}>
       <Grid item xs={1} sm={2}/>
       <Grid item container xs={10} sm={8} spacing={5}>
-          {products.map(product => getProductCard(product))}
+          {products?.map(product => 
+            <Grid item xs={12} sm={6} md={4} lg={3}>
+              <ProductCard title={product.title} category={product.category} price={product.price} description={product.description} id={product.id} seller={product.seller} image={product.image} buyerId={buyerId}/>
+            </Grid>
+          )}
       </Grid>
       <Grid item xs={1} sm={2}/>
       </Grid>

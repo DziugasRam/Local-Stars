@@ -2,8 +2,8 @@ import "../../styles/forms.css";
 
 import React from "react";
 import backgroundImage from "../../assets/register-background.svg";
-import { serverUrl } from "../../configuration";
-import { authFetch } from "../../utils/auth";
+import { FormEvent } from "react";
+import { UserService } from "../../http-service/user-service";
 
 interface FormData {
 	username: string;
@@ -24,7 +24,8 @@ export const RegisterUser = () => {
 		return true;
 	};
 
-	const onSubmit = () => {
+	const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
 		const formData = getFormData();
 
 		if (!validateInputs(formData)) return;
@@ -39,11 +40,8 @@ export const RegisterUser = () => {
 				password: formData.password,
 			}),
 		};
-		authFetch(`${serverUrl}/api/user/register`, requestOptions).then((resp) => {
-			if (resp?.status == 200) {
-				document.location.href = `${document.location.origin}/register/seller`;
-			}
-		});
+
+		UserService.register(formData.username, formData.password);
 	};
 
 	return (
@@ -65,7 +63,7 @@ export const RegisterUser = () => {
 					<br />
 					the area where you live, work and play.
 				</p>
-				<form className="sign-in-form">
+				<form className="sign-in-form" onSubmit={onSubmit}>
 					<div className="sign-in-form-content">
 						<label className="form-label" htmlFor="username">
 							Username:
@@ -79,7 +77,7 @@ export const RegisterUser = () => {
 							Confirm Password:
 						</label>
 						<input className="form-label-input" type="password" id="confirmPassword" />
-						<button className="form-button" type="button" onClick={onSubmit} style={{ marginTop: 30 }}>
+						<button className="form-button" style={{ marginTop: 30 }}>
 							Register
 						</button>
 					</div>
