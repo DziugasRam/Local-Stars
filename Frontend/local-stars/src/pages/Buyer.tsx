@@ -3,6 +3,7 @@ import ProductCard from '../Components/ProductCard'
 import { Grid } from '@material-ui/core';
 import { serverUrl } from "../configuration";
 import { authFetch } from "../utils/auth";
+import {Button} from 'react-bootstrap'
 import NavBarHoriz from '../Components/NavBarHoriz';
 import BuyerBar from '../Components/BuyerBar';
 import Pagination from "react-js-pagination";
@@ -33,6 +34,7 @@ const Buyer = () => {
       <ProductCard title={product.title} category={product.category} price={product.price} description={product.description} id={product.id} seller={product.seller} image={product.image} buyerId={buyerId}/>
     </Grid>
   )
+
 
   const showAllProducts = () => {
     authFetch(`${serverUrl}/api/product/get`)
@@ -97,6 +99,12 @@ const Buyer = () => {
       </Grid>
       <Grid item xs={1} sm={2}/>
       </Grid>
+
+      <div>
+        <br />
+       <Button variant="warning" size="lg" onClick={event => window.location.href='/map'} >Show All Locations in Maps</Button>{' '}
+      </div>
+      <br />
     
       <Pagination
           itemClass="page-item"
