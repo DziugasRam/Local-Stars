@@ -25,6 +25,20 @@ namespace Server.Providers
                 (id, s) => s);
         }
 
+         public IEnumerable<Seller> Get()
+        {
+            return _context.Sellers.Select(x => new Seller()
+            {
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                PhoneNumber = x.PhoneNumber,
+                Address = x.Address,
+                Longitude = x.Longitude,
+                Latitude = x.Latitude,
+                Id = x.Id,
+            }).ToList();
+        }
+
         public Seller Insert(string firstName, string lastName, string phoneNumber, string address, double longitude, double latitude)
         {
             var seller = new Seller(firstName, lastName, phoneNumber, longitude, latitude, address, Guid.NewGuid());

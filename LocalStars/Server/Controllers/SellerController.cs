@@ -47,6 +47,15 @@ namespace Server.Controllers
         }
 
         [HttpGet]
+        [Route("get")]
+        public IEnumerable<Seller> Get()
+        {
+            return _sellerProvider
+                .Get();
+        }
+
+
+        [HttpGet]
         public Seller GetById(Guid id)
         {
             return _sellerProvider.GetById(new[] { id }).Single();
