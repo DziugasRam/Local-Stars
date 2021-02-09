@@ -3,6 +3,7 @@ import ProductCard from '../Components/ProductCard'
 import { Grid } from '@material-ui/core';
 import { serverUrl } from "../configuration";
 import { authFetch } from "../utils/auth";
+import {Button} from 'react-bootstrap'
 import NavBarHoriz from '../Components/NavBarHoriz';
 import BuyerBar from '../Components/BuyerBar';
 import Pagination from "react-js-pagination";
@@ -120,6 +121,12 @@ const Buyer = () => {
       </Grid>
       <Grid item xs={1} sm={2}/>
       </Grid>
+
+      <div>
+        <br />
+       <Button variant="warning" size="lg" onClick={event => window.location.href='/map'} >Show All Locations in Maps</Button>{' '}
+      </div>
+      <br />
     
       <Pagination
           itemClass="page-item"
