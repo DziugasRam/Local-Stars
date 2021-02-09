@@ -5,13 +5,13 @@
 import { authFetch } from "../utils/auth";
 
 
-   state = { userLocation: { lat: 32, lng: 32 }, loading: true };
+   
  
        const Map = () => {
 
 
-       const [latitude, setLat] = useState(0);
-       const [longitude, setLng] = useState(0);
+       const [latitude, setLat] = useState(55.287899);
+       const [longitude, setLng] = useState(23.974739);
        const [sellers, setSellers] = useState<any[]>([]);
 
        const getSellerInfo = (seller: { firstName: string; lastName: string; phoneNumber: string; longitude: number; latitude: number; address: string; id: any;}) => (
@@ -25,8 +25,8 @@ import { authFetch } from "../utils/auth";
          .then(resp => resp?.json())
          .then(data => setSellers(data));
 
-          navigator.geolocation.getCurrentPosition(position => {const pos = {lat: position.coords.latitude,
-          lng: position.coords.longitude};
+
+          navigator.geolocation.getCurrentPosition(position => {const pos = {lat: position.coords.latitude, lng: position.coords.longitude}
           setLat(pos.lat);
           setLng(pos.lng);
           })
@@ -64,7 +64,7 @@ import { authFetch } from "../utils/auth";
            bootstrapURLKeys={{ key: "AIzaSyCOlAIs7DJ8Un5CpZ8XFDAE702JGlki9FQ", language: 'en' }}
            yesIWantToUseGoogleMapApiInternals
            onGoogleApiLoaded={({ map, maps }) => renderMarkers(map, maps)}
-           defaultZoom={14} 
+           defaultZoom={8} 
            center={{lat: latitude, lng: longitude}}>
            </GoogleMapReact>
        </div>
@@ -72,4 +72,4 @@ import { authFetch } from "../utils/auth";
      }
 
 
-export default MapsReact;
+export default Map;
