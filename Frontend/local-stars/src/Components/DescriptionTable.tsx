@@ -6,6 +6,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Edit from '@material-ui/icons/Edit'
+import { IconButton } from '@material-ui/core';
 
 const useStyles = makeStyles({
   table: {
@@ -14,7 +16,7 @@ const useStyles = makeStyles({
   },
 });
 
-function DescriptionTable(props: { description: string; seller: string; phonenumber: string;}) {
+function DescriptionTable(props: { description: string; seller: string; phonenumber: string; editDescription?: (() => void) | null;}) {
   const classes = useStyles();
 
   return (
@@ -24,6 +26,13 @@ function DescriptionTable(props: { description: string; seller: string; phonenum
             <TableRow key="Description">
               <TableCell align="right">Description:</TableCell>
               <TableCell align="left">{props.description}</TableCell>
+              {props.editDescription ? 
+                <IconButton aria-label="delete" onClick={props.editDescription}>
+                    <Edit/>
+                </IconButton>
+                :
+                null
+              }
             </TableRow>
             <TableRow key="Seller">
               <TableCell align="right">Seller:</TableCell>

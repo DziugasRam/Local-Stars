@@ -33,12 +33,12 @@ namespace Server.Controllers
         [HttpPost]
         [Route("signin")]
         [AllowAnonymous]
-        public async Task<StatusCodeResult> SignIn(LoginModel model)
+        public async Task<JsonResult> SignIn(LoginModel model)
         {
             var user = _userProvider.GetUser(model.Username, Hash.Sha256(model.Password));
 
-            if (user == null) 
-                return new StatusCodeResult(StatusCodes.Status401Unauthorized);
+            if (user == null)
+                return new JsonResult(null) { StatusCode = StatusCodes.Status401Unauthorized };
 
             var claims = new List<Claim>
             {
@@ -50,7 +50,11 @@ namespace Server.Controllers
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties { IsPersistent = true });
 
-            return new StatusCodeResult(StatusCodes.Status200OK);
+            return new JsonResult(new {
+                sellerId = user.AssociatedSeller.Id,
+                buyerId = user.AssociatedBuyer.Id,
+                userId = user.Id
+            }) { StatusCode = StatusCodes.Status200OK };
         }
 
         [HttpPost]
@@ -65,7 +69,7 @@ namespace Server.Controllers
         [HttpPost]
         [Route("register")]
         [AllowAnonymous]
-        public async Task<StatusCodeResult> Register(RegisterModel model)
+        public async Task<JsonResult> Register(RegisterModel model)
         {
             var user = _userProvider.AddUser(model.Username, Hash.Sha256(model.Password));
             var buyer = _buyerProvider.Insert(string.Empty, string.Empty);

@@ -4,6 +4,8 @@ import React from "react";
 import backgroundImage from "../../assets/register-background.svg";
 import { serverUrl } from "../../configuration";
 import { authFetch } from "../../utils/auth";
+import { FormEvent } from "react";
+import { UserService } from "../../http-service/user-service";
 
 interface FormData {
 	firstName: string;
@@ -24,7 +26,8 @@ export const RegisterSeller = () => {
 		return true;
 	};
 
-	const onSubmit = () => {
+	const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
 		const formData = getFormData();
 
 		if (!validateInputs(formData as any)) return;
@@ -39,10 +42,10 @@ export const RegisterSeller = () => {
 			}),
 		};
 		authFetch(`${serverUrl}/api/seller/register`, requestOptions).then((resp) => {
-			if (resp?.status == 200) {
-				const params = new URLSearchParams(document.location.search);
-				const returnUrl = params.get("returnUrl") ?? document.location.origin;
-				document.location.href = returnUrl;
+			if (resp.ok) {
+				UserService.signOut().then(() => {
+					document.location.href = `${document.location.origin}/signin`;
+				})
 			}
 		});
 	};
@@ -61,7 +64,7 @@ export const RegisterSeller = () => {
 				>
 					Create selling profile
 				</h1>
-				<form className="sign-in-form" id="CreateSellerForm">
+				<form className="sign-in-form" id="CreateSellerForm" onSubmit={onSubmit}>
 					<div className="sign-in-form-content">
 						<label className="form-label" htmlFor="firstName">
 							First name:
@@ -87,7 +90,7 @@ export const RegisterSeller = () => {
 							Latitude:
 						</label>
 						<input className="form-label-input" id="latitude" />
-						<button className="form-button" type="button" onClick={onSubmit} style={{ marginTop: 30 }}>
+						<button className="form-button" style={{ marginTop: 30 }}>
 							Create
 						</button>
 					</div>

@@ -15,9 +15,7 @@ function App() {
     <Router>
       <div className="App">
         <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/seller" component={Seller} />
-          <Route path="/buyer" component={Buyer} />
+          <Route path="/" exact component={Buyer} />
           <Route path="/signin" component={SignIn} />
           <Route path="/register" component={Register} />
           <Route path="/NewListingForm" component={NewProduct}/>

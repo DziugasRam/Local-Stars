@@ -17,7 +17,6 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace Server.Controllers
 {
-    [AllowAnonymous]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
@@ -39,13 +38,15 @@ namespace Server.Controllers
 
         [HttpGet]
         [Route("title")]
+        [AllowAnonymous]
         public IEnumerable<Product> GetProducts([FromQuery] string searchVal, [FromQuery] bool fullMatch = false)
         {
             return _productProvider.GetByTitle(searchVal, fullMatch, StringComparison.OrdinalIgnoreCase);
         }
 
         [HttpGet]
-        [Route("catego")]
+        [Route("category")]
+        [AllowAnonymous]
         public IEnumerable<Product> GetProductsByCategory([FromQuery] string searchVal, [FromQuery] bool fullMatch = false)
         {
             return _productProvider.GetByType(searchVal, fullMatch, StringComparison.OrdinalIgnoreCase);
@@ -53,21 +54,24 @@ namespace Server.Controllers
 
         [HttpPost]
         [Route("ids")]
+        [AllowAnonymous]
         public IEnumerable<Product> GetProducts([FromBody] Guid[] ids)
         {
             return _productProvider.GetById(ids);
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("sellerId")]
-        public IEnumerable<ProductsForSeller> GetBySeller([FromBody] IEnumerable<Guid> ids)
+        [AllowAnonymous]
+        public ProductsForSeller GetBySeller([FromQuery] Guid id)
         {
-            var sellers = _sellerProvider.GetById(ids).ToList();
-            return _productProvider.GetBySeller(sellers);
+            var sellers = _sellerProvider.GetById(new [] {id}).ToList();
+            return _productProvider.GetBySeller(sellers).Single();
         }
 
         [HttpGet]
         [Route("{id}")]
+        [AllowAnonymous]
         public Product Get([FromRoute] Guid id)
         {
             return _productProvider.GetById(new[] { id }).Single();
@@ -76,7 +80,7 @@ namespace Server.Controllers
         // Needs to be replaced with location based search
         [HttpGet]
         [Route("get")]
-
+        [AllowAnonymous]
         public IEnumerable<ProductModel> Get()
         {
             return _productProvider
@@ -85,7 +89,7 @@ namespace Server.Controllers
 
         [HttpGet]
         [Route("count")]
-
+        [AllowAnonymous]
         public int CountProducts()
         {
             return _productProvider
@@ -94,7 +98,7 @@ namespace Server.Controllers
 
         [HttpGet]
         [Route("getPage")]
-
+        [AllowAnonymous]
         public IEnumerable<ProductModel> GetPage([FromQuery] int page)
         {
             return _productProvider
@@ -103,18 +107,16 @@ namespace Server.Controllers
 
         [HttpGet]
         [Route("sorted")]
-        public IEnumerable<Product> GetSorted([FromQuery] string variant)
+        [AllowAnonymous]
+        public IEnumerable<Product> GetSorted([FromQuery] string variant, [FromQuery] int page)
         {
-            return _productProvider.GetSorted(variant);
+            return _productProvider.GetSorted(variant,page);
         }
 
-
         [HttpDelete]
-        [AllowAnonymous]
-
-        public void RemoveById([FromBody] IEnumerable<Guid> ids)
+        public void Delete([FromBody] Guid id)
         {
-            _productProvider.RemoveById(ids);
+            _productProvider.RemoveById(id);
         }
 
         [HttpPost]
@@ -135,13 +137,10 @@ namespace Server.Controllers
             _productProvider.Insert(product);
         }
 
-
         [HttpPut]
-        public void Update([FromBody] Product product)
+        public ProductModel Update([FromQuery] Guid id, [FromBody] UpdateProductData productData)
         {
-            _productProvider.Update(product);
+            return new ProductModel(_productProvider.Update(id, productData));
         }
-
-
     }
 }

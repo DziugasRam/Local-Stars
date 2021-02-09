@@ -67,11 +67,5 @@ namespace Server.Controllers
         {
             _sellerProvider.Remove(id);
         }
-
-        //[HttpPut]
-        //public void Update(Seller seller)
-        //{
-        //    _sellerProvider.Insert(seller);
-        //}
     }
 }

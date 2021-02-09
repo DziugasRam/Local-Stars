@@ -12,6 +12,17 @@ namespace Server.Controllers.Models
         {
         }
 
+        public ProductModel(Product product)
+        {
+            Title = product.Title;
+            Price = product.Price;
+            Seller = product.Seller;
+            Category = product.Category;
+            Description = product.Description;
+            Id = product.Id;
+            Image = Convert.ToBase64String(product.Image, 0, product.Image.Length);
+        }
+
         public ProductModel(string title, string category, int price, Seller seller, string description, Guid id, string image = default)
         {
             Title = title;

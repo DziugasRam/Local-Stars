@@ -48,7 +48,7 @@ namespace Server.Providers
         {
             int pageSize = 8;
 
-           return  _context.Products.Select(x => new ProductModel()
+            return  _context.Products.Select(x => new ProductModel()
             {
                 Title = x.Title,
                 Price = x.Price,
@@ -70,15 +70,16 @@ namespace Server.Providers
                 .Where(p => fullMatch ? string.Equals(p.Title, title, comparisonType) : p.Title.Contains(title, comparisonType));
         }
 
-        public IEnumerable<Product> GetSorted(string variant)
+        public IEnumerable<Product> GetSorted(string variant, int page)
         {
+            int pageSize = 8;
             var sortedProducts = variant switch
             {
-                "Price: Lowest First" => _context.Products.AsEnumerable().OrderBy(o => o.Price),
-                "Price: Highest First" => _context.Products.AsEnumerable().OrderByDescending(o => o.Price),
-                "A-Z" => _context.Products.AsEnumerable().OrderBy(o => o.Title),
-                "Z-A" => _context.Products.AsEnumerable().OrderByDescending(o => o.Title),
-                _ => _context.Products.AsEnumerable()
+                "Price: Lowest First" => _context.Products.AsEnumerable().OrderBy(o => o.Price).ToList().Skip((page - 1) * pageSize).Take(pageSize),
+                "Price: Highest First" => _context.Products.AsEnumerable().OrderByDescending(o => o.Price).ToList().Skip((page - 1) * pageSize).Take(pageSize),
+                "A-Z" => _context.Products.AsEnumerable().OrderBy(o => o.Title).ToList().Skip((page - 1) * pageSize).Take(pageSize),
+                "Z-A" => _context.Products.AsEnumerable().OrderByDescending(o => o.Title).ToList().Skip((page - 1) * pageSize).Take(pageSize),
+                _ => _context.Products.AsEnumerable().ToList().Skip((page - 1) * pageSize).Take(pageSize)
             };
 
             return sortedProducts;
@@ -105,10 +106,9 @@ namespace Server.Providers
                 new IdentifiableComparer<Guid>());
         }
 
-        public void RemoveById(IEnumerable<Guid> ids)
+        public void RemoveById(Guid id)
         {
-            var idsHashSet = ids.ToHashSet();
-            _context.Products.RemoveRange(_context.Products.Where(p => idsHashSet.Contains(p.Id)));
+            _context.Products.RemoveRange(_context.Products.Where(p => p.Id == id));
             _context.SaveChanges();
         }
 
@@ -118,10 +118,19 @@ namespace Server.Providers
             _context.SaveChanges();
         }
 
-        public void Update(Product product)
+        public Product Update(Guid id, UpdateProductData productData)
         {
-            RemoveById(new[] { product.Id });
-            Insert( product );
+            var productEntity = _context.Products.First(p => p.Id == id);
+
+            if (productData.Description != null)
+                productEntity.Description = productData.Description;
+            if (productData.Title != null)
+                productEntity.Title = productData.Title;
+            if (productData.Price != null)
+                productEntity.Price = productData.Price.Value;
+
+            _context.SaveChanges();
+            return productEntity;
         }
     }
 }

@@ -11,9 +11,12 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import SortIcon from '@material-ui/icons/Sort';
 import AddIcon from '@material-ui/icons/Add';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import SignInIcon from '@material-ui/icons/LockOpen'
+import SignInIcon from '@material-ui/icons/LockOpen';
+import SignOutIcon from '@material-ui/icons/Lock';
+import StoreIcon from '@material-ui/icons/Store';
 import { Link } from 'react-router-dom';
 import { Tooltip } from '@material-ui/core';
+import { UserService } from '../http-service/user-service';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -73,7 +76,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function BuyerBar (props: {onSearch: any; onSortSelect: any; onLiked: any; buyerId: string}) {
+function BuyerBar (props: {onSearch: any; onSortSelect: any; onLiked: any; onSellersProducts: any; buyerId: string | null}) {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState<null | HTMLElement>(null);
@@ -129,12 +132,24 @@ function BuyerBar (props: {onSearch: any; onSortSelect: any; onLiked: any; buyer
     };
 
     const handleLiked = () => {
-        if (props.buyerId === "") {
+        if (props.buyerId == null) {
             window.alert("You have to signin to see liked products")
             return;
         }
         props.onLiked();
     };
+
+    const handleSellersProducts = () => {
+        if (props.buyerId == null) {
+            window.alert("You have to signin to see your products")
+            return;
+        }
+        props.onSellersProducts();
+    };
+
+    const handleSignOut = () => {
+        UserService.signOut().then(success => success && (document.location.href = document.location.origin))
+    }
 
     const menuId = 'primary-sort-menu';
     const renderMenu = (
@@ -181,6 +196,12 @@ function BuyerBar (props: {onSearch: any; onSortSelect: any; onLiked: any; buyer
                     <FavoriteIcon />
             </IconButton>
             <p>Liked Products</p>
+        </MenuItem>
+        <MenuItem onClick={handleSellersProducts}>
+            <IconButton aria-label="sellers products" color="inherit">
+                    <StoreIcon />
+            </IconButton>
+            <p>My Products</p>
         </MenuItem>
         <Link to ="/NewListingForm" style={{ color: '#000' }}>
             <MenuItem>
@@ -232,25 +253,54 @@ function BuyerBar (props: {onSearch: any; onSortSelect: any; onLiked: any; buyer
                 <SortIcon />
             </IconButton>
             </Tooltip>
-            <Tooltip title="Liked Products">
-            <IconButton aria-label="liked products" color="inherit" onClick={handleLiked}>
-                <FavoriteIcon />
-            </IconButton>
-            </Tooltip>
-            <Tooltip title="Add Product">
-            <Link to ="/NewListingForm" style={{ color: '#FFF' }}>
-            <IconButton aria-label="add new product" color="inherit">
-                <AddIcon />
-            </IconButton>
-            </Link>
-            </Tooltip>
-            <Tooltip title="Signin">
-            <Link to ="/signin" style={{ color: '#FFF' }}>
-            <IconButton aria-label="signin" color="inherit">
-                <SignInIcon/>
-            </IconButton>
-            </Link>
-            </Tooltip>
+            {
+                UserService.getUserId() != null ?
+                <Tooltip title="Liked Products">
+                    <IconButton aria-label="liked products" color="inherit" onClick={handleLiked}>
+                        <FavoriteIcon />
+                    </IconButton>
+                </Tooltip>
+                :
+                null
+            }
+            {
+                UserService.getSellerId() != null ?
+                <Tooltip title="My Products">
+                    <IconButton aria-label="sellers products" color="inherit" onClick={handleSellersProducts}>
+                        <StoreIcon />
+                    </IconButton>
+                </Tooltip>
+                :
+                null
+            }
+            {
+                UserService.getSellerId() != null ?
+                <Tooltip title="Add Product">
+                    <Link to ="/NewListingForm" style={{ color: '#FFF' }}>
+                        <IconButton aria-label="add new product" color="inherit">
+                            <AddIcon />
+                        </IconButton>
+                    </Link>
+                </Tooltip>
+                :
+                null
+            }
+            {
+                UserService.getUserId() == null ?
+                <Tooltip title="Signin">
+                    <Link to ="/signin" style={{ color: '#FFF' }}>
+                        <IconButton aria-label="signin" color="inherit">
+                            <SignInIcon />
+                        </IconButton>
+                    </Link>
+                </Tooltip>
+                :
+                <Tooltip title="Signout">
+                    <IconButton aria-label="signout" color="inherit" onClick={handleSignOut}>
+                        <SignOutIcon />
+                    </IconButton>
+                </Tooltip>
+            }
             </div>
             <div className={classes.sectionMobile}>
             <IconButton
